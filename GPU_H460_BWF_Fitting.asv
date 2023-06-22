@@ -132,8 +132,8 @@ CubicBWFInitialGuess = [0.102919429734727,0.125933513311555,-0.019283222333918,2
 CubicBWFInitialGuess = [0.449431308175198	-0.0914235201863481	0.00349396482599642	1.82570243474669e-06	0.105922167702498];
 penaltyWeight = 10.;
 
-iterationsPerCyc = 10000;
-numCycles = 2;
+iterationsPerCyc = 2500;
+numCycles = 5;
 toleranceCycles = 25;
 
 output = RBE_Fitting_Driver(GPUExperimentalData, CubicKernel, CubicPenalty, CubicBWFInitialGuess, penaltyWeight, iterationsPerCyc, numCycles, toleranceCycles);
