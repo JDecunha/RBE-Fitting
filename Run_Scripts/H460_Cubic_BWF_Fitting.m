@@ -3,8 +3,8 @@ function [output] = H460_Cubic_BWF_Fitting()
 InitialGuess = [0.102919429734727, 0.125933513311555, -0.019283222333918, 2.988322768805547e-04, 0.110340625405717];
 penaltyWeight = 10.;
 
-iterationsPerCyc = 1000;
-numCycles = 2;
+iterationsPerCyc = 50000;
+numCycles = 30;
 toleranceCycles = 25;
 
 %% Import the H460 data
