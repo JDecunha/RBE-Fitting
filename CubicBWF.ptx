@@ -10,15 +10,15 @@
 .target sm_35
 .address_size 64
 
-	// .globl	_Z12CubicBWFCalcPKdS0_S0_PKiS0_Pd
+	// .globl	_Z8CubicBWFPKdS0_S0_PKiS0_Pd
 
-.visible .entry _Z12CubicBWFCalcPKdS0_S0_PKiS0_Pd(
-	.param .u64 _Z12CubicBWFCalcPKdS0_S0_PKiS0_Pd_param_0,
-	.param .u64 _Z12CubicBWFCalcPKdS0_S0_PKiS0_Pd_param_1,
-	.param .u64 _Z12CubicBWFCalcPKdS0_S0_PKiS0_Pd_param_2,
-	.param .u64 _Z12CubicBWFCalcPKdS0_S0_PKiS0_Pd_param_3,
-	.param .u64 _Z12CubicBWFCalcPKdS0_S0_PKiS0_Pd_param_4,
-	.param .u64 _Z12CubicBWFCalcPKdS0_S0_PKiS0_Pd_param_5
+.visible .entry _Z8CubicBWFPKdS0_S0_PKiS0_Pd(
+	.param .u64 _Z8CubicBWFPKdS0_S0_PKiS0_Pd_param_0,
+	.param .u64 _Z8CubicBWFPKdS0_S0_PKiS0_Pd_param_1,
+	.param .u64 _Z8CubicBWFPKdS0_S0_PKiS0_Pd_param_2,
+	.param .u64 _Z8CubicBWFPKdS0_S0_PKiS0_Pd_param_3,
+	.param .u64 _Z8CubicBWFPKdS0_S0_PKiS0_Pd_param_4,
+	.param .u64 _Z8CubicBWFPKdS0_S0_PKiS0_Pd_param_5
 )
 {
 	.reg .pred 	%p<3>;
@@ -27,12 +27,12 @@
 	.reg .b64 	%rd<18>;
 
 
-	ld.param.u64 	%rd7, [_Z12CubicBWFCalcPKdS0_S0_PKiS0_Pd_param_0];
-	ld.param.u64 	%rd8, [_Z12CubicBWFCalcPKdS0_S0_PKiS0_Pd_param_1];
-	ld.param.u64 	%rd9, [_Z12CubicBWFCalcPKdS0_S0_PKiS0_Pd_param_2];
-	ld.param.u64 	%rd12, [_Z12CubicBWFCalcPKdS0_S0_PKiS0_Pd_param_3];
-	ld.param.u64 	%rd10, [_Z12CubicBWFCalcPKdS0_S0_PKiS0_Pd_param_4];
-	ld.param.u64 	%rd11, [_Z12CubicBWFCalcPKdS0_S0_PKiS0_Pd_param_5];
+	ld.param.u64 	%rd7, [_Z8CubicBWFPKdS0_S0_PKiS0_Pd_param_0];
+	ld.param.u64 	%rd8, [_Z8CubicBWFPKdS0_S0_PKiS0_Pd_param_1];
+	ld.param.u64 	%rd9, [_Z8CubicBWFPKdS0_S0_PKiS0_Pd_param_2];
+	ld.param.u64 	%rd12, [_Z8CubicBWFPKdS0_S0_PKiS0_Pd_param_3];
+	ld.param.u64 	%rd10, [_Z8CubicBWFPKdS0_S0_PKiS0_Pd_param_4];
+	ld.param.u64 	%rd11, [_Z8CubicBWFPKdS0_S0_PKiS0_Pd_param_5];
 	mov.u32 	%r1, %ntid.x;
 	mov.u32 	%r6, %ctaid.x;
 	mov.u32 	%r7, %tid.x;
