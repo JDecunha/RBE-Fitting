@@ -48,7 +48,9 @@ for i = 1:numCycles
 
 end
 
-output = {Soln, Cost};
+additionalMetrics = CostMetrics(Soln, experimentalData, penaltyWeight, cudaKernel, GPUBuffer, cudaPenaltyKernel, GPUBuffer2);
+
+output = {Soln, Cost, additionalMetrics};
 
 end
 

@@ -1,10 +1,13 @@
 function [output] = H460_Cubic_BWF_Fitting()
+%% Setup environment
+addpath(genpath("."))
+
 %% Setup fitting parameters
 InitialGuess = [0.102919429734727, 0.125933513311555, -0.019283222333918, 2.988322768805547e-04, 0.110340625405717];
 penaltyWeight = 10.;
 
-iterationsPerCyc = 50000;
-numCycles = 30;
+iterationsPerCyc = 5;
+numCycles = 1;
 toleranceCycles = 25;
 
 %% Import the H460 data
@@ -23,7 +26,7 @@ end
 GPUExperimentalData = ExperimentData(experiments);
 
 %% Set up the kernels
-CubicKernel = parallel.gpu.CUDAKernel("CubicBWFKernel.ptx", "CubicBWFKernel.cu");
+CubicKernel = parallel.gpu.CUDAKernel("CubicBWF.ptx", "CubicBWF.cu");
 CubicKernel.ThreadBlockSize = 1024;
 CubicPenalty = parallel.gpu.CUDAKernel("CubicBWFPenaltyFunction.ptx", "CubicBWFPenaltyFunction.cu");
 CubicPenalty.ThreadBlockSize = 1024;

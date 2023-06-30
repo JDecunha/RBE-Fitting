@@ -81,13 +81,13 @@ options.InitialTemperature = 100;
 %penalty weight affects cost as follows: cost = cost + negativeFraction*penaltyWeight
 penaltyWeight = 10.; %Weight of 10, means if func is 10% negative, it adds a value of 1 to the cost
 CubicBWFCostFunc = @(x) GPUCostFunction(x, GPUExperimentalData, penaltyWeight, CubicKernel, emptyGPUArray, CubicPenalty, emptyGPUArray2);
-CubicBWFInitialGuess = [0.102919429734727,0.125933513311555,-0.019283222333918,2.988322768805547e-04,0.110340625405717];
+CubicBWFInitialGuess = [0.0786855407569327,0.135672140373969,-0.0201356304923653,0.000309404109628883,0.111993684813713];
 
 %Set up the options for annealing
 hybridopts = optimoptions('fminunc','Algorithm','quasi-newton');
 options = optimoptions(@simulannealbnd);%, 'PlotFcn',{@saplotbestf,@saplottemperature,@saplotf,@saplotstopping, @saplotx});
 
-options.MaxIterations = 2500;
+options.MaxIterations = 1;
 
 costLastIntvl = 1000.;
 costThisIntvl = 0.;

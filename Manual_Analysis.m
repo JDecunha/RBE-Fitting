@@ -27,7 +27,9 @@ CubicPenalty.ThreadBlockSize = 1024;
 %[0.102919429734727,0.125933513311555,-0.019283222333918,2.988322768805547e-04,0.110340625405717]
 %0.829809178714362
 CubicSolution1 = [0.102919429734727,0.125933513311555,-0.019283222333918,2.988322768805547e-04,0.110340625405717];
-frac1 = BWFNegativityFraction(CubicKernel, CubicSolution, GPUExperimentalData.BinWidth(:,1,1), GPUExperimentalData.BinCenter(:,1,1), GPUExperimentalData.maxRelevantBin);
+frac1 = BWFNegativityFraction(CubicKernel, CubicSolution1, GPUExperimentalData.BinWidth(:,1,1), GPUExperimentalData.BinCenter(:,1,1), GPUExperimentalData.maxRelevantBin);
 
 CubicSolution2 = [0.0786855407569327,0.135672140373969,-0.0201356304923653,0.000309404109628883,0.111993684813713];
 frac2 = BWFNegativityFraction(CubicKernel, CubicSolution2, GPUExperimentalData.BinWidth(:,1,1), GPUExperimentalData.BinCenter(:,1,1), GPUExperimentalData.maxRelevantBin);
+
+cost1 = CostMetrics(CubicSolution1, GPUExperimentalData, 10., CubicKernel, emptyGPUArray, CubicPenalty, emptyGPUArray2);
