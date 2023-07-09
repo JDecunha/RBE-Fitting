@@ -20,9 +20,9 @@ mexcuda -ptx LQE2BWF.cu LQE2PenaltyFunction.cu
 
 %% Others
 
-mexcuda -ptx MorstinBWF.cu MorstinPenaltyFunction.cu
-mexcuda -ptx GaussianBWF.cu GaussianPenaltyFunction.cu
-%mexcuda -ptx SkewGaussianBWF.cu SkewGaussianPenaltyFunction.cu
+%mexcuda -ptx MorstinBWF.cu MorstinPenaltyFunction.cu
+%mexcuda -ptx GaussianBWF.cu GaussianPenaltyFunction.cu
+mexcuda -ptx SkewGaussianBWF.cu SkewGaussianPenaltyFunction.cu
 
 
 

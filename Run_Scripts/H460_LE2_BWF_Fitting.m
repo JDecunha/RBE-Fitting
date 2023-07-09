@@ -1,9 +1,9 @@
-function [output] = H460_Linear_BWF_Fitting()
+function [output] = H460_LE2_BWF_Fitting()
 %% Setup environment
 addpath(genpath("."));
 
 %% Setup fitting parameters
-InitialGuess = [0.122365050472956,0.0529226583994300,0.0871961766426740];
+InitialGuess = [0.1,0.1,0.1,0.1]; %LE2, 3 params + beta
 penaltyWeight = 0.;
 
 iterationsPerCyc = 50000;
@@ -26,9 +26,9 @@ end
 GPUExperimentalData = ExperimentData(experiments);
 
 %% Set up the kernels
-CudaKernel = parallel.gpu.CUDAKernel("LinearBWF.ptx", "LinearBWF.cu");
+CudaKernel = parallel.gpu.CUDAKernel("LE2BWF.ptx", "LE2BWF.cu");
 CudaKernel.ThreadBlockSize = 1024;
-CudaPenalty = parallel.gpu.CUDAKernel("LinearPenaltyFunction.ptx", "LinearPenaltyFunction.cu");
+CudaPenalty = parallel.gpu.CUDAKernel("LE2PenaltyFunction.ptx", "LE2PenaltyFunction.cu");
 CudaPenalty.ThreadBlockSize = 1024;
 
 %% Call the driver

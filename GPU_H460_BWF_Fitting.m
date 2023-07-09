@@ -16,8 +16,8 @@ emptyGPUArray = gpuArray(zeros(3000,1));
 emptyGPUArray2 = gpuArray(zeros(3000,1));
 
 %% Set up the kernels
-mexcuda -ptx CubicBWFKernel.cu CubicBWFPenaltyFunction.cu
-CubicKernel = parallel.gpu.CUDAKernel("CubicBWFKernel.ptx", "CubicBWFKernel.cu");
+mexcuda -ptx CubicBWF.cu CubicBWFPenaltyFunction.cu
+CubicKernel = parallel.gpu.CUDAKernel("CubicBWF.ptx", "CubicBWF.cu");
 CubicKernel.ThreadBlockSize = 1024;
 CubicPenalty = parallel.gpu.CUDAKernel("CubicBWFPenaltyFunction.ptx", "CubicBWFPenaltyFunction.cu");
 CubicPenalty.ThreadBlockSize = 1024;
@@ -76,12 +76,14 @@ options.InitialTemperature = 100;
 %1.163527618808042
 %[0.102919429734727,0.125933513311555,-0.019283222333918,2.988322768805547e-04,0.110340625405717]
 %0.829809178714362
+%[0.311791679447793,2.30582354675857e-05,-0.00705712850300309,0.000143164850836230,0.109989509165692]
+%1.06480708899828 .. how did this come out of one of my long fitting sessions and yet has a higher cost? ...
 
 %Set up the fit function and initial guesses
 %penalty weight affects cost as follows: cost = cost + negativeFraction*penaltyWeight
-penaltyWeight = 10.; %Weight of 10, means if func is 10% negative, it adds a value of 1 to the cost
+penaltyWeight = 0.; %Weight of 10, means if func is 10% negative, it adds a value of 1 to the cost
 CubicBWFCostFunc = @(x) GPUCostFunction(x, GPUExperimentalData, penaltyWeight, CubicKernel, emptyGPUArray, CubicPenalty, emptyGPUArray2);
-CubicBWFInitialGuess = [0.0786855407569327,0.135672140373969,-0.0201356304923653,0.000309404109628883,0.111993684813713];
+CubicBWFInitialGuess = [0.311791679447793,2.30582354675857e-05,-0.00705712850300309,0.000143164850836230,0.109989509165692];
 
 %Set up the options for annealing
 hybridopts = optimoptions('fminunc','Algorithm','quasi-newton');

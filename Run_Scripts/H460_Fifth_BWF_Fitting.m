@@ -1,13 +1,14 @@
-function [output] = H460_Linear_BWF_Fitting()
+function [output] = H460_Fifth_BWF_Fitting()
 %% Setup environment
 addpath(genpath("."));
 
 %% Setup fitting parameters
-InitialGuess = [0.122365050472956,0.0529226583994300,0.0871961766426740];
-penaltyWeight = 0.;
+%Took this guess from the converged fourth, with a penalty weight of 50
+InitialGuess = [0.312835304762923,-8.24323377088100e-05,-0.00692446738746977,0.000224297550572219,-1.10367658638440e-06, 1e-8, 0.105969822311258];
+penaltyWeight = 50.;
 
-iterationsPerCyc = 50000;
-numCycles = 500;
+iterationsPerCyc = 50000; %50000
+numCycles = 500; %500
 toleranceCycles = 25;
 
 %% Import the H460 data
@@ -26,9 +27,9 @@ end
 GPUExperimentalData = ExperimentData(experiments);
 
 %% Set up the kernels
-CudaKernel = parallel.gpu.CUDAKernel("LinearBWF.ptx", "LinearBWF.cu");
+CudaKernel = parallel.gpu.CUDAKernel("FifthBWF.ptx", "FifthBWF.cu");
 CudaKernel.ThreadBlockSize = 1024;
-CudaPenalty = parallel.gpu.CUDAKernel("LinearPenaltyFunction.ptx", "LinearPenaltyFunction.cu");
+CudaPenalty = parallel.gpu.CUDAKernel("FifthBWFPenaltyFunction.ptx", "FifthBWFPenaltyFunction.cu");
 CudaPenalty.ThreadBlockSize = 1024;
 
 %% Call the driver

@@ -9,11 +9,13 @@ CostFunc = @(x) GPUCostFunction(x, experimentalData, penaltyWeight, cudaKernel, 
 
 %Set up the fitting options for annealing
 optionsGradientDescent = optimoptions('fminunc','Algorithm','quasi-newton');
+optionsGradientDescent.MaxFunctionEvaluations = 1e6;
 options = optimoptions(@simulannealbnd);
 options.MaxIterations = iterationsPerCycle;
 options.MaxStallIterations = iterationsPerCycle*2; %We are doing our own custom implementation of stalling below. So we make sure the fitting never stalls using the built in method.
 
 costLastCycle = 1e9; numIterationsWithoutImprovement = 0.;
+i = 0.;
 
 for i = 1:numCycles
     
@@ -50,7 +52,7 @@ end
 
 additionalMetrics = CostMetrics(Soln, experimentalData, penaltyWeight, cudaKernel, GPUBuffer, cudaPenaltyKernel, GPUBuffer2);
 
-output = {Soln, Cost, additionalMetrics};
+output = {Soln, Cost, additionalMetrics, i};
 
 end
 

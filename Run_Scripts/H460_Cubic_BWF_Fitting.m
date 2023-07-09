@@ -1,13 +1,15 @@
 function [output] = H460_Cubic_BWF_Fitting()
 %% Setup environment
-addpath(genpath("."))
+addpath(genpath("."));
 
 %% Setup fitting parameters
-InitialGuess = [0.102919429734727, 0.125933513311555, -0.019283222333918, 2.988322768805547e-04, 0.110340625405717];
-penaltyWeight = 10.;
 
-iterationsPerCyc = 5;
-numCycles = 1;
+%0.7660 without penalty [0.0439315671727350,0.156643097443946,-0.0222482844092451,0.000336580271765968,0.112404925136653]
+InitialGuess = [0.0439315671727350,0.156643097443946,-0.0222482844092451,0.000336580271765968,0.112404925136653];
+penaltyWeight = 0.;
+
+iterationsPerCyc = 2000000;
+numCycles = 100;
 toleranceCycles = 25;
 
 %% Import the H460 data
