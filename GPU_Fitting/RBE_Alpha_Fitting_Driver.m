@@ -1,18 +1,20 @@
-function [output] = RBE_Fitting_Driver(experimentalData, cudaKernel, cudaPenaltyKernel, initialGuess, penaltyWeight, iterationsPerCycle, numCycles, toleranceCycles, dynamicTemp, gradientAssist)
+function [output] = RBE_Alpha_Fitting_Driver(experimentalData, alphaRef, betaRef, cudaKernel, cudaPenaltyKernel, initialGuess, penaltyWeight, iterationsPerCycle, numCycles, toleranceCycles, dynamicTemp, gradientAssist, temps)
 
 %Allocate the buffers on the GPU (the cost function needs these)
 GPUBuffer = gpuArray(zeros(size(experimentalData.BinCenter,1)-1,1));
 GPUBuffer2 = gpuArray(zeros(size(experimentalData.BinCenter,1)-1,1));
 
 %Construct the cost function
-CostFunc = @(x) GPUCostFunction(x, experimentalData, penaltyWeight, cudaKernel, GPUBuffer, cudaPenaltyKernel, GPUBuffer2);
+CostFunc = @(x) GPURBECostFunction(x, alphaRef, betaRef, experimentalData, penaltyWeight, cudaKernel, GPUBuffer, cudaPenaltyKernel, GPUBuffer2);
 
-%Set up the fitting options for annealing
+%Set up the fitting options for grad descent and annealing
 optionsGradientDescent = optimoptions('fminunc','Algorithm','quasi-newton');
 optionsGradientDescent.MaxFunctionEvaluations = 1e6;
-options = optimoptions(@simulannealbnd);
+
+options = optimoptions(@simulannealbnd,'Display','iter');%,'PlotFcn',{@saplotbestf,@saplottemperature,@saplotf,@saplotstopping, @saplotx});
 options.MaxIterations = iterationsPerCycle;
 options.MaxStallIterations = iterationsPerCycle*2; %We are doing our own custom implementation of stalling below. So we make sure the fitting never stalls using the built in method.
+options.ReannealInterval = 250;
 
 costLastCycle = 1e9; numIterationsWithoutImprovement = 0.;
 
@@ -26,7 +28,9 @@ for i = 1:numCycles
 
         %Dynamically update the temperatures if it has been requested
         if dynamicTemp == true
-            options.InitialTemperature = abs(GradientSoln)*100; %Use the gradient descent solution to set the temperature for each item
+            options.InitialTemperature = abs(GradientSoln)*1; %Use the gradient descent solution to set the temperature for each item
+        elseif isempty(temps) == false
+            options.InitialTemperature = temps;
         end
 
         %Run the simulated annealing, using the gradient descent solution as the new starting point
@@ -36,7 +40,9 @@ for i = 1:numCycles
 
         %Dynamically update the temperatures if it has been requested
         if dynamicTemp == true
-            options.InitialTemperature = abs(initialGuess)*100; %Use the initial guess / last solution to set temperatures for each item
+            options.InitialTemperature = abs(initialGuess)*1; %Use the initial guess / last solution to set temperatures for each item
+        elseif isempty(temps) == false
+            options.InitialTemperature = temps;
         end
 
         %Run the simulated annealing, using the the initial guess / last solution as the new starting point

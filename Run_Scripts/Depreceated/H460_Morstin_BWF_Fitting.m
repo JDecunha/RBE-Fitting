@@ -1,14 +1,14 @@
-function [output] = H460_LE2_BWF_Fitting()
+function [output] = H460_Morstin_BWF_Fitting()
 %% Setup environment
 addpath(genpath("."));
 
 %% Setup fitting parameters
-InitialGuess = [0.1,0.1,0.1,0.1]; %LE2, 3 params + beta
+InitialGuess = [11460.000000, 2.5*power(10,-6), 2.1*power(10,-5), 2.*power(10,-7), 0.1]; %Morstin, 4 params + beta
 penaltyWeight = 0.;
 
-iterationsPerCyc = 50000;
+iterationsPerCyc = 2000000;
 numCycles = 500;
-toleranceCycles = 25;
+toleranceCycles = 50;
 
 %% Import the H460 data
 
@@ -26,9 +26,9 @@ end
 GPUExperimentalData = ExperimentData(experiments);
 
 %% Set up the kernels
-CudaKernel = parallel.gpu.CUDAKernel("LE2BWF.ptx", "LE2BWF.cu");
+CudaKernel = parallel.gpu.CUDAKernel("MorstinBWF.ptx", "MorstinBWF.cu");
 CudaKernel.ThreadBlockSize = 1024;
-CudaPenalty = parallel.gpu.CUDAKernel("LE2PenaltyFunction.ptx", "LE2PenaltyFunction.cu");
+CudaPenalty = parallel.gpu.CUDAKernel("MorstinPenaltyFunction.ptx", "MorstinPenaltyFunction.cu");
 CudaPenalty.ThreadBlockSize = 1024;
 
 %% Call the driver

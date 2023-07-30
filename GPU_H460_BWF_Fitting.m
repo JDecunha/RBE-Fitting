@@ -16,7 +16,7 @@ emptyGPUArray = gpuArray(zeros(3000,1));
 emptyGPUArray2 = gpuArray(zeros(3000,1));
 
 %% Set up the kernels
-mexcuda -ptx CubicBWF.cu CubicBWFPenaltyFunction.cu
+%mexcuda -ptx CubicBWF.cu CubicBWFPenaltyFunction.cu
 CubicKernel = parallel.gpu.CUDAKernel("CubicBWF.ptx", "CubicBWF.cu");
 CubicKernel.ThreadBlockSize = 1024;
 CubicPenalty = parallel.gpu.CUDAKernel("CubicBWFPenaltyFunction.ptx", "CubicBWFPenaltyFunction.cu");
@@ -127,6 +127,53 @@ for i = 1:1
     costLastIntvl = costThisIntvl;
 
 end
+
+%% Cubic polynomial fitting with genetic
+
+%Set up the fit function and initial guesses
+%penalty weight affects cost as follows: cost = cost + negativeFraction*penaltyWeight
+penaltyWeight = 0.; %Weight of 10, means if func is 10% negative, it adds a value of 1 to the cost
+CubicBWFCostFunc = @(x) GPUCostFunction(x, GPUExperimentalData, penaltyWeight, CubicKernel, emptyGPUArray, CubicPenalty, emptyGPUArray2);
+%CubicBWFInitialGuess = [0.390465954860904,-0.035468076705955,-0.002107447240113,7.350208235667029e-05,0.097627579037377];
+
+%opts = optimoptions(@ga);%,'PlotFcn',{@gaplotbestf,@gaplotstopping});
+opts = optimoptions(@ga,'PlotFcn',{@gaplotbestf,@gaplotstopping});
+opts.InitialPopulationRange = [-1 -0.1 -1e-2 -1e-3 0.05; 1 0.1 1e-2 1e-3 0.2];
+opts.PopulationSize = 50;
+
+%Change stopping criteria
+opts.MaxGenerations = 1e5;
+opts.MaxStallGenerations = 1e5;
+opts.MaxTime = 1e60;
+opts.MaxStallTime = 1e60;
+
+[CubicBWFSoln, CubicBWFCost] = ga(CubicBWFCostFunc,5,[],[],[],[],[],[],[],opts);
+
+%% Gaussian fitting with genetic
+
+%Set up the fit function and initial guesses
+%penalty weight affects cost as follows: cost = cost + negativeFraction*penaltyWeight
+penaltyWeight = 0.; %Weight of 10, means if func is 10% negative, it adds a value of 1 to the cost
+CudaKernel = parallel.gpu.CUDAKernel("GaussianBWF.ptx", "GaussianBWF.cu");
+CudaKernel.ThreadBlockSize = 1024;
+CudaPenalty = parallel.gpu.CUDAKernel("GaussianPenaltyFunction.ptx", "GaussianPenaltyFunction.cu");
+CudaPenalty.ThreadBlockSize = 1024;
+GaussianCostFunc = @(x) GPUCostFunction(x, GPUExperimentalData, penaltyWeight, CudaKernel, emptyGPUArray, CudaPenalty, emptyGPUArray2);
+%CubicBWFInitialGuess = [0.390465954860904,-0.035468076705955,-0.002107447240113,7.350208235667029e-05,0.097627579037377];
+
+opts = optimoptions(@ga);
+%opts = optimoptions(@ga,'PlotFcn',{@gaplotbestf,@gaplotstopping});
+opts.InitialPopulationRange = [-2 5 60 5 0.07; 2 100 120 50 0.13];
+opts.PopulationSize = 250;
+
+%Change stopping criteria
+opts.MaxGenerations = 1e5;
+opts.MaxStallGenerations = 1e5;
+opts.MaxTime = 1e60;
+opts.MaxStallTime = 1e60;
+
+[GaussianGeneticBWFSoln, GaussianGeneticBWFCost] = ga(CubicBWFCostFunc,5,[],[],[],[],[],[],[],opts);
+
 
 %% Cubic Fitting using the driver
 
