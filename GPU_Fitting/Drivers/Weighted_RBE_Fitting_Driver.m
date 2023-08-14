@@ -1,4 +1,4 @@
-function [output] = Weighted_RBE_Fitting_Driver(experimentalData, cudaKernel, cudaPenaltyKernel, initialGuess, penaltyWeight, iterationsPerCycle, numCycles, toleranceCycles, dynamicTemp, gradientAssist)
+function [output] = Weighted_RBE_Fitting_Driver(experimentalData, cudaKernel, cudaPenaltyKernel, initialGuess, penaltyWeight, iterationsPerCycle, numCycles, toleranceCycles, dynamicTemp, gradientAssist, temps)
 
 %Allocate the buffers on the GPU (the cost function needs these)
 GPUBuffer = gpuArray(zeros(size(experimentalData.BinCenter,1)-1,1));
@@ -26,7 +26,9 @@ for i = 1:numCycles
 
         %Dynamically update the temperatures if it has been requested
         if dynamicTemp == true
-            options.InitialTemperature = abs(GradientSoln)*100; %Use the gradient descent solution to set the temperature for each item
+            options.InitialTemperature = abs(GradientSoln)*1; %Use the gradient descent solution to set the temperature for each item
+        elseif isempty(temps) == false
+            options.InitialTemperature = temps;
         end
 
         %Run the simulated annealing, using the gradient descent solution as the new starting point
@@ -36,7 +38,9 @@ for i = 1:numCycles
 
         %Dynamically update the temperatures if it has been requested
         if dynamicTemp == true
-            options.InitialTemperature = abs(initialGuess)*100; %Use the initial guess / last solution to set temperatures for each item
+            options.InitialTemperature = abs(GradientSoln)*1; %Use the gradient descent solution to set the temperature for each item
+        elseif isempty(temps) == false
+            options.InitialTemperature = temps;
         end
 
         %Run the simulated annealing, using the the initial guess / last solution as the new starting point

@@ -8,7 +8,7 @@ kernel.ThreadBlockSize = 1024;
 penaltyKernel = parallel.gpu.CUDAKernel(penaltyKernelName+".ptx", penaltyKernelName+".cu");
 penaltyKernel.ThreadBlockSize = 1024;
 
-%% Import the H460 data
+%% Import the survival data
 %A 3d array to hold the experiments data
 experiments = [];
 

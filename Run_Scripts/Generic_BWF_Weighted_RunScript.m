@@ -1,4 +1,4 @@
-function [output] = Generic_BWF_Weighted_RunScript(name, kernelName, penaltyKernelName, filePaths, InitialGuess, penaltyWeight, iterationsPerCyc, numCycles, toleranceCycles, dynamicTemp, gradientAssist)
+function [output] = Generic_BWF_Weighted_RunScript(name, kernelName, penaltyKernelName, filePaths, InitialGuess, penaltyWeight, iterationsPerCyc, numCycles, toleranceCycles, dynamicTemp, gradientAssist, temps)
 
 %% Setup environment
 addpath(genpath("."));
@@ -8,7 +8,7 @@ kernel.ThreadBlockSize = 1024;
 penaltyKernel = parallel.gpu.CUDAKernel(penaltyKernelName+".ptx", penaltyKernelName+".cu");
 penaltyKernel.ThreadBlockSize = 1024;
 
-%% Import the H460 data
+%% Import the survival data
 %A 3d array to hold the experiments data
 experiments = [];
 
@@ -20,7 +20,7 @@ end
 GPUExperimentalData = ExperimentData(experiments);
 
 %% Call the driver
-output = Weighted_RBE_Fitting_Driver(GPUExperimentalData, kernel, penaltyKernel, InitialGuess, penaltyWeight, iterationsPerCyc, numCycles, toleranceCycles, dynamicTemp, gradientAssist);
+output = Weighted_RBE_Fitting_Driver(GPUExperimentalData, kernel, penaltyKernel, InitialGuess, penaltyWeight, iterationsPerCyc, numCycles, toleranceCycles, dynamicTemp, gradientAssist, temps);
 
 input = [name, filePaths, InitialGuess, penaltyWeight, iterationsPerCyc, numCycles, toleranceCycles, dynamicTemp, gradientAssist];
 
