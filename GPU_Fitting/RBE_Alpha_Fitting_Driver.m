@@ -11,7 +11,7 @@ CostFunc = @(x) GPURBECostFunction(x, alphaRef, betaRef, experimentalData, penal
 optionsGradientDescent = optimoptions('fminunc','Algorithm','quasi-newton');
 optionsGradientDescent.MaxFunctionEvaluations = 1e6;
 
-options = optimoptions(@simulannealbnd,'Display','iter');%,'PlotFcn',{@saplotbestf,@saplottemperature,@saplotf,@saplotstopping, @saplotx});
+options = optimoptions(@simulannealbnd); %,'Display','iter');%,'PlotFcn',{@saplotbestf,@saplottemperature,@saplotf,@saplotstopping, @saplotx});
 options.MaxIterations = iterationsPerCycle;
 options.MaxStallIterations = iterationsPerCycle*2; %We are doing our own custom implementation of stalling below. So we make sure the fitting never stalls using the built in method.
 options.ReannealInterval = 250;
@@ -53,11 +53,14 @@ for i = 1:numCycles
     costThisCycle = Cost;
     costDiff = costLastCycle-costThisCycle;
 
-    if costDiff > 1e-6 %If improvement is greater than
+    if costDiff > 1e-6 %If improvement is greater than tolerance, reset counter
         numIterationsWithoutImprovement = 0;
     else
         numIterationsWithoutImprovement = numIterationsWithoutImprovement + 1;
     end
+
+    %If we've gone too many iterations without improvement. We have a
+    %problem.
     if numIterationsWithoutImprovement >= toleranceCycles
         format = "Breaking because of %d cycles without improvement.";
         fprintf(format, toleranceCycles); 

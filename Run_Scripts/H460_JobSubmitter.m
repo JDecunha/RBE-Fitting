@@ -44,10 +44,19 @@ createTask(job, @Generic_BWF_RunScript, 1, {'fifth_H460_penalty_nogradient_dynam
 submit(job)
 
 %% Gaussian Fitting
-InitialGuess = [0.230491501205610,120.092470171093,95.2590461228117,10.51962016177844,0.101961735572583];
+filePaths = ["a.csv", "b.csv" , "c.csv", "d.csv", "e.csv", "f.csv", "g.csv", "h.csv", "i.csv", "j.csv" , "k.csv" , "l.csv"];
+penaltyWeight = 0.; %typically make my penalty 30 when it's activated
+iterationsPerCyc = 250000;
+numCycles = 250;
+toleranceCycles = 10;
+dynamicTemp = false;
+gradientAssist = true;
+
+InitialGuess = [0.230491501205610, 22.092470171093, 125.2590461228117, 43.51962016177844, 0.101961735572583]; %Morstin inspired guess
+temps = [1, 5, 10, 10, 0.05];
 
 job = createJob(c);
-createTask(job, @Generic_BWF_RunScript, 1, {'gaussian_H460_nopenalty_nogradient_defaulttemp', "GaussianBWF", "GaussianPenaltyFunction", filePaths, InitialGuess, penaltyWeight, iterationsPerCyc, numCycles, toleranceCycles, false, false})
+createTask(job, @Generic_BWF_RunScript, 1, {'gaussian_H460_nopenalty_withgradient_customtempbigger', "GaussianBWF", "GaussianPenaltyFunction", filePaths, InitialGuess, penaltyWeight, iterationsPerCyc, numCycles, toleranceCycles, dynamicTemp, gradientAssist, temps})
 submit(job)
 
 %% Gaussian Fitting Relative RBE
@@ -58,15 +67,32 @@ createTask(job, @Generic_BWF_RunScript, 1, {'gaussian_H460_nopenalty_nogradient_
 submit(job)
 
 %% Skew Gaussian Fitting
-InitialGuess = [1,12.40939896680,88.3041792096487,10.960955922724,-2,0.107723905478834];
+filePaths = ["a.csv", "b.csv" , "c.csv", "d.csv", "e.csv", "f.csv", "g.csv", "h.csv", "i.csv", "j.csv" , "k.csv" , "l.csv"];
+penaltyWeight = 0.; %typically make my penalty 30 when it's activated
+iterationsPerCyc = 250000;
+numCycles = 250;
+toleranceCycles = 10;
+dynamicTemp = false;
+gradientAssist = true;
 
-job = createJob(c);
-createTask(job, @Generic_BWF_RunScript, 1, {'skewGaussian_H460_nopenalty', "SkewGaussianBWF", "SkewGaussianPenaltyFunction", filePaths, InitialGuess, penaltyWeight, iterationsPerCyc, numCycles, toleranceCycles, false, false})
-submit(job)
+InitialGuess = [0, 17, 90, 60, 1.5, 0.107723905478834];
+temps = [1, 1, 5, 5, 1, 0.05];
+
+batch(c, @Generic_BWF_RunScript, 1, {'skewGaussian_H460_nopenalty_customtemp_gradassist', "SkewGaussianBWF", "SkewGaussianPenaltyFunction", filePaths, InitialGuess, penaltyWeight, iterationsPerCyc, numCycles, toleranceCycles, dynamicTemp, gradientAssist, temps})
 
 %% Morstin fitting
-InitialGuess = [11460.000000, 2.5*power(10,-6), 2.1*power(10,-5), 2.*power(10,-7), 0.1];
+%[11460.000000, 2.5*power(10,-6), 2.1*power(10,-5), 2.*power(10,-7), 0.1]; Default guess
+%[3297.97258707670,5.41801921828085e-05,-1.65304114028526e-05,9.31217143989086e-07,0.149589365656704] cost :2.4556
 
-job = createJob(c);
-createTask(job, @Generic_BWF_RunScript, 1, {'morstin_H460_nopenalty_dynamictemp_gradassist', "MorstinBWF", "MorstinPenaltyFunction", filePaths, InitialGuess, penaltyWeight, iterationsPerCyc, numCycles, toleranceCycles, true, true})
-submit(job)
+filePaths = ["a.csv", "b.csv" , "c.csv", "d.csv", "e.csv", "f.csv", "g.csv", "h.csv", "i.csv", "j.csv" , "k.csv" , "l.csv"];
+penaltyWeight = 0.; %typically make my penalty 30 when it's activated
+iterationsPerCyc = 250000;
+numCycles = 250;
+toleranceCycles = 25;
+dynamicTemp = false;
+gradientAssist = true;
+
+InitialGuess = [3297.97258707670,5.41801921828085e-05,-1.65304114028526e-05,9.31217143989086e-07,0.149589365656704];
+temps = [1000, 1e-3, 1e-3, 1e-5, 0.1];
+
+batch(c, @Generic_BWF_RunScript, 1, {'morstin_H460_nopenalty_customtemp_gradassist', "MorstinBWF", "MorstinPenaltyFunction", filePaths, InitialGuess, penaltyWeight, iterationsPerCyc, numCycles, toleranceCycles, dynamicTemp, gradientAssist, temps})

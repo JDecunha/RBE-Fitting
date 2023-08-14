@@ -1,8 +1,12 @@
-function [output] = BWF_Plotter(x, cudaKernel, gpuBuffer)
+function [output] = BWF_Plotter(x, cudaKernel, gpuBuffer, max)
+
+    if ~exist('max','var')
+     % third parameter does not exist, so default it to something
+      max = 130;
+     end
 
     numBins = 1000;
     min = 0;
-    max = 130;
     FakeBinWidth = ones(numBins,1);
     FakeBinVals = ones(numBins,1);
     BinCenters = transpose(linspace(min,max,numBins));
