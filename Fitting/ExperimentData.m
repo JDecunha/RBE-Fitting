@@ -17,6 +17,9 @@ classdef ExperimentData
 
         maxRelevantBin
 
+        relativeWeighting
+        LETWeightingBinSize
+
     end
     
     methods
@@ -71,9 +74,26 @@ classdef ExperimentData
            obj.BinWidth = gpuArray(obj.BinWidth);
            obj.BinCenter = gpuArray(obj.BinCenter);
            obj.BinValue = gpuArray(obj.BinValue);
-           %obj.maxRelevantBin.DataType = 'int32';
            obj.maxRelevantBin = gpuArray(cast(obj.maxRelevantBin,'int32'));
 
+           %Let's find a way to calculate the relative weighting
+           obj.LETWeightingBinSize = 5;
+           NumBins = ceil(20/obj.LETWeightingBinSize);
+           internalWeighting = zeros(NumBins,1);
+           obj.relativeWeighting = zeros(1,1,size(obj.LETD,3));
+
+           TotalDataPoints = 0;
+           for i = 1:size(obj.LETD,3)
+               currentLETBin = ceil(obj.LETD(1,1,i)/obj.LETWeightingBinSize);
+               internalWeighting(currentLETBin) = internalWeighting(currentLETBin) + size(obj.Dose(~isnan(obj.Dose(:,:,i))),1);
+               TotalDataPoints = TotalDataPoints + size(obj.Dose(~isnan(obj.Dose(:,:,i))),1);
+           end
+           internalWeighting = internalWeighting/TotalDataPoints;
+           for i = 1:size(obj.LETD,3)
+               currentLETBin = ceil(obj.LETD(1,1,i)/obj.LETWeightingBinSize);
+               obj.relativeWeighting(1,1,i) = internalWeighting(currentLETBin);
+           end
+           obj.relativeWeighting = 1/obj.relativeWeighting;
 
            
         end

@@ -185,7 +185,7 @@ iterationsPerCyc = 10000;
 numCycles = 2;
 toleranceCycles = 25;
 
-output = RBE_Fitting_Driver(GPUExperimentalData, CubicKernel, CubicPenalty, CubicBWFInitialGuess, penaltyWeight, iterationsPerCyc, numCycles, toleranceCycles);
+output = Weighted_RBE_Fitting_Driver(GPUExperimentalData, CubicKernel, CubicPenalty, CubicBWFInitialGuess, penaltyWeight, iterationsPerCyc, numCycles, toleranceCycles,false,false);
 output(2)
 
 %RBE_Fitting_Driver(experimentalData, cudaKernel, cudaPenaltyKernel, initialGuess, penaltyWeight, iterationsPerCycle, numCycles, toleranceCycles);
