@@ -1,4 +1,4 @@
-function [output] = CostMetrics(x, experiments, negativePenaltyValue, cudaKernel, gpuBufferArray, cudaPenalty, gpuBufferArray2)
+function [output] = CostMetrics(x, experiments, negativePenaltyValue, cudaKernel, gpuBufferArray, cudaPenalty, gpuBufferArray2, nExperimentsOverride)
 
 Cost = 0;
 nExperiments = 0.;
@@ -49,6 +49,14 @@ Cost = Cost/2;
 CostNoPenalty = CostNoPenalty/2;
 NegativeCost = NegativeCost/2;
 AIC = (nExperiments*log(RMSE*RMSE))+(2*size(x,2));
+
+%If overriding the number of experiments (for weighted fitting) recalculate
+%RMSE and AIC
+if isempty(nExperimentsOverride) == false
+    RMSE = CostNoPenalty/nExperimentsOverride;
+    RMSE = sqrt(RMSE);
+    AIC = (nExperiments*log(RMSE*RMSE))+(2*size(x,2));
+end
 
 output = [Cost, CostNoPenalty, RMSE, AIC, NegativeFraction, NegativeCost];
 

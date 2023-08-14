@@ -19,6 +19,8 @@ classdef ExperimentData
 
         relativeWeighting
         LETWeightingBinSize
+        EffectiveNMeasurements
+
 
     end
     
@@ -77,23 +79,32 @@ classdef ExperimentData
            obj.maxRelevantBin = gpuArray(cast(obj.maxRelevantBin,'int32'));
 
            %Let's find a way to calculate the relative weighting
-           obj.LETWeightingBinSize = 5;
-           NumBins = ceil(20/obj.LETWeightingBinSize);
-           internalWeighting = zeros(NumBins,1);
+           obj.LETWeightingBinSize = 5; %magic number: bin size 5
+           NumBins = ceil(20/obj.LETWeightingBinSize); %magic number: max LET 20
+           letNumExperiments = zeros(NumBins,1,'int32');
            obj.relativeWeighting = zeros(1,1,size(obj.LETD,3));
 
+           %Calculate total data points
            TotalDataPoints = 0;
-           for i = 1:size(obj.LETD,3)
-               currentLETBin = ceil(obj.LETD(1,1,i)/obj.LETWeightingBinSize);
-               internalWeighting(currentLETBin) = internalWeighting(currentLETBin) + size(obj.Dose(~isnan(obj.Dose(:,:,i))),1);
+           for i = 1:size(obj.LETD,3) %Go through each experiment
+               currentLETBin = ceil(obj.LETD(1,1,i)/obj.LETWeightingBinSize); %Find the current LET value
+               letNumExperiments(currentLETBin) = letNumExperiments(currentLETBin) + size(obj.Dose(~isnan(obj.Dose(:,:,i))),1); %Add the number of values
                TotalDataPoints = TotalDataPoints + size(obj.Dose(~isnan(obj.Dose(:,:,i))),1);
            end
-           internalWeighting = internalWeighting/TotalDataPoints;
+            
+           %Find lowest common denominator
+           lowestcommond = 1;
+           for i = 1:size(letNumExperiments,1)
+               lowestcommond = lcm(lowestcommond,letNumExperiments(i));
+           end
+
+           %Weight using lowest common denominator
            for i = 1:size(obj.LETD,3)
                currentLETBin = ceil(obj.LETD(1,1,i)/obj.LETWeightingBinSize);
-               obj.relativeWeighting(1,1,i) = internalWeighting(currentLETBin);
+               obj.relativeWeighting(1,1,i) = int32(lowestcommond/letNumExperiments(currentLETBin)); %Divide lowest commond by number of experiments in bin
            end
-           obj.relativeWeighting = 1/obj.relativeWeighting;
+
+           obj.EffectiveNMeasurements = double(lowestcommond*NumBins);
 
            
         end

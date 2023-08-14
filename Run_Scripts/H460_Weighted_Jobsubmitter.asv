@@ -2,9 +2,9 @@
 c = parcluster("Desktop-10700k");
 
 %% Setup run parameters
-iterationsPerCyc = 250000;
-numCycles = 250;
-toleranceCycles = 25;
+iterationsPerCyc = 2500;
+numCycles = 1;
+toleranceCycles = 10;
 
 %% Linear Fitting
 filePaths = ["a.csv", "b.csv" , "c.csv", "d.csv", "e.csv", "f.csv", "g.csv", "h.csv", "i.csv", "j.csv" , "k.csv" , "l.csv"];
@@ -76,7 +76,9 @@ batch(c, @Generic_BWF_Weighted_RunScript, 1, {'Q_H460', "QBWF", "QPenaltyFunctio
 %% QE
 filePaths = ["a.csv", "b.csv" , "c.csv", "d.csv", "e.csv", "f.csv", "g.csv", "h.csv", "i.csv", "j.csv" , "k.csv" , "l.csv"];
 penaltyWeight = 0.; %typically make my penalty 30 when it's activated
-
+iterationsPerCyc = 2500;
+numCycles = 1;
+toleranceCycles = 10;
 dynamicTemp = false;
 gradientAssist = true;
 
@@ -87,7 +89,9 @@ batch(c, @Generic_BWF_Weighted_RunScript, 1, {'QE_H460', "QEBWF", "QEPenaltyFunc
 %% QE2
 filePaths = ["a.csv", "b.csv" , "c.csv", "d.csv", "e.csv", "f.csv", "g.csv", "h.csv", "i.csv", "j.csv" , "k.csv" , "l.csv"];
 penaltyWeight = 0.; %typically make my penalty 30 when it's activated
-
+iterationsPerCyc = 2500;
+numCycles = 1;
+toleranceCycles = 10;
 dynamicTemp = false;
 gradientAssist = true;
 
@@ -98,7 +102,9 @@ batch(c, @Generic_BWF_Weighted_RunScript, 1, {'QE2_H460', "QE2BWF", "QE2PenaltyF
 %% LE
 filePaths = ["a.csv", "b.csv" , "c.csv", "d.csv", "e.csv", "f.csv", "g.csv", "h.csv", "i.csv", "j.csv" , "k.csv" , "l.csv"];
 penaltyWeight = 0.; %typically make my penalty 30 when it's activated
-
+iterationsPerCyc = 2500;
+numCycles = 1;
+toleranceCycles = 10;
 dynamicTemp = false;
 gradientAssist = true;
 
@@ -109,7 +115,9 @@ batch(c, @Generic_BWF_Weighted_RunScript, 1, {'LE_H460', "LEBWF", "LEPenaltyFunc
 %% LQE
 filePaths = ["a.csv", "b.csv" , "c.csv", "d.csv", "e.csv", "f.csv", "g.csv", "h.csv", "i.csv", "j.csv" , "k.csv" , "l.csv"];
 penaltyWeight = 0.; %typically make my penalty 30 when it's activated
-
+iterationsPerCyc = 2500;
+numCycles = 1;
+toleranceCycles = 10;
 dynamicTemp = false;
 gradientAssist = true;
 
@@ -120,7 +128,9 @@ batch(c, @Generic_BWF_Weighted_RunScript, 1, {'LQE_H460', "LQEBWF", "LQEPenaltyF
 %% LE2
 filePaths = ["a.csv", "b.csv" , "c.csv", "d.csv", "e.csv", "f.csv", "g.csv", "h.csv", "i.csv", "j.csv" , "k.csv" , "l.csv"];
 penaltyWeight = 0.; %typically make my penalty 30 when it's activated
-
+iterationsPerCyc = 2500;
+numCycles = 1;
+toleranceCycles = 10;
 dynamicTemp = false;
 gradientAssist = true;
 
@@ -131,7 +141,9 @@ batch(c, @Generic_BWF_Weighted_RunScript, 1, {'LE2_H460', "LE2BWF", "LE2PenaltyF
 %% LQE2
 filePaths = ["a.csv", "b.csv" , "c.csv", "d.csv", "e.csv", "f.csv", "g.csv", "h.csv", "i.csv", "j.csv" , "k.csv" , "l.csv"];
 penaltyWeight = 0.; %typically make my penalty 30 when it's activated
-
+iterationsPerCyc = 2500;
+numCycles = 1;
+toleranceCycles = 10;
 dynamicTemp = false;
 gradientAssist = true;
 
@@ -142,7 +154,9 @@ batch(c, @Generic_BWF_Weighted_RunScript, 1, {'LQE2_H460', "LQE2BWF", "LQE2Penal
 %% Gaussian Fitting
 filePaths = ["a.csv", "b.csv" , "c.csv", "d.csv", "e.csv", "f.csv", "g.csv", "h.csv", "i.csv", "j.csv" , "k.csv" , "l.csv"];
 penaltyWeight = 0.; %typically make my penalty 30 when it's activated
-
+iterationsPerCyc = 2500;
+numCycles = 1;
+toleranceCycles = 10;
 dynamicTemp = false;
 gradientAssist = true;
 
@@ -154,7 +168,9 @@ batch(c, @Generic_BWF_Weighted_RunScript, 1, {'gaussian_H460', "GaussianBWF", "G
 %% Skew Gaussian Fitting
 filePaths = ["a.csv", "b.csv" , "c.csv", "d.csv", "e.csv", "f.csv", "g.csv", "h.csv", "i.csv", "j.csv" , "k.csv" , "l.csv"];
 penaltyWeight = 0.; %typically make my penalty 30 when it's activated
-
+iterationsPerCyc = 2500;
+numCycles = 1;
+toleranceCycles = 10;
 dynamicTemp = false;
 gradientAssist = true;
 
@@ -169,7 +185,9 @@ batch(c, @Generic_BWF_Weighted_RunScript, 1, {'skewGaussian_H460', "SkewGaussian
 
 filePaths = ["a.csv", "b.csv" , "c.csv", "d.csv", "e.csv", "f.csv", "g.csv", "h.csv", "i.csv", "j.csv" , "k.csv" , "l.csv"];
 penaltyWeight = 0.; %typically make my penalty 30 when it's activated
-
+iterationsPerCyc = 2500;
+numCycles = 1;
+toleranceCycles = 10;
 dynamicTemp = false;
 gradientAssist = true;
 

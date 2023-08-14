@@ -22,7 +22,7 @@ GPUExperimentalData = ExperimentData(experiments);
 %% Call the driver
 output = Weighted_RBE_Fitting_Driver(GPUExperimentalData, kernel, penaltyKernel, InitialGuess, penaltyWeight, iterationsPerCyc, numCycles, toleranceCycles, dynamicTemp, gradientAssist, temps);
 
-input = [name, filePaths, InitialGuess, penaltyWeight, iterationsPerCyc, numCycles, toleranceCycles, dynamicTemp, gradientAssist];
+input = [name, filePaths, InitialGuess, penaltyWeight, iterationsPerCyc, numCycles, toleranceCycles, dynamicTemp, gradientAssist, temps];
 
 output = {output, input};
 

@@ -10,6 +10,8 @@ CostFunc = @(x) GPUCostFunction(x, experimentalData, penaltyWeight, cudaKernel, 
 %Set up the fitting options for annealing
 optionsGradientDescent = optimoptions('fminunc','Algorithm','quasi-newton');
 optionsGradientDescent.MaxFunctionEvaluations = 1e6;
+
+%Set up options for simulated annealing
 options = optimoptions(@simulannealbnd);
 options.MaxIterations = iterationsPerCycle;
 options.MaxStallIterations = iterationsPerCycle*2; %We are doing our own custom implementation of stalling below. So we make sure the fitting never stalls using the built in method.
@@ -26,7 +28,7 @@ for i = 1:numCycles
 
         %Dynamically update the temperatures if it has been requested
         if dynamicTemp == true
-            options.InitialTemperature = abs(GradientSoln)*1; %Use the gradient descent solution to set the temperature for each item
+            options.InitialTemperature = abs(GradientSoln)*10; %Use the gradient descent solution to set the temperature for each item
         elseif isempty(temps) == false
             options.InitialTemperature = temps;
         end
@@ -38,7 +40,7 @@ for i = 1:numCycles
 
         %Dynamically update the temperatures if it has been requested
         if dynamicTemp == true
-            options.InitialTemperature = abs(initialGuess)*1; %Use the initial guess / last solution to set temperatures for each item
+            options.InitialTemperature = abs(initialGuess)*10; %Use the initial guess / last solution to set temperatures for each item
         elseif isempty(temps) == false
             options.InitialTemperature = temps;
         end
@@ -47,30 +49,36 @@ for i = 1:numCycles
         [Soln, Cost] = simulannealbnd(CostFunc,initialGuess,[],[],options);
     end
 
-    %See how much the cost function has improved. Break if toleranceCycles exceeded without 1e-6 improvement in cost function
+    %See how much the cost function has improved. Break if toleranceCycles exceeded without improvement in cost function
     costThisCycle = Cost;
     costDiff = costLastCycle-costThisCycle;
 
-    if costDiff > 1e-6 %If improvement is greater than
+    %Reset counter if still improving
+    if costDiff > 1e-6 
         numIterationsWithoutImprovement = 0;
     else
         numIterationsWithoutImprovement = numIterationsWithoutImprovement + 1;
     end
+
+    %Break if number of cycles without improvement is greater than
+    %tolerance
     if numIterationsWithoutImprovement >= toleranceCycles
         format = "Breaking because of %d cycles without improvement.";
         fprintf(format, toleranceCycles); 
         break
     end
 
+    %We are are continuing, so set the last cycle cost to this cycle's cost
     costLastCycle = costThisCycle;
 
-    %If we are continuing, update the initial guess with the last solution
+    %Update the initial guess with the last solution before we repeat
     initialGuess = Soln;
 
 end
 
+%Calculate the cost metrics
 additionalMetrics = CostMetrics(Soln, experimentalData, penaltyWeight, cudaKernel, GPUBuffer, cudaPenaltyKernel, GPUBuffer2);
-
+%Smush into output
 output = {Soln, Cost, additionalMetrics, i};
 
 end
