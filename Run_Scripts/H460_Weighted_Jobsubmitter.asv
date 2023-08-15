@@ -2,9 +2,9 @@
 c = parcluster("Desktop-10700k");
 
 %% Setup run parameters
-iterationsPerCyc = 2500;
-numCycles = 1;
-toleranceCycles = 10;
+iterationsPerCyc = 250000;
+numCycles = 250;
+toleranceCycles = 25;
 
 %% Linear Fitting
 filePaths = ["a.csv", "b.csv" , "c.csv", "d.csv", "e.csv", "f.csv", "g.csv", "h.csv", "i.csv", "j.csv" , "k.csv" , "l.csv"];
@@ -76,9 +76,7 @@ batch(c, @Generic_BWF_Weighted_RunScript, 1, {'Q_H460', "QBWF", "QPenaltyFunctio
 %% QE
 filePaths = ["a.csv", "b.csv" , "c.csv", "d.csv", "e.csv", "f.csv", "g.csv", "h.csv", "i.csv", "j.csv" , "k.csv" , "l.csv"];
 penaltyWeight = 0.; %typically make my penalty 30 when it's activated
-iterationsPerCyc = 2500;
-numCycles = 1;
-toleranceCycles = 10;
+
 dynamicTemp = false;
 gradientAssist = true;
 
@@ -89,9 +87,7 @@ batch(c, @Generic_BWF_Weighted_RunScript, 1, {'QE_H460', "QEBWF", "QEPenaltyFunc
 %% QE2
 filePaths = ["a.csv", "b.csv" , "c.csv", "d.csv", "e.csv", "f.csv", "g.csv", "h.csv", "i.csv", "j.csv" , "k.csv" , "l.csv"];
 penaltyWeight = 0.; %typically make my penalty 30 when it's activated
-iterationsPerCyc = 2500;
-numCycles = 1;
-toleranceCycles = 10;
+
 dynamicTemp = false;
 gradientAssist = true;
 
@@ -102,9 +98,7 @@ batch(c, @Generic_BWF_Weighted_RunScript, 1, {'QE2_H460', "QE2BWF", "QE2PenaltyF
 %% LE
 filePaths = ["a.csv", "b.csv" , "c.csv", "d.csv", "e.csv", "f.csv", "g.csv", "h.csv", "i.csv", "j.csv" , "k.csv" , "l.csv"];
 penaltyWeight = 0.; %typically make my penalty 30 when it's activated
-iterationsPerCyc = 2500;
-numCycles = 1;
-toleranceCycles = 10;
+
 dynamicTemp = false;
 gradientAssist = true;
 
@@ -115,9 +109,7 @@ batch(c, @Generic_BWF_Weighted_RunScript, 1, {'LE_H460', "LEBWF", "LEPenaltyFunc
 %% LQE
 filePaths = ["a.csv", "b.csv" , "c.csv", "d.csv", "e.csv", "f.csv", "g.csv", "h.csv", "i.csv", "j.csv" , "k.csv" , "l.csv"];
 penaltyWeight = 0.; %typically make my penalty 30 when it's activated
-iterationsPerCyc = 2500;
-numCycles = 1;
-toleranceCycles = 10;
+
 dynamicTemp = false;
 gradientAssist = true;
 
@@ -128,9 +120,7 @@ batch(c, @Generic_BWF_Weighted_RunScript, 1, {'LQE_H460', "LQEBWF", "LQEPenaltyF
 %% LE2
 filePaths = ["a.csv", "b.csv" , "c.csv", "d.csv", "e.csv", "f.csv", "g.csv", "h.csv", "i.csv", "j.csv" , "k.csv" , "l.csv"];
 penaltyWeight = 0.; %typically make my penalty 30 when it's activated
-iterationsPerCyc = 2500;
-numCycles = 1;
-toleranceCycles = 10;
+
 dynamicTemp = false;
 gradientAssist = true;
 
@@ -141,9 +131,7 @@ batch(c, @Generic_BWF_Weighted_RunScript, 1, {'LE2_H460', "LE2BWF", "LE2PenaltyF
 %% LQE2
 filePaths = ["a.csv", "b.csv" , "c.csv", "d.csv", "e.csv", "f.csv", "g.csv", "h.csv", "i.csv", "j.csv" , "k.csv" , "l.csv"];
 penaltyWeight = 0.; %typically make my penalty 30 when it's activated
-iterationsPerCyc = 2500;
-numCycles = 1;
-toleranceCycles = 10;
+
 dynamicTemp = false;
 gradientAssist = true;
 
@@ -154,9 +142,7 @@ batch(c, @Generic_BWF_Weighted_RunScript, 1, {'LQE2_H460', "LQE2BWF", "LQE2Penal
 %% Gaussian Fitting
 filePaths = ["a.csv", "b.csv" , "c.csv", "d.csv", "e.csv", "f.csv", "g.csv", "h.csv", "i.csv", "j.csv" , "k.csv" , "l.csv"];
 penaltyWeight = 0.; %typically make my penalty 30 when it's activated
-iterationsPerCyc = 2500;
-numCycles = 1;
-toleranceCycles = 10;
+
 dynamicTemp = false;
 gradientAssist = true;
 
@@ -168,9 +154,7 @@ batch(c, @Generic_BWF_Weighted_RunScript, 1, {'gaussian_H460', "GaussianBWF", "G
 %% Skew Gaussian Fitting
 filePaths = ["a.csv", "b.csv" , "c.csv", "d.csv", "e.csv", "f.csv", "g.csv", "h.csv", "i.csv", "j.csv" , "k.csv" , "l.csv"];
 penaltyWeight = 0.; %typically make my penalty 30 when it's activated
-iterationsPerCyc = 2500;
-numCycles = 1;
-toleranceCycles = 10;
+
 dynamicTemp = false;
 gradientAssist = true;
 
@@ -182,12 +166,12 @@ batch(c, @Generic_BWF_Weighted_RunScript, 1, {'skewGaussian_H460', "SkewGaussian
 %% Morstin fitting
 %[11460.000000, 2.5*power(10,-6), 2.1*power(10,-5), 2.*power(10,-7), 0.1]; Default guess
 %[3297.97258707670,5.41801921828085e-05,-1.65304114028526e-05,9.31217143989086e-07,0.149589365656704] cost :2.4556
+%[4950.44598521600,0.000124766878777259,-2.35320902386290e-05,8.71972423256827e-07,0.0900550735667972]
+%first weighted fit cost: 2.1273
 
 filePaths = ["a.csv", "b.csv" , "c.csv", "d.csv", "e.csv", "f.csv", "g.csv", "h.csv", "i.csv", "j.csv" , "k.csv" , "l.csv"];
 penaltyWeight = 0.; %typically make my penalty 30 when it's activated
-iterationsPerCyc = 2500;
-numCycles = 1;
-toleranceCycles = 10;
+
 dynamicTemp = false;
 gradientAssist = true;
 
