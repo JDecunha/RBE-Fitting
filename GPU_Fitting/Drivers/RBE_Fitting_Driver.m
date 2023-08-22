@@ -77,7 +77,7 @@ for i = 1:numCycles
 end
 
 %Calculate the cost metrics
-additionalMetrics = CostMetrics(Soln, experimentalData, penaltyWeight, cudaKernel, GPUBuffer, cudaPenaltyKernel, GPUBuffer2);
+additionalMetrics = CostMetrics(Soln, experimentalData, penaltyWeight, cudaKernel, GPUBuffer, cudaPenaltyKernel, GPUBuffer2, []);
 %Smush into output
 output = {Soln, Cost, additionalMetrics, i};
 
