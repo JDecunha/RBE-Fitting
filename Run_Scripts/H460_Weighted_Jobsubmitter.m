@@ -6,6 +6,22 @@ iterationsPerCyc = 250000;
 numCycles = 250;
 toleranceCycles = 25;
 
+%% Troubleshooting
+iterationsPerCyc = 1;
+numCycles = 1;
+toleranceCycles = 25;
+
+filePaths = ["a.csv", "b.csv" , "c.csv", "d.csv", "e.csv", "f.csv", "g.csv", "h.csv", "i.csv", "j.csv" , "k.csv" , "l.csv"];
+penaltyWeight = 0.; %typically make my penalty 30 when it's activated
+
+dynamicTemp = true;
+gradientAssist = true;
+
+InitialGuess = [0.122365050472956,0.0529226583994300,0.0871961766426740];
+
+Generic_BWF_Weighted_RunScript('linear_H460', "LinearBWF", "LinearPenaltyFunction", filePaths, InitialGuess, penaltyWeight, iterationsPerCyc, numCycles, toleranceCycles, dynamicTemp, gradientAssist, []);
+%batch(c, @Generic_BWF_Weighted_RunScript, 1, {'linear_H460', "LinearBWF", "LinearPenaltyFunction", filePaths, InitialGuess, penaltyWeight, iterationsPerCyc, numCycles, toleranceCycles, dynamicTemp, gradientAssist, []});
+
 %% Linear Fitting
 % 207.059707370364 [6.52224668204461,6.52224668204461,0.0534848998285375,-480.107081245039,0,0]
 % [0.146011976800855,0.0501996006722245,0.0543804541931067] Stopped 26

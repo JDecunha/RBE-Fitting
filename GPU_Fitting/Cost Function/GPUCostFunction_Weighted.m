@@ -21,7 +21,7 @@ for i = 1:size(experiments.SF,3)
 
         %Update the Cost running tally
         sfDifference = sfPredicted - log(survivingFraction);
-        sfSquared = sfDifference*sfDifference;
+        sfSquared = sfDifference*sfDifference; 
         sfSquared = sfSquared*experiments.relativeWeighting(i); %Weight the cost function
         Cost = Cost + sfSquared; %It's squared to match definition of least squares
 
