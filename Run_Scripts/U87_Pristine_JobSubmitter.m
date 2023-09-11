@@ -1,12 +1,12 @@
 %% Configure the script
 filePaths = ["U87_pristine_dy/1.1.csv","U87_pristine_dy/3.9.csv","U87_pristine_dy/6.7.csv","U87_pristine_dy/11.6.csv","U87_pristine_dy/17.7.csv","U87_pristine_dy/22.5.csv"];
 penaltyWeight = 0.; %typically make my penalty 30 when it's activated
-iterationsPerCyc = 1;%250000;
-numCycles = 1;%1000;
-toleranceCycles = 250;
+iterationsPerCyc = 250000;
+numCycles = 250;
+toleranceCycles = 10;
 
 %%
-c = parcluster('GA401');
+c = parcluster('Desktop-10700k');
 
 %% Linear Fitting
 dynamicTemp = false;
