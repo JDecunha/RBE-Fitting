@@ -13,3 +13,11 @@ outplot = SurvivalVsBWFplotter("QuadraticBWF", filePaths, funcVal, maxdose);
 %% Cubic 
 funcVal = [2.41075951502340,2.41075951502340,0.400895623574965,-44.8432505536234,0.0192850659544634];
 SurvivalVsBWFplotter("CubicBWF", filePaths, funcVal, maxdose);
+
+%% Configure the script for predictions on SOBP
+filePaths = ["U87_sobp_dy/1.27.csv","U87_sobp_dy/3.csv","U87_sobp_dy/4.4.csv","U87_sobp_dy/13.7.csv","U87_sobp_dy/20.9.csv","U87_sobp_dy/25.4.csv"];
+maxdose = 8;
+
+%% Quadratic
+funcVal = [0.316392411394442,0.0133005616339535,3.44355174177655e-05,0.0728457419165999];
+outplot = SurvivalVsBWFplotter("QuadraticBWF", filePaths, funcVal, maxdose);

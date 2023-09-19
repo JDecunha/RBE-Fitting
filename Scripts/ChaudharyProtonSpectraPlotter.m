@@ -52,3 +52,28 @@ for i = 2:7
     legend([sobp_plot, sobp_rebin_plot],{"Original", "Rebinned"});
 
 end
+
+%% Comparing Pristine and SOBP
+
+figure('Position', [10 10 900 600])
+tiledplot = tiledlayout(3,2);
+title(tiledplot, "Chaudhary et al. Pristine vs. SOBP proton spectra.");
+
+for i = 2:7
+
+    ax = nexttile;
+    hold on;
+
+    sobp_plot = plot(ax, pristine{2:299,1},pristine{2:299,i});
+    sobp_plot.Color = [0.6350 0.0780 0.1840];
+    sobp_rebin_plot = plot(ax, SOBP{2:299,1},SOBP{2:299,i});
+    sobp_rebin_plot.Color = [0 0.4470 0.7410];
+
+    set(gca, 'YScale', 'log');
+    set(gca, 'XLim', [0,60]);
+    xlabel("Energy [MeV]",'Interpreter','latex','FontSize',14);
+    ylabel("Fluence [arb]",'Interpreter','latex','FontSize',14);
+
+    legend([sobp_plot, sobp_rebin_plot],{"Pristine", "SOBP"});
+
+end
