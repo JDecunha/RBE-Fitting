@@ -1,4 +1,4 @@
-function [output] = SurvivalVsBWFplotter(kernelName, filePaths, FuncVals)
+function [output] = SurvivalVsBWFplotter(kernelName, filePaths, FuncVals, maxDose)
 
 %% Setup environment
 addpath(genpath("."));
@@ -75,7 +75,7 @@ for i = 1:size(GPUExperimentalData.SF,3)
     yl(1) = yl(1)*0.75;
     ylim(yl);
     %Make x axis consistent
-    xlim([0, 6]);
+    xlim([0, maxDose]);
     xlabel("Dose [Gy]",'Interpreter','latex','FontSize',15);
     ylabel("SF [\%]",'Interpreter','latex','FontSize',15);
 
