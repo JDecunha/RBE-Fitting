@@ -124,7 +124,6 @@ batch(c, @Scaled_Beta_BWF_RunScript, 1, {'LQE2_H460_ScaledBeta', "LQE2BWF", "LQE
 dynamicTemp = false;
 gradientAssist = true;
 
-
 InitialGuess = [0.1, 0.1, 0.1, 0.1, 0.1]; %Morstin inspired guess
 temps = [1, 5, 10, 10, 0.05];
 

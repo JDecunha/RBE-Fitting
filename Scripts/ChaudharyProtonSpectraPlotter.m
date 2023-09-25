@@ -69,7 +69,7 @@ for i = 2:7
     sobp_rebin_plot = plot(ax, SOBP{2:299,1},SOBP{2:299,i});
     sobp_rebin_plot.Color = [0 0.4470 0.7410];
 
-    set(gca, 'YScale', 'log');
+    %set(gca, 'YScale', 'log');
     set(gca, 'XLim', [0,60]);
     xlabel("Energy [MeV]",'Interpreter','latex','FontSize',14);
     ylabel("Fluence [arb]",'Interpreter','latex','FontSize',14);
