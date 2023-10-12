@@ -1,16 +1,16 @@
 %% Configure the script
-filePaths = ["a.csv", "b.csv" , "c.csv", "d.csv", "e.csv", "f.csv", "g.csv", "h.csv", "i.csv", "j.csv" , "k.csv" , "l.csv"];
+filePaths = ["H460_dy/a.csv", "H460_dy/b.csv" , "H460_dy/c.csv", "H460_dy/d.csv", "H460_dy/e.csv", "H460_dy/f.csv", "H460_dy/g.csv", "H460_dy/h.csv", "H460_dy/i.csv", "H460_dy/j.csv" , "H460_dy/k.csv" , "H460_dy/l.csv"];
 penaltyWeight = 0.; %typically make my penalty 30 when it's activated
 iterationsPerCyc = 250000;
-numCycles = 250;
+numCycles = 100;
 toleranceCycles = 10;
 
 %%
-%c = parcluster('Desktop-10700k');
-c = parcluster('GA401');
+c = parcluster('Desktop-10700k');
+%c = parcluster('GA401');
 
 %% Linear
-dynamicTemp = false;
+dynamicTemp = true;
 gradientAssist = true;
 temps = [];
 
@@ -23,7 +23,7 @@ batch(c, @AlphaBeta_BWF_RunScript, 1, {'linear_cubic_H460', "LinearBWF", 2, "Cub
 
 
 %% Quadratic Fitting
-dynamicTemp = false;
+dynamicTemp = true;
 gradientAssist = true;
 temps = [];
 
@@ -36,7 +36,7 @@ batch(c, @AlphaBeta_BWF_RunScript, 1, {'quadratic_cubic_H460', "QuadraticBWF", 3
 
 
 %% Cubic Fitting
-dynamicTemp = false;
+dynamicTemp = true;
 gradientAssist = true;
 temps = [];
 
@@ -49,7 +49,7 @@ batch(c, @AlphaBeta_BWF_RunScript, 1, {'cubic_cubic_H460', "CubicBWF", 4, "Cubic
 
 
 %% Fourth Fitting
-dynamicTemp = false;
+dynamicTemp = true;
 gradientAssist = true;
 temps = [];
 
@@ -62,7 +62,7 @@ batch(c, @AlphaBeta_BWF_RunScript, 1, {'fourth_cubic_H460', "FourthBWF", 5, "Cub
 
 
 %% Fifth Fitting
-dynamicTemp = false;
+dynamicTemp = true;
 gradientAssist = true;
 temps = [];
 
