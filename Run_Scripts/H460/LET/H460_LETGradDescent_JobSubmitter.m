@@ -1,5 +1,5 @@
 %% Configure the script
-filePaths = ["a.csv", "b.csv" , "c.csv", "d.csv", "e.csv", "f.csv", "g.csv", "h.csv", "i.csv", "j.csv" , "k.csv" , "l.csv"];
+filePaths = ["H460_dy/a.csv", "H460_dy/b.csv" , "H460_dy/c.csv", "H460_dy/d.csv", "H460_dy/e.csv", "H460_dy/f.csv", "H460_dy/g.csv", "H460_dy/h.csv", "H460_dy/i.csv", "H460_dy/j.csv" , "H460_dy/k.csv" , "H460_dy/l.csv"];
 penaltyWeight = 0.; %typically make my penalty 30 when it's activated
 
 %% Linear Fitting
