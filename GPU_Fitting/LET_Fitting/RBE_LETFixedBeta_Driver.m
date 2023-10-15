@@ -76,7 +76,7 @@ for i = 1:numCycles
 end
 
 %Smush into output
-output = {GradientSoln, GradientCost};
+output = {GradientSoln, GradientCost, i};
 
 end
 
