@@ -1,4 +1,4 @@
-function [Cost] = GPUCostFunction_Weighted(x, experiments, negativePenaltyValue, cudaKernel, gpuBufferArray, cudaPenalty, gpuBufferArray2)
+function [Cost] = GPUCostFunctionScaledBeta(x, experiments, negativePenaltyValue, cudaKernel, gpuBufferArray, cudaPenalty, gpuBufferArray2)
 
 Cost = 0;
 
@@ -7,7 +7,7 @@ for i = 1:size(experiments.SF,3)
 
     gpuBufferArray = feval(cudaKernel,experiments.BinWidth(:,1,i),experiments.BinCenter(:,1,i),experiments.BinValue(:,1,i),size(experiments.BinValue(:,1,i),1), x(1:end-1), gpuBufferArray);
     alphaPredicted = gather(sum(gpuBufferArray));
-    betaPredicted = x(end); %last param of x is beta
+    betaPredicted = x(end)*alphaPredicted; %Scale the alpha by the last param to  get beta
 
     %Loop through each dose and surviving fraction
     for j = 1:experiments.sizeDose(1,1,i)
@@ -21,8 +21,7 @@ for i = 1:size(experiments.SF,3)
 
         %Update the Cost running tally
         sfDifference = sfPredicted - log(survivingFraction);
-        sfSquared = sfDifference*sfDifference; 
-        sfSquared = sfSquared*experiments.relativeWeighting(i); %Weight the cost function
+        sfSquared = sfDifference*sfDifference;
         Cost = Cost + sfSquared; %It's squared to match definition of least squares
 
     end

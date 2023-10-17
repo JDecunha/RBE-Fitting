@@ -1,13 +1,17 @@
-function [Cost] = GPUCostFunction_Weighted(x, experiments, negativePenaltyValue, cudaKernel, gpuBufferArray, cudaPenalty, gpuBufferArray2)
+function [Cost] = GPUCostFunctionVariableBeta(x, experiments, negativePenaltyValue, cudaKernel, nAlphaParams, cudaBetaKernel, gpuBufferArray, cudaPenalty, gpuBufferArray2)
 
 Cost = 0;
 
 %Loop through each d(y) spectrum
 for i = 1:size(experiments.SF,3)
 
-    gpuBufferArray = feval(cudaKernel,experiments.BinWidth(:,1,i),experiments.BinCenter(:,1,i),experiments.BinValue(:,1,i),size(experiments.BinValue(:,1,i),1), x(1:end-1), gpuBufferArray);
+    %Calculate alpha params
+    gpuBufferArray = feval(cudaKernel,experiments.BinWidth(:,1,i),experiments.BinCenter(:,1,i),experiments.BinValue(:,1,i),size(experiments.BinValue(:,1,i),1), x(1:nAlphaParams), gpuBufferArray);
     alphaPredicted = gather(sum(gpuBufferArray));
-    betaPredicted = x(end); %last param of x is beta
+
+    %Calculate beta params
+    gpuBufferArray = feval(cudaBetaKernel,experiments.BinWidth(:,1,i),experiments.BinCenter(:,1,i),experiments.BinValue(:,1,i),size(experiments.BinValue(:,1,i),1), x((nAlphaParams+1):end), gpuBufferArray);
+    betaPredicted = gather(sum(gpuBufferArray));
 
     %Loop through each dose and surviving fraction
     for j = 1:experiments.sizeDose(1,1,i)
@@ -21,8 +25,7 @@ for i = 1:size(experiments.SF,3)
 
         %Update the Cost running tally
         sfDifference = sfPredicted - log(survivingFraction);
-        sfSquared = sfDifference*sfDifference; 
-        sfSquared = sfSquared*experiments.relativeWeighting(i); %Weight the cost function
+        sfSquared = sfDifference*sfDifference;
         Cost = Cost + sfSquared; %It's squared to match definition of least squares
 
     end

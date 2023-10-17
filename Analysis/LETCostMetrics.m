@@ -1,6 +1,8 @@
-function [Cost] = GPUCostFunction_Weighted(x, experiments, negativePenaltyValue, cudaKernel, gpuBufferArray, cudaPenalty, gpuBufferArray2)
+function [output] = CostMetrics(x, experiments, negativePenaltyValue, cudaKernel, gpuBufferArray, cudaPenalty, gpuBufferArray2, nExperimentsOverride)
 
 Cost = 0;
+nExperiments = 0.;
+AIC = 0.;
 
 %Loop through each d(y) spectrum
 for i = 1:size(experiments.SF,3)
@@ -21,23 +23,41 @@ for i = 1:size(experiments.SF,3)
 
         %Update the Cost running tally
         sfDifference = sfPredicted - log(survivingFraction);
-        sfSquared = sfDifference*sfDifference; 
-        sfSquared = sfSquared*experiments.relativeWeighting(i); %Weight the cost function
+        sfSquared = sfDifference*sfDifference;
         Cost = Cost + sfSquared; %It's squared to match definition of least squares
+        nExperiments = nExperiments + 1;
 
     end
 
 end
 
+CostNoPenalty = Cost;
+RMSE = CostNoPenalty/nExperiments;
+RMSE = sqrt(RMSE);
+
 %Apply the negative function penalty
 [gpuBufferArray, gpuBufferArray2] = feval(cudaPenalty, experiments.BinWidth(:,1,1),experiments.BinCenter(:,1,1),experiments.maxRelevantBin, x(1:end-1), gpuBufferArray, gpuBufferArray2);
 negativeArea = gather(sum(gpuBufferArray(1:experiments.maxRelevantBin)));
 totalArea = gather(sum(gpuBufferArray2(1:experiments.maxRelevantBin)));
-Cost = Cost + (negativePenaltyValue*(negativeArea/totalArea)); 
+NegativeFraction = negativeArea/totalArea;
+NegativeCost = negativePenaltyValue*NegativeFraction;
+Cost = Cost + NegativeCost;
 
 %To fit the definition of least squares, the cost has an additional 1/2
 %term
 Cost = Cost/2;
+CostNoPenalty = CostNoPenalty/2;
+NegativeCost = NegativeCost/2;
+AIC = (nExperiments*log(RMSE*RMSE))+(2*size(x,2));
 
+%If overriding the number of experiments (for weighted fitting) recalculate
+%RMSE and AIC
+if isempty(nExperimentsOverride) == false
+    RMSE = CostNoPenalty/nExperimentsOverride;
+    RMSE = sqrt(RMSE);
+    AIC = (nExperiments*log(RMSE*RMSE))+(2*size(x,2));
 end
 
+output = [Cost, CostNoPenalty, RMSE, AIC, NegativeFraction, NegativeCost];
+
+end

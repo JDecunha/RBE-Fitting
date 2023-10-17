@@ -1,11 +1,11 @@
-function [output] = RBE_Fitting_Driver(experimentalData, cudaKernel, cudaPenaltyKernel, initialGuess, penaltyWeight, iterationsPerCycle, numCycles, toleranceCycles, dynamicTemp, gradientAssist, temps)
+function [output] = RBE_Fitting_ScaledBeta_Driver(experimentalData, cudaKernel, cudaPenaltyKernel, initialGuess, penaltyWeight, iterationsPerCycle, numCycles, toleranceCycles, dynamicTemp, gradientAssist, temps)
 
 %Allocate the buffers on the GPU (the cost function needs these)
 GPUBuffer = gpuArray(zeros(size(experimentalData.BinCenter,1)-1,1));
 GPUBuffer2 = gpuArray(zeros(size(experimentalData.BinCenter,1)-1,1));
 
 %Construct the cost function
-CostFunc = @(x) GPUCostFunction(x, experimentalData, penaltyWeight, cudaKernel, GPUBuffer, cudaPenaltyKernel, GPUBuffer2);
+CostFunc = @(x) GPUCostFunctionScaledBeta(x, experimentalData, penaltyWeight, cudaKernel, GPUBuffer, cudaPenaltyKernel, GPUBuffer2);
 
 %Set up the fitting options for annealing
 optionsGradientDescent = optimoptions('fminunc','Algorithm','quasi-newton');

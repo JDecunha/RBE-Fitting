@@ -79,6 +79,8 @@ classdef ExperimentData
            obj.maxRelevantBin = gpuArray(cast(obj.maxRelevantBin,'int32'));
 
            %Let's find a way to calculate the relative weighting
+           %Commented out the weighting stuff because 1.) I'm not using it and 2.) I would have to adjust magic numbers for Chaudhary data.
+           %{
            obj.LETWeightingBinSize = 5; %magic number: bin size 5
            NumBins = ceil(20/obj.LETWeightingBinSize); %magic number: max LET 20
            letNumExperiments = zeros(NumBins,1,'int32');
@@ -105,6 +107,7 @@ classdef ExperimentData
            end
 
            obj.EffectiveNMeasurements = double(lowestcommond*NumBins);
+           %}
 
            
         end
