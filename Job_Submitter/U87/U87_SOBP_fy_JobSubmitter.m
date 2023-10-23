@@ -1,8 +1,8 @@
 %% Configure the script
-filePaths = ["AGO_SOBP_fy/1.27.csv","AGO_SOBP_fy/3.csv","AGO_SOBP_fy/4.4.csv","AGO_SOBP_fy/13.7.csv","AGO_SOBP_fy/20.9.csv","AGO_SOBP_fy/25.4.csv"];
+filePaths = ["U87_SOBP_fy/1.27.csv","U87_SOBP_fy/3.csv","U87_SOBP_fy/4.4.csv","U87_SOBP_fy/13.7.csv","U87_SOBP_fy/20.9.csv","U87_SOBP_fy/25.4.csv"];
 penaltyWeight = 0.; %typically make my penalty 30 when it's activated
 iterationsPerCyc = 250000;
-numCycles =  250;
+numCycles = 250;
 toleranceCycles = 10;
 
 %%
@@ -30,7 +30,7 @@ batch(c, @Generic_BWF_RunScript, 1, {'quadratic_U87_SOBP_fy', "QuadraticBWF", "Q
 
 
 %% Cubic Fitting
-dynamicTemp = false;
+dynamicTemp = true;
 gradientAssist = true;
 temps = [];
 
@@ -40,7 +40,7 @@ batch(c, @Generic_BWF_RunScript, 1, {'cubic_U87_SOBP_fy', "CubicBWF", "CubicBWFP
 
 
 %% Fourth Fitting
-dynamicTemp = false;
+dynamicTemp = true;
 gradientAssist = true;
 temps = [];
 
@@ -50,7 +50,7 @@ batch(c, @Generic_BWF_RunScript, 1, {'fourth_U87_SOBP_fy', "FourthBWF", "FourthB
 
 
 %% Fifth Fitting
-dynamicTemp = false;
+dynamicTemp = true;
 gradientAssist = true;
 temps = [];
 
@@ -100,6 +100,7 @@ gradientAssist = true;
 temps = [];
 
 InitialGuess = [0.1,0.1,0.1,0.1,0.1]; %LQE, 4 params + beta
+InitialGuess = [-0.682656406273138,0.00487380065921694,-1.04310138136622e-05,-0.00852366248391989,0.0721523177739177];
 
 batch(c, @Generic_BWF_RunScript, 1, {'LQE_U87_SOBP_fy', "LQEBWF", "LQEPenaltyFunction", filePaths, InitialGuess, penaltyWeight, iterationsPerCyc, numCycles, toleranceCycles, dynamicTemp, gradientAssist, temps});
 
@@ -118,6 +119,7 @@ gradientAssist = true;
 temps = [];
 
 InitialGuess = [0.1,0.1,0.1,0.1,0.1]; %LQE2, 4 params + beta
+InitialGuess = [-0.125141448142685,0.0951688444029646,-0.00150179795278257,0.666398244631081,0.0464188594618767];
 
 batch(c, @Generic_BWF_RunScript, 1, {'LQE2_U87_SOBP_fy', "LQE2BWF", "LQE2PenaltyFunction", filePaths, InitialGuess, penaltyWeight, iterationsPerCyc, numCycles, toleranceCycles, dynamicTemp, gradientAssist, temps});
 

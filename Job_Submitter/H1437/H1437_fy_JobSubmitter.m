@@ -1,5 +1,5 @@
 %% Configure the script
-filePaths = ["H1437_dy/a.csv", "H1437_dy/b.csv" , "H1437_dy/c.csv", "H1437_dy/d.csv", "H1437_dy/e.csv", "H1437_dy/f.csv", "H1437_dy/g.csv", "H1437_dy/h.csv", "H1437_dy/i.csv", "H1437_dy/j.csv" , "H1437_dy/k.csv" , "H1437_dy/l.csv"];
+filePaths = ["H1437_fy/a.csv", "H1437_fy/b.csv" , "H1437_fy/c.csv", "H1437_fy/d.csv", "H1437_fy/e.csv", "H1437_fy/f.csv", "H1437_fy/g.csv", "H1437_fy/h.csv", "H1437_fy/i.csv", "H1437_fy/j.csv" , "H1437_fy/k.csv" , "H1437_fy/l.csv"];
 penaltyWeight = 0.; %typically make my penalty 30 when it's activated
 iterationsPerCyc = 250000;
 numCycles = 250;
@@ -55,6 +55,7 @@ gradientAssist = true;
 temps = [];
 
 InitialGuess = [0.1,0.1,0.1,0.1,0.1,0.1,0.1];
+InitialGuess = [0.143588969584651,0.109111212413397,0.0511488811009435,-0.0149332671680094,0.000749276727226142,-6.88043117503714e-06,-0.0158658885405960];
 
 batch(c, @Generic_BWF_RunScript, 1, {'fifth_H1437_Pristine', "FifthBWF", "FifthBWFPenaltyFunction", filePaths, InitialGuess, penaltyWeight, iterationsPerCyc, numCycles, toleranceCycles, dynamicTemp, gradientAssist, temps});
 
