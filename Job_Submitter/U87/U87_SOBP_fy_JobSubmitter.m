@@ -44,7 +44,7 @@ dynamicTemp = true;
 gradientAssist = true;
 temps = [];
 
-InitialGuess = [0.1,0.1,0.1,0.1,0.1,0.1];
+InitialGuess = [0.174539952, 0.113615573, -0.011281576, 0.000204954, 0.1, 0.037853236];
 
 batch(c, @Generic_BWF_RunScript, 1, {'fourth_U87_SOBP_fy', "FourthBWF", "FourthBWFPenaltyFunction", filePaths, InitialGuess, penaltyWeight, iterationsPerCyc, numCycles, toleranceCycles, dynamicTemp, gradientAssist, temps});
 
@@ -54,7 +54,7 @@ dynamicTemp = true;
 gradientAssist = true;
 temps = [];
 
-InitialGuess = [0.1,0.1,0.1,0.1,0.1,0.1,0.1];
+InitialGuess = [0.174539952, 0.113615573, -0.011281576, 0.000204954, 0.1, 0.1, 0.037853236];
 
 batch(c, @Generic_BWF_RunScript, 1, {'fifth_U87_SOBP_fy', "FifthBWF", "FifthBWFPenaltyFunction", filePaths, InitialGuess, penaltyWeight, iterationsPerCyc, numCycles, toleranceCycles, dynamicTemp, gradientAssist, temps});
 

@@ -55,7 +55,7 @@ gradientAssist = true;
 temps = [];
 
 %InitialGuess = [0.1,0.1,0.1,0.1,0.1,0.1,0.1];
-InitialGuess = [0.1,-0.016041969, 0.089544155, -0.012722677, 0.000299291, -3.27E-09, 0.034169353];
+InitialGuess = [-0.016041969, 0.089544155, -0.012722677, 0.000299291, -3.27E-09, 1e-6, 0.034169353];
 
 batch(c, @Generic_BWF_RunScript, 1, {'fifth_H1437_fy_Pristine', "FifthBWF", "FifthBWFPenaltyFunction", filePaths, InitialGuess, penaltyWeight, iterationsPerCyc, numCycles, toleranceCycles, dynamicTemp, gradientAssist, temps});
 

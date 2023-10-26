@@ -117,7 +117,8 @@ dynamicTemp = false;
 gradientAssist = true;
 temps = [];
 
-InitialGuess = [0.1,0.1,0.1,0.1,0.1]; %LQE2, 4 params + beta
+%InitialGuess = [0.1,0.1,0.1,0.1,0.1]; %LQE2, 4 params + beta
+InitialGuess = [0.260284493, 0.014157329, 0.000102535, 2.294934661, 0.03729157];
 
 batch(c, @RunScript_LETFixedBeta, 1, {'LQE2_U87_SOBP_FixedBeta_LETAnnealing', "LQE2BWF", filePaths, InitialGuess,  iterationsPerCyc, numCycles, toleranceCycles, dynamicTemp, gradientAssist, temps});
 
