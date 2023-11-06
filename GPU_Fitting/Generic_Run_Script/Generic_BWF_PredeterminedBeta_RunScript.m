@@ -1,4 +1,4 @@
-function [output] = Generic_BWF_PredeterminedBeta_RunScript(name, kernelName, nAlphaParams, penaltyKernelName, filePaths, InitialGuess, penaltyWeight, iterationsPerCyc, numCycles, toleranceCycles, dynamicTemp, gradientAssist, temps)
+function [output] = Generic_BWF_PredeterminedBeta_RunScript(name, kernelName, penaltyKernelName, filePaths, InitialGuess, betas, penaltyWeight, iterationsPerCyc, numCycles, toleranceCycles, dynamicTemp, gradientAssist, temps)
 
 %% Setup environment
 addpath(genpath("."));
@@ -20,7 +20,7 @@ end
 GPUExperimentalData = ExperimentData(experiments);
 
 %% Call the driver
-output = RBE_Fitting_PredeterminedBeta_Driver(GPUExperimentalData, kernel, nAlphaParams, penaltyKernel, InitialGuess, penaltyWeight, iterationsPerCyc, numCycles, toleranceCycles, dynamicTemp, gradientAssist, temps);
+output = RBE_Fitting_PredeterminedBeta_Driver(GPUExperimentalData, kernel, penaltyKernel, InitialGuess, betas, penaltyWeight, iterationsPerCyc, numCycles, toleranceCycles, dynamicTemp, gradientAssist, temps);
 
 input = [name, filePaths, InitialGuess, penaltyWeight, iterationsPerCyc, numCycles, toleranceCycles, dynamicTemp, gradientAssist, temps];
 
