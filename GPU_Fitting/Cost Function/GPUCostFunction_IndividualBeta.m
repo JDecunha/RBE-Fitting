@@ -1,13 +1,13 @@
-function [Cost] = GPUCostFunction_PredeterminedBeta(x, betas, experiments, negativePenaltyValue, cudaKernel, gpuBufferArray, cudaPenalty, gpuBufferArray2)
+function [Cost] = GPUCostFunction_IndividualBeta(x, nAlphaParams, experiments, negativePenaltyValue, cudaKernel, gpuBufferArray, cudaPenalty, gpuBufferArray2)
 
 Cost = 0;
 
 %Loop through each d(y) spectrum
 for i = 1:size(experiments.SF,3)
 
-    gpuBufferArray = feval(cudaKernel,experiments.BinWidth(:,1,i),experiments.BinCenter(:,1,i),experiments.BinValue(:,1,i),size(experiments.BinValue(:,1,i),1), x(1:end), gpuBufferArray);
+    gpuBufferArray = feval(cudaKernel,experiments.BinWidth(:,1,i),experiments.BinCenter(:,1,i),experiments.BinValue(:,1,i),size(experiments.BinValue(:,1,i),1), x(1:nAlphaParams), gpuBufferArray);
     alphaPredicted = gather(sum(gpuBufferArray));
-    betaPredicted = betas(i); %last param of x is beta
+    betaPredicted = x((nAlphaParams+i)); 
 
     %Loop through each dose and surviving fraction
     for j = 1:experiments.sizeDose(1,1,i)
