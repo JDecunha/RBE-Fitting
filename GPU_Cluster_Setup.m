@@ -1,14 +1,18 @@
 configCluster
 c = parcluster;
-c.AdditionalProperties.WallTime = '02:00';
-c.AdditionalProperties.MemUsage = '16';
+
+%%
+
+c.AdditionalProperties.WallTime = '00:30';
+c.AdditionalProperties.MemUsage = 16.;
 c.AdditionalProperties.GpusPerNode = 1;
-c.AdditionalProperties.GpuMemUsage = "16";
-c.AdditionalProperties.AdditionalSubmitArgs = '-n 2' % -q egpu-medium -gpu num=1:gmem=16'; 
+c.AdditionalProperties.GpuMemUsage = 16.;
+c.AdditionalProperties.QueueName = 'gpu';
+c.AdditionalProperties.AdditionalSubmitArgs = '-n 10' % -q egpu-medium -gpu num=1:gmem=16'; 
 c.saveProfile
 
 %% Linear Fitting
-filePaths = ["a.csv", "b.csv" , "c.csv", "d.csv", "e.csv", "f.csv", "g.csv", "h.csv", "i.csv", "j.csv" , "k.csv" , "l.csv"];
+filePaths = ["H460_dy/a.csv", "b.csv" , "H460_dy/c.csv", "H460_dy/d.csv", "H460_dy/e.csv", "H460_dy/f.csv", "H460_dy/g.csv", "H460_dy/h.csv", "H460_dy/i.csv", "H460_dy/j.csv" , "H460_dy/k.csv" , "H460_dy/l.csv"];
 penaltyWeight = 0.; %typically make my penalty 30 when it's activated
 iterationsPerCyc = 2500;
 numCycles = 1;

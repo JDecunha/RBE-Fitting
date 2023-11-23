@@ -1,7 +1,7 @@
 function [output] = Generic_BWF_Weighted_RunScript(name, kernelName, penaltyKernelName, filePaths, InitialGuess, penaltyWeight, iterationsPerCyc, numCycles, toleranceCycles, dynamicTemp, gradientAssist, temps)
 
 %% Setup environment
-addpath(genpath("."));
+%addpath(genpath("."));
 
 kernel = parallel.gpu.CUDAKernel(kernelName+".ptx", kernelName+".cu");
 kernel.ThreadBlockSize = 1024;
