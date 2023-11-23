@@ -19,6 +19,10 @@ end
 
 GPUExperimentalData = ExperimentData(experiments);
 
+%% Figure out alphas and betas
+
+
+
 %% Call the driver
 output = RBE_Fitting_IndividualBeta_Driver(GPUExperimentalData, kernel, nAlphaParams, penaltyKernel, InitialGuess, penaltyWeight, iterationsPerCyc, numCycles, toleranceCycles, dynamicTemp, gradientAssist, temps);
 
