@@ -6,8 +6,8 @@ numCycles = 250;
 toleranceCycles = 10;
 
 %%
-%c = parcluster('Desktop-10700k');
-c = parcluster('GA401');
+c = parcluster('Desktop-10700k');
+%c = parcluster('GA401');
 
 %% Linear Fitting
 dynamicTemp = false;
