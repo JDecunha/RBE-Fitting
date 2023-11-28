@@ -16,6 +16,13 @@ options = optimoptions(@simulannealbnd);
 options.MaxIterations = iterationsPerCycle;
 options.MaxStallIterations = iterationsPerCycle*2; %We are doing our own custom implementation of stalling below. So we make sure the fitting never stalls using the built in method.
 
+%Make lower and upper bounds
+numParams = length(initialGuess);
+upperBound = inf(1,numParams);
+lowerBound = zeros(1,numParams);
+lowerBound(1:nAlphaParams) = -inf;
+
+
 costLastCycle = 1e9; numIterationsWithoutImprovement = 0.;
 
 for i = 1:numCycles
@@ -34,7 +41,7 @@ for i = 1:numCycles
         end
 
         %Run the simulated annealing, using the gradient descent solution as the new starting point
-        [Soln, Cost] = simulannealbnd(CostFunc,GradientSoln,[],[],options);
+        [Soln, Cost] = simulannealbnd(CostFunc,GradientSoln,lowerBound,upperBound,options);
     
     else
 
@@ -46,7 +53,7 @@ for i = 1:numCycles
         end
 
         %Run the simulated annealing, using the the initial guess / last solution as the new starting point
-        [Soln, Cost] = simulannealbnd(CostFunc,initialGuess,[],[],options);
+        [Soln, Cost] = simulannealbnd(CostFunc,initialGuess,lowerBound,upperBound,options);
     end
 
     %See how much the cost function has improved. Break if toleranceCycles exceeded without improvement in cost function
