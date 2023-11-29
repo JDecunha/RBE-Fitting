@@ -7,7 +7,7 @@ toleranceCycles = 200; %formerly 10
 
 %% Fit alpha and beta
 % I need to make it so that the cost function is the same as the ones I develop with my cost function
-
+%{
 %A 3d array to hold the experiments data
 CPUexperiments = [];
 
@@ -50,7 +50,7 @@ for  i = 1:size(experiments.SF,3)
     
 end
 betas = transpose(betas);
-
+%}
 %% Hardcode alpha-beta
 
 betas = [0.0565765885518575	0.0631351678220036	0.0663449068766847	0.0443661396582693	0.0241565637167338	0.00227631665482532	0.0568566343596296	0.0580051009568114	0.0616568454259627	0.0373835187846487	0.00663962849948634	0.00546595180740141];
@@ -62,11 +62,11 @@ betas = [0.0565765885518575	0.0631351678220036	0.0663449068766847	0.044366139658
 configCluster
 c = parcluster;
 
-c.AdditionalProperties.WallTime = '24:00';
+c.AdditionalProperties.WallTime = '108:00';
 c.AdditionalProperties.MemUsage = 16.;
 c.AdditionalProperties.GpusPerNode = 1;
 c.AdditionalProperties.GpuMemUsage = 16.;
-c.AdditionalProperties.QueueName = 'egpu-medium';
+c.AdditionalProperties.QueueName = 'gpu';
 c.AdditionalProperties.AdditionalSubmitArgs = '-n 10'; % -q egpu-medium -gpu num=1:gmem=16'; 
 c.saveProfile
 
