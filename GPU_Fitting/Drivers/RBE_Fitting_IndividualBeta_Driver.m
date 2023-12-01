@@ -8,7 +8,7 @@ GPUBuffer2 = gpuArray(zeros(size(experimentalData.BinCenter,1)-1,1));
 CostFunc = @(x) GPUCostFunction_IndividualBeta(x, nAlphaParams, experimentalData, penaltyWeight, cudaKernel, GPUBuffer, cudaPenaltyKernel, GPUBuffer2);
 
 %Set up the fitting options for annealing
-optionsGradientDescent = optimoptions('fminunc','Algorithm','quasi-newton');
+optionsGradientDescent = optimoptions('fmincon');
 optionsGradientDescent.MaxFunctionEvaluations = 1e6;
 
 %Set up options for simulated annealing
@@ -31,7 +31,7 @@ for i = 1:numCycles
     if gradientAssist == true   
 
         %Using hybrid approach, run gradient descent
-        [GradientSoln, GradientCost] = fminunc(CostFunc, initialGuess, optionsGradientDescent);
+        [GradientSoln, GradientCost] = fmincon(CostFunc, initialGuess, [], [], [], [], lowerBound, upperBound, [],   optionsGradientDescent);
 
         %Dynamically update the temperatures if it has been requested
         if dynamicTemp == true
