@@ -59,7 +59,7 @@ betas = [0.115511302813622	0.0806797846761335	0.0103870317654177	-0.070475590821
 %c = parcluster('Desktop-10700k');
 %c = parcluster('GA401');
 
-configCluster
+%configCluster
 c = parcluster;
 
 c.AdditionalProperties.WallTime = '48:00';

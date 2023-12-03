@@ -60,10 +60,10 @@ betas = [0.0281740256136273	0.0226969524647535	0.0255232782685447	0.036504567448
 %c = parcluster('Desktop-10700k');
 %c = parcluster('GA401');
 
-configCluster
+%configCluster
 c = parcluster;
 
-c.AdditionalProperties.WallTime = '108:00';
+c.AdditionalProperties.WallTime = '48:00';
 c.AdditionalProperties.MemUsage = 16.;
 c.AdditionalProperties.GpusPerNode = 1;
 c.AdditionalProperties.GpuMemUsage = 16.;
