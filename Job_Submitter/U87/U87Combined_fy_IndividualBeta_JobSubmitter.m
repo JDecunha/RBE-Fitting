@@ -215,7 +215,7 @@ gradientAssist = true;
 InitialGuess = [0.1, 0.1, 0.1, 0.1, 0.1,betas];
 InitialGuess = [2.19381475189951, -2.07226978685676, 2.94426613060515, -9.43886960069255, 0.1, 0.0548449358533546,0.0614286978700403,0.0608379933521566,0.0490706352480493,0.0348359029600647,0.0100922415828888,0.0540416901257096,0.0606960587257188,0.0680885357711681,0.0290679405325903,0.00246668320459871,5.68449018803215E-07];
 
-temps = [1, 1, 5, 5, 1];
+temps = [];
 
 batch(c, @Generic_BWF_IndividualBeta_RunScript, 1, {'skewGaussian_U87Combined_fy_individualbeta', "SkewGaussianBWF", 5, "SkewGaussianPenaltyFunction", filePaths, InitialGuess,  penaltyWeight, iterationsPerCyc, numCycles, toleranceCycles, dynamicTemp, gradientAssist, temps},'AutoAddClientPath',false,'CurrentFolder','/rsrch3/home/radphys_rsch/jdecunha/RBE-Fitting')
 

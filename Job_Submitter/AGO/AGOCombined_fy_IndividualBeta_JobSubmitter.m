@@ -53,7 +53,7 @@ end
 betas = transpose(betas);
 %}
 %% Hardcode alpha-beta
-betas = [0.115511302813622	0.0806797846761335	0.0103870317654177	-0.0704755908212221	-0.0113049847616823	-0.0712095819503400	0.116641038250929	0.0702698714388184	0.0440282728746121	0.0530727145970709	-0.00788720063161925	-0.113384891963237];
+betas = [0.115511302813622	0.0806797846761335	0.0103870317654177	0.0704755908212221	0.0113049847616823	0.0712095819503400	0.116641038250929	0.0702698714388184	0.0440282728746121	0.0530727145970709 0.0 0.0];
 
 %% Config for cluster
 %c = parcluster('Desktop-10700k');
@@ -62,11 +62,11 @@ betas = [0.115511302813622	0.0806797846761335	0.0103870317654177	-0.070475590821
 %configCluster
 c = parcluster;
 
-c.AdditionalProperties.WallTime = '48:00';
+c.AdditionalProperties.WallTime = '60:00';
 c.AdditionalProperties.MemUsage = 16.;
 c.AdditionalProperties.GpusPerNode = 1;
 c.AdditionalProperties.GpuMemUsage = 16.;
-c.AdditionalProperties.QueueName = 'gpu';
+c.AdditionalProperties.QueueName = 'egpu-medium';
 c.AdditionalProperties.AdditionalSubmitArgs = '-n 10' % -q egpu-medium -gpu num=1:gmem=16'; 
 c.saveProfile
 
