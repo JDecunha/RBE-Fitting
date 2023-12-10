@@ -206,10 +206,10 @@ batch(c, @Generic_BWF_IndividualBeta_RunScript, 1, {'skewGaussian_H1437_fy_indiv
 
 %% Morstin fitting
 %[11460.000000, 2.5*power(10,-6), 2.1*power(10,-5), 2.*power(10,-7), 0.1]; Default guess
-dynamicTemp = false;
+dynamicTemp = true;
 gradientAssist = true;
 
-InitialGuess = [11020.5773871293,6.22283507969785E-06,-6.99760771818165E-07,1.37863207449753E-07,0.0281773834109236,0.0227018062231596,0.0255194615029132,0.0365068920051629,0.0290235205408289,0.0284454559769801,0.030973636799138,0.0479567789032542,0.0361606016047543,0.081820356068728,0.118855297141842, 0.283928741];
-temps = [1000, 1e-3, 1e-3, 1e-5];
+InitialGuess = [7430,6.2228E-06,-50.9E-07,3.378E-07,0.45,betas];
+temps = []; %empty so we can use default temps %temps = [1000, 1e-3, 1e-3, 1e-5];
 
 batch(c, @Generic_BWF_IndividualBeta_RunScript, 1, {'morstin_H1437_fy_individualbeta', "MorstinBWF", 4, "MorstinPenaltyFunction", filePaths, InitialGuess,  penaltyWeight, iterationsPerCyc, numCycles, toleranceCycles, dynamicTemp, gradientAssist, temps},'AutoAddClientPath',false,'CurrentFolder','/rsrch3/home/radphys_rsch/jdecunha/RBE-Fitting')
