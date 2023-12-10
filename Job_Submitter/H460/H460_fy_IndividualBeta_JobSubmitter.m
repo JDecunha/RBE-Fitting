@@ -62,11 +62,11 @@ betas = [0.103759974936465	0.115325390701951	0.109776946319893	0.122902727249570
 %configCluster
 c = parcluster;
 
-c.AdditionalProperties.WallTime = '48:00';
+c.AdditionalProperties.WallTime = '60:00';
 c.AdditionalProperties.MemUsage = 16.;
 c.AdditionalProperties.GpusPerNode = 1;
 c.AdditionalProperties.GpuMemUsage = 16.;
-c.AdditionalProperties.QueueName = 'gpu';
+c.AdditionalProperties.QueueName = 'egpu-medium';
 c.AdditionalProperties.AdditionalSubmitArgs = '-n 10' % -q egpu-medium -gpu num=1:gmem=16'; 
 c.saveProfile
 
