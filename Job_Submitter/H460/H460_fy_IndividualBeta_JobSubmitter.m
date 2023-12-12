@@ -212,4 +212,4 @@ gradientAssist = true;
 InitialGuess = [7430,6.2228E-06,-50.9E-07,3.378E-07,0.45,betas];
 temps = []; %empty so we can use default temps %temps = [1000, 1e-3, 1e-3, 1e-5];
 
-batch(c, @Generic_BWF_IndividualBeta_RunScript, 1, {'morstin_H460_fy_individualbeta', "MorstinBWF", 4, "MorstinPenaltyFunction", filePaths, InitialGuess,  penaltyWeight, iterationsPerCyc, numCycles, toleranceCycles, dynamicTemp, gradientAssist, temps},'AutoAddClientPath',false,'CurrentFolder','/rsrch3/home/radphys_rsch/jdecunha/RBE-Fitting')
+batch(c, @Generic_BWF_IndividualBeta_RunScript, 1, {'morstin_H460_fy_individualbeta', "MorstinBWF", 5, "MorstinPenaltyFunction", filePaths, InitialGuess,  penaltyWeight, iterationsPerCyc, numCycles, toleranceCycles, dynamicTemp, gradientAssist, temps},'AutoAddClientPath',false,'CurrentFolder','/rsrch3/home/radphys_rsch/jdecunha/RBE-Fitting')

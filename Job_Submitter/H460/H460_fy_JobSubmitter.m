@@ -160,7 +160,7 @@ dynamicTemp = true;
 gradientAssist = false;
 
 %This guess is based on H460-LQE
-InitialGuess = [18000, 600*power(10,-6), -51*power(10,-5), 3.3786*power(10,-7), -10];
+InitialGuess = [18000, 600*power(10,-6), -51*power(10,-5), 3.3786*power(10,-7), -10, 0.1];
 temps = [];
 
 batch(c, @Generic_BWF_RunScript, 1, {'morstin_H460_fy', "MorstinBWF", "MorstinPenaltyFunction", filePaths, InitialGuess, penaltyWeight, iterationsPerCyc, numCycles, toleranceCycles, dynamicTemp, gradientAssist, temps},'AutoAddClientPath',false,'CurrentFolder','/rsrch3/home/radphys_rsch/jdecunha/RBE-Fitting')
