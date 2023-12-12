@@ -120,7 +120,7 @@ fprintf("Name: %s \n", job_output{1, 1}{1,2}{1});
 fprintf("Number of iterations: %d \n\n", job_output{1, 1}{1,1}{4});
 
 startingJobNum = startingJobNum + 1;
-job = findJob(myCluster, 'ID', startingJobNum);
+job = findJob(myCluster, 'ID', 126);
 job_output = fetchOutputs(job);
 U87_fy_predeterminedbeta_output{14,1} = job_output{1,1}{1,2}{1};
 U87_fy_predeterminedbeta_output{14,2} = job_output{1,1}{1,1}{2};
@@ -129,7 +129,7 @@ fprintf("Name: %s \n", job_output{1, 1}{1,2}{1});
 fprintf("Number of iterations: %d \n\n", job_output{1, 1}{1,1}{4});
 
 startingJobNum = startingJobNum + 1;
-job = findJob(myCluster, 'ID', startingJobNum);
+job = findJob(myCluster, 'ID', 127);
 job_output = fetchOutputs(job);
 U87_fy_predeterminedbeta_output{15,1} = job_output{1,1}{1,2}{1};
 U87_fy_predeterminedbeta_output{15,2} = job_output{1,1}{1,1}{2};
@@ -137,4 +137,4 @@ U87_fy_predeterminedbeta_output{15,3} = job_output{1,1}{1,1}{1};
 fprintf("Name: %s \n", job_output{1, 1}{1,2}{1});
 fprintf("Number of iterations: %d \n\n", job_output{1, 1}{1,1}{4});
 
-writecell(U87_fy_predeterminedbeta_output,"U87_fy_individualbeta_cluster2.csv")
+writecell(U87_fy_predeterminedbeta_output,"U87_fy_individualbeta_cluster.csv")

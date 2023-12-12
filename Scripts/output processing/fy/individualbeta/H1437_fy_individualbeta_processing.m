@@ -102,7 +102,7 @@ fprintf("Name: %s \n", job_output{1, 1}{1,2}{1});
 fprintf("Number of iterations: %d \n\n", job_output{1, 1}{1,1}{4});
 
 startingJobNum = startingJobNum + 1;
-job = findJob(myCluster, 'ID', startingJobNum);
+job = findJob(myCluster, 'ID', 120);
 job_output = fetchOutputs(job);
 H1437_fy_predeterminedbeta_output{12,1} = job_output{1,1}{1,2}{1};
 H1437_fy_predeterminedbeta_output{12,2} = job_output{1,1}{1,1}{2};
@@ -111,7 +111,7 @@ fprintf("Name: %s \n", job_output{1, 1}{1,2}{1});
 fprintf("Number of iterations: %d \n\n", job_output{1, 1}{1,1}{4});
 
 startingJobNum = startingJobNum + 1;
-job = findJob(myCluster, 'ID', startingJobNum);
+job = findJob(myCluster, 'ID', 121);
 job_output = fetchOutputs(job);
 H1437_fy_predeterminedbeta_output{13,1} = job_output{1,1}{1,2}{1};
 H1437_fy_predeterminedbeta_output{13,2} = job_output{1,1}{1,1}{2};
@@ -129,7 +129,7 @@ fprintf("Name: %s \n", job_output{1, 1}{1,2}{1});
 fprintf("Number of iterations: %d \n\n", job_output{1, 1}{1,1}{4});
 
 startingJobNum = startingJobNum + 1;
-job = findJob(myCluster, 'ID', startingJobNum);
+job = findJob(myCluster, 'ID', 122);
 job_output = fetchOutputs(job);
 H1437_fy_predeterminedbeta_output{15,1} = job_output{1,1}{1,2}{1};
 H1437_fy_predeterminedbeta_output{15,2} = job_output{1,1}{1,1}{2};
