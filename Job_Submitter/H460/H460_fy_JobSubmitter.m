@@ -159,7 +159,8 @@ batch(c, @Generic_BWF_RunScript, 1, {'skewGaussian_H460_fy', "SkewGaussianBWF", 
 dynamicTemp = true;
 gradientAssist = false;
 
-InitialGuess = [11460.000000, 2.5*power(10,-6), 2.1*power(10,-5), 2.*power(10,-7), 0.1];
+%This guess is based on H460-LQE
+InitialGuess = [18000, 600*power(10,-6), -51*power(10,-5), 3.3786*power(10,-7), -10];
 temps = [];
 
 batch(c, @Generic_BWF_RunScript, 1, {'morstin_H460_fy', "MorstinBWF", "MorstinPenaltyFunction", filePaths, InitialGuess, penaltyWeight, iterationsPerCyc, numCycles, toleranceCycles, dynamicTemp, gradientAssist, temps},'AutoAddClientPath',false,'CurrentFolder','/rsrch3/home/radphys_rsch/jdecunha/RBE-Fitting')
