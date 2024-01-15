@@ -1,5 +1,5 @@
 %% Configure the script
-filePaths = ["H460_fy/a.csv", "H460_fy/b.csv" , "H460_fy/c.csv", "H460_fy/d.csv", "H460_fy/e.csv", "H460_fy/f.csv", "H460_fy/g.csv", "H460_fy/h.csv", "H460_fy/i.csv", "H460_fy/j.csv" , "H460_fy/k.csv" , "H460_fy/l.csv"];
+filePaths = ["H1437_dy/a.csv", "H1437_dy/b.csv" , "H1437_dy/c.csv", "H1437_dy/d.csv", "H1437_dy/e.csv", "H1437_dy/f.csv", "H1437_dy/g.csv", "H1437_dy/h.csv", "H1437_dy/i.csv", "H1437_dy/j.csv" , "H1437_dy/k.csv" , "H1437_dy/l.csv"];
 penaltyWeight = 0.; %typically make my penalty 30 when it's activated
 iterationsPerCyc = 1000000;
 numCycles = 2000; %formerly 250

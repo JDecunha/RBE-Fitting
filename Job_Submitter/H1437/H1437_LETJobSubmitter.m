@@ -1,32 +1,42 @@
 %% Configure the script
-filePaths = ["H1437_dy/a.csv", "H1437_dy/b.csv" , "H1437_dy/c.csv", "H1437_dy/d.csv", "H1437_dy/e.csv", "H1437_dy/f.csv", "H1437_dy/g.csv", "H1437_dy/h.csv", "H1437_dy/i.csv", "H1437_dy/j.csv" , "H1437_dy/k.csv" , "H1437_dy/l.csv"];
+filePaths = ["H1437_fy/a.csv", "H1437_fy/b.csv" , "H1437_fy/c.csv", "H1437_fy/d.csv", "H1437_fy/e.csv", "H1437_fy/f.csv", "H1437_fy/g.csv", "H1437_fy/h.csv", "H1437_fy/i.csv", "H1437_fy/j.csv" , "H1437_fy/k.csv" , "H1437_fy/l.csv"];
 penaltyWeight = 0.; %typically make my penalty 30 when it's activated
-iterationsPerCyc = 250000;
-numCycles = 250;
-toleranceCycles = 10;
+iterationsPerCyc = 1000000;
+numCycles = 2000; %formerly 250
+toleranceCycles = 400; %formerly 10
 
-%%
-c = parcluster('Desktop-10700k');
+%% Config for cluster
+%c = parcluster('Desktop-10700k');
 %c = parcluster('GA401');
 
+%configCluster
+c = parcluster;
+
+c.AdditionalProperties.WallTime = '72:00';
+c.AdditionalProperties.MemUsage = 16.;
+c.AdditionalProperties.GpusPerNode = 1;
+c.AdditionalProperties.GpuMemUsage = 16.;
+c.AdditionalProperties.QueueName = 'egpu-medium';
+c.AdditionalProperties
+
 %% Linear Fitting
-dynamicTemp = false;
+dynamicTemp = true;
 gradientAssist = true;
 temps = [];
 
 InitialGuess = [0.1,0.1,0.1];
 
-batch(c, @RunScript_LETFixedBeta, 1, {'linear_H1437_FixedBeta_LETAnnealing', "LinearBWF", filePaths, InitialGuess,  iterationsPerCyc, numCycles, toleranceCycles, dynamicTemp, gradientAssist, temps});
+batch(c, @RunScript_LETFixedBeta, 1, {'linear_H1437_SingleBeta_LETAnnealing', "LinearBWF", filePaths, InitialGuess,  iterationsPerCyc, numCycles, toleranceCycles, dynamicTemp, gradientAssist, temps},'AutoAddClientPath',false,'CurrentFolder','/rsrch3/home/radphys_rsch/jdecunha/RBE-Fitting');
 
 
 %% Quadratic Fitting
-dynamicTemp = false;
+dynamicTemp = true;
 gradientAssist = true;
 temps = [];
 
 InitialGuess = [0.1,0.1,0.1,0.1];
 
-batch(c, @RunScript_LETFixedBeta, 1, {'quadratic_H1437_FixedBeta_LETAnnealing', "QuadraticBWF", filePaths, InitialGuess,  iterationsPerCyc, numCycles, toleranceCycles, dynamicTemp, gradientAssist, temps});
+batch(c, @RunScript_LETFixedBeta, 1, {'quadratic_H1437_SingleBeta_LETAnnealing', "QuadraticBWF", filePaths, InitialGuess,  iterationsPerCyc, numCycles, toleranceCycles, dynamicTemp, gradientAssist, temps},'AutoAddClientPath',false,'CurrentFolder','/rsrch3/home/radphys_rsch/jdecunha/RBE-Fitting');
 
 
 %% Cubic Fitting
@@ -36,7 +46,7 @@ temps = [];
 
 InitialGuess = [0.1,0.1,0.1,0.1,0.1];
 
-batch(c, @RunScript_LETFixedBeta, 1, {'cubic_H1437_FixedBeta_LETAnnealing', "CubicBWF", filePaths, InitialGuess,  iterationsPerCyc, numCycles, toleranceCycles, dynamicTemp, gradientAssist, temps});
+batch(c, @RunScript_LETFixedBeta, 1, {'cubic_H1437_SingleBeta_LETAnnealing', "CubicBWF", filePaths, InitialGuess,  iterationsPerCyc, numCycles, toleranceCycles, dynamicTemp, gradientAssist, temps},'AutoAddClientPath',false,'CurrentFolder','/rsrch3/home/radphys_rsch/jdecunha/RBE-Fitting');
 
 
 %% Fourth Fitting
@@ -46,7 +56,7 @@ temps = [];
 
 InitialGuess = [0.1,0.1,0.1,0.1,0.1,0.1];
 
-batch(c, @RunScript_LETFixedBeta, 1, {'fourth_H1437_FixedBeta_LETAnnealing', "FourthBWF", filePaths, InitialGuess,  iterationsPerCyc, numCycles, toleranceCycles, dynamicTemp, gradientAssist, temps});
+batch(c, @RunScript_LETFixedBeta, 1, {'fourth_H1437_SingleBeta_LETAnnealing', "FourthBWF", filePaths, InitialGuess,  iterationsPerCyc, numCycles, toleranceCycles, dynamicTemp, gradientAssist, temps},'AutoAddClientPath',false,'CurrentFolder','/rsrch3/home/radphys_rsch/jdecunha/RBE-Fitting');
 
 
 %% Fifth Fitting
@@ -56,95 +66,95 @@ temps = [];
 
 InitialGuess = [0.1,0.1,0.1,0.1,0.1,0.1,0.1];
 
-batch(c, @RunScript_LETFixedBeta, 1, {'fifth_H1437_FixedBeta_LETAnnealing', "FifthBWF", filePaths, InitialGuess,  iterationsPerCyc, numCycles, toleranceCycles, dynamicTemp, gradientAssist, temps});
+batch(c, @RunScript_LETFixedBeta, 1, {'fifth_H1437_SingleBeta_LETAnnealing', "FifthBWF", filePaths, InitialGuess,  iterationsPerCyc, numCycles, toleranceCycles, dynamicTemp, gradientAssist, temps},'AutoAddClientPath',false,'CurrentFolder','/rsrch3/home/radphys_rsch/jdecunha/RBE-Fitting');
 
 %% Q
-dynamicTemp = false;
+dynamicTemp = true;
 gradientAssist = true;
 temps = [];
 
 InitialGuess = [0.1,0.1,0.1]; %Q, 2 params + beta
 
-batch(c, @RunScript_LETFixedBeta, 1, {'Q_H1437_FixedBeta_LETAnnealing', "QBWF", filePaths, InitialGuess,  iterationsPerCyc, numCycles, toleranceCycles, dynamicTemp, gradientAssist, temps});
+batch(c, @RunScript_LETFixedBeta, 1, {'Q_H1437_SingleBeta_LETAnnealing', "QBWF", filePaths, InitialGuess,  iterationsPerCyc, numCycles, toleranceCycles, dynamicTemp, gradientAssist, temps},'AutoAddClientPath',false,'CurrentFolder','/rsrch3/home/radphys_rsch/jdecunha/RBE-Fitting');
 
 %% QE
-dynamicTemp = false;
+dynamicTemp = true;
 gradientAssist = true;
 temps = [];
 
 InitialGuess = [0.1,0.1,0.1,0.1]; %QE, 3 params + beta
 
-batch(c, @RunScript_LETFixedBeta, 1, {'QE_H1437_FixedBeta_LETAnnealing', "QEBWF", filePaths, InitialGuess,  iterationsPerCyc, numCycles, toleranceCycles, dynamicTemp, gradientAssist, temps});
+batch(c, @RunScript_LETFixedBeta, 1, {'QE_H1437_SingleBeta_LETAnnealing', "QEBWF", filePaths, InitialGuess,  iterationsPerCyc, numCycles, toleranceCycles, dynamicTemp, gradientAssist, temps},'AutoAddClientPath',false,'CurrentFolder','/rsrch3/home/radphys_rsch/jdecunha/RBE-Fitting');
 
 %% QE2
-dynamicTemp = false;
+dynamicTemp = true;
 gradientAssist = true;
 temps = [];
 
 InitialGuess = [0.1,0.1,0.1,0.1]; %QE2, 3 params + beta
 
-batch(c, @RunScript_LETFixedBeta, 1, {'QE2_H1437_FixedBeta_LETAnnealing', "QE2BWF", filePaths, InitialGuess,  iterationsPerCyc, numCycles, toleranceCycles, dynamicTemp, gradientAssist, temps});
+batch(c, @RunScript_LETFixedBeta, 1, {'QE2_H1437_SingleBeta_LETAnnealing', "QE2BWF", filePaths, InitialGuess,  iterationsPerCyc, numCycles, toleranceCycles, dynamicTemp, gradientAssist, temps},'AutoAddClientPath',false,'CurrentFolder','/rsrch3/home/radphys_rsch/jdecunha/RBE-Fitting');
 
 %% LE
-dynamicTemp = false;
+dynamicTemp = true;
 gradientAssist = true;
 temps = [];
 
 InitialGuess = [0.1,0.1,0.1,0.1]; %LE, 3 params + beta
 
-batch(c, @RunScript_LETFixedBeta, 1, {'LE_H1437_FixedBeta_LETAnnealing', "LEBWF", filePaths, InitialGuess,  iterationsPerCyc, numCycles, toleranceCycles, dynamicTemp, gradientAssist, temps});
+batch(c, @RunScript_LETFixedBeta, 1, {'LE_H1437_SingleBeta_LETAnnealing', "LEBWF", filePaths, InitialGuess,  iterationsPerCyc, numCycles, toleranceCycles, dynamicTemp, gradientAssist, temps},'AutoAddClientPath',false,'CurrentFolder','/rsrch3/home/radphys_rsch/jdecunha/RBE-Fitting');
 
 %% LQE
-dynamicTemp = false;
+dynamicTemp = true;
 gradientAssist = true;
 temps = [];
 
 InitialGuess = [0.1,0.1,0.1,0.1,0.1]; %LQE, 4 params + beta
 
-batch(c, @RunScript_LETFixedBeta, 1, {'LQE_H1437_FixedBeta_LETAnnealing', "LQEBWF", filePaths, InitialGuess,  iterationsPerCyc, numCycles, toleranceCycles, dynamicTemp, gradientAssist, temps});
+batch(c, @RunScript_LETFixedBeta, 1, {'LQE_H1437_SingleBeta_LETAnnealing', "LQEBWF", filePaths, InitialGuess,  iterationsPerCyc, numCycles, toleranceCycles, dynamicTemp, gradientAssist, temps},'AutoAddClientPath',false,'CurrentFolder','/rsrch3/home/radphys_rsch/jdecunha/RBE-Fitting');
 
 %% LE2
-dynamicTemp = false;
+dynamicTemp = true;
 gradientAssist = true;
 temps = [];
 
 InitialGuess = [0.1,0.1,0.1,0.1,0.1,0.1,0.1];
 
-batch(c, @RunScript_LETFixedBeta, 1, {'LE2_H1437_FixedBeta_LETAnnealing', "LE2BWF", filePaths, InitialGuess,  iterationsPerCyc, numCycles, toleranceCycles, dynamicTemp, gradientAssist, temps});
+batch(c, @RunScript_LETFixedBeta, 1, {'LE2_H1437_SingleBeta_LETAnnealing', "LE2BWF", filePaths, InitialGuess,  iterationsPerCyc, numCycles, toleranceCycles, dynamicTemp, gradientAssist, temps},'AutoAddClientPath',false,'CurrentFolder','/rsrch3/home/radphys_rsch/jdecunha/RBE-Fitting');
 
 %% LQE2
-dynamicTemp = false;
+dynamicTemp = true;
 gradientAssist = true;
 temps = [];
 
 InitialGuess = [0.1,0.1,0.1,0.1,0.1]; %LQE2, 4 params + beta
 
-batch(c, @RunScript_LETFixedBeta, 1, {'LQE2_H1437_FixedBeta_LETAnnealing', "LQE2BWF", filePaths, InitialGuess,  iterationsPerCyc, numCycles, toleranceCycles, dynamicTemp, gradientAssist, temps});
+batch(c, @RunScript_LETFixedBeta, 1, {'LQE2_H1437_SingleBeta_LETAnnealing', "LQE2BWF", filePaths, InitialGuess,  iterationsPerCyc, numCycles, toleranceCycles, dynamicTemp, gradientAssist, temps},'AutoAddClientPath',false,'CurrentFolder','/rsrch3/home/radphys_rsch/jdecunha/RBE-Fitting');
 
 %% Gaussian Fitting
-dynamicTemp = false;
+dynamicTemp = true;
 gradientAssist = true;
 
 InitialGuess = [0.1, 0.1, 0.1, 0.1, 0.1]; %Morstin inspired guess
-temps = [1, 5, 10, 10, 0.05];
+temps = [];
 
-batch(c, @RunScript_LETFixedBeta, 1, {'gaussian_H1437_FixedBeta_LETAnnealing', "GaussianBWF", filePaths, InitialGuess,  iterationsPerCyc, numCycles, toleranceCycles, dynamicTemp, gradientAssist, temps})
+batch(c, @RunScript_LETFixedBeta, 1, {'gaussian_H1437_SingleBeta_LETAnnealing', "GaussianBWF", filePaths, InitialGuess,  iterationsPerCyc, numCycles, toleranceCycles, dynamicTemp, gradientAssist, temps},'AutoAddClientPath',false,'CurrentFolder','/rsrch3/home/radphys_rsch/jdecunha/RBE-Fitting')
 
 %% Skew Gaussian Fitting
-dynamicTemp = false;
+dynamicTemp = true;
 gradientAssist = true;
 
 InitialGuess = [0.1, 0.1, 0.1, 0.1, 0.1, 0.1];
-temps = [1, 1, 5, 5, 1, 0.05];
+temps = [];
 
-batch(c, @RunScript_LETFixedBeta, 1, {'skewGaussian_H1437_FixedBeta_LETAnnealing', "SkewGaussianBWF",  filePaths, InitialGuess,  iterationsPerCyc, numCycles, toleranceCycles, dynamicTemp, gradientAssist, temps})
+batch(c, @RunScript_LETFixedBeta, 1, {'skewGaussian_H1437_SingleBeta_LETAnnealing', "SkewGaussianBWF",  filePaths, InitialGuess,  iterationsPerCyc, numCycles, toleranceCycles, dynamicTemp, gradientAssist, temps},'AutoAddClientPath',false,'CurrentFolder','/rsrch3/home/radphys_rsch/jdecunha/RBE-Fitting')
 
 %% Morstin fitting
 %[11460.000000, 2.5*power(10,-6), 2.1*power(10,-5), 2.*power(10,-7), 0.1]; Default guess
-dynamicTemp = false;
+dynamicTemp = true;
 gradientAssist = true;
 
-InitialGuess = [11460.000000, 2.5*power(10,-6), 2.1*power(10,-5), 2.*power(10,-7), 0.1];
-temps = [1000, 1e-3, 1e-3, 1e-5, 0.1];
+InitialGuess = [9700, 60*power(10,-6), -11*power(10,-7), 1.67*power(10,-7), 0.1];
+temps = [];
 
-batch(c, @RunScript_LETFixedBeta, 1, {'morstin_H1437_FixedBeta_LETAnnealing', "MorstinBWF", filePaths, InitialGuess,  iterationsPerCyc, numCycles, toleranceCycles, dynamicTemp, gradientAssist, temps})
+batch(c, @RunScript_LETFixedBeta, 1, {'morstin_H1437_SingleBeta_LETAnnealing', "MorstinBWF", filePaths, InitialGuess,  iterationsPerCyc, numCycles, toleranceCycles, dynamicTemp, gradientAssist, temps},'AutoAddClientPath',false,'CurrentFolder','/rsrch3/home/radphys_rsch/jdecunha/RBE-Fitting')
