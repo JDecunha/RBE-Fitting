@@ -7,8 +7,9 @@ GPUBuffer = gpuArray(zeros(1,1));
 CostFunc = @(x) LETFixedBetaCostFunction(x, experimentalData, cudaKernel, GPUBuffer);
 
 %Set up the fitting options for gradient descent
-optionsGradientDescent = optimoptions('fminunc','Algorithm','quasi-newton');
-optionsGradientDescent.MaxFunctionEvaluations = 1e6;
+optionsGradientDescent = optimoptions('fmincon','MaxFunctionEvaluations',1e6);
+lowerBounds = zeros(size(initialGuess,1),1);
+lowerBounds(1:end-1) = -inf;
 
 %Set up options for simulated annealing
 options = optimoptions(@simulannealbnd);
@@ -23,7 +24,7 @@ for i = 1:numCycles
     if gradientAssist == true   
 
         %Using hybrid approach, run gradient descent
-        [GradientSoln, GradientCost] = fminunc(CostFunc, initialGuess, optionsGradientDescent);
+        [GradientSoln, GradientCost] = fmincon(CostFunc,initialGuess,[],[],[],[],lowerBounds,[],[],optionsGradientDescent);
 
         %Dynamically update the temperatures if it has been requested
         if dynamicTemp == true
@@ -33,7 +34,7 @@ for i = 1:numCycles
         end
 
         %Run the simulated annealing, using the gradient descent solution as the new starting point
-        [Soln, Cost] = simulannealbnd(CostFunc,GradientSoln,[],[],options);
+        [Soln, Cost] = simulannealbnd(CostFunc,GradientSoln,lowerBounds,[],options);
     
     else
 
@@ -45,7 +46,7 @@ for i = 1:numCycles
         end
 
         %Run the simulated annealing, using the the initial guess / last solution as the new starting point
-        [Soln, Cost] = simulannealbnd(CostFunc,initialGuess,[],[],options);
+        [Soln, Cost] = simulannealbnd(CostFunc,initialGuess,lowerBounds,[],options);
     end
 
     %See how much the cost function has improved. Break if toleranceCycles exceeded without improvement in cost function
