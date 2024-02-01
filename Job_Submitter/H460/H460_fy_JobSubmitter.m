@@ -1,8 +1,8 @@
 %% Configure the script
 filePaths = ["H460_fy/a.csv", "H460_fy/b.csv" , "H460_fy/c.csv", "H460_fy/d.csv", "H460_fy/e.csv", "H460_fy/f.csv", "H460_fy/g.csv", "H460_fy/h.csv", "H460_fy/i.csv", "H460_fy/j.csv" , "H460_fy/k.csv" , "H460_fy/l.csv"];
 penaltyWeight = 0.; %typically make my penalty 30 when it's activated
-iterationsPerCyc = 1000000;
-numCycles = 2000; %formerly 250
+iterationsPerCyc = 1;
+numCycles = 1; %formerly 250
 toleranceCycles = 400; %formerly 10
 
 %% Hardcode alpha-beta
@@ -212,4 +212,5 @@ gradientAssist = false;
 InitialGuess = [18000, 600*power(10,-6), -150*power(10,-7), 8.37*power(10,-7), -10, 0.1];
 temps = [];
 
-batch(c, @Generic_BWF_RunScript, 1, {'morstin_H460_fy', "MorstinBWF", "MorstinPenaltyFunction", filePaths, InitialGuess, penaltyWeight, iterationsPerCyc, numCycles, toleranceCycles, dynamicTemp, gradientAssist, temps},'AutoAddClientPath',false,'CurrentFolder','/rsrch3/home/radphys_rsch/jdecunha/RBE-Fitting')
+%batch(c, @Generic_BWF_RunScript, 1, {'morstin_H460_fy', "MorstinBWF", "MorstinPenaltyFunction", filePaths, InitialGuess, penaltyWeight, iterationsPerCyc, numCycles, toleranceCycles, dynamicTemp, gradientAssist, temps},'AutoAddClientPath',false,'CurrentFolder','/rsrch3/home/radphys_rsch/jdecunha/RBE-Fitting')
+Generic_BWF_RunScript('morstin_H460_fy', "MorstinBWF", "MorstinPenaltyFunction", filePaths, InitialGuess, penaltyWeight, iterationsPerCyc, numCycles, toleranceCycles, dynamicTemp, gradientAssist, temps)
