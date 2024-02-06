@@ -2,7 +2,7 @@
 filePaths = ["AGO_pristine_fy/1.1.csv","AGO_pristine_fy/3.9.csv","AGO_pristine_fy/6.7.csv","AGO_pristine_fy/11.6.csv","AGO_pristine_fy/17.7.csv","AGO_pristine_fy/22.5.csv", "AGO_SOBP_fy/1.27.csv","AGO_SOBP_fy/3.csv","AGO_SOBP_fy/4.4.csv","AGO_SOBP_fy/13.7.csv","AGO_SOBP_fy/20.9.csv","AGO_SOBP_fy/25.4.csv"];
 penaltyWeight = 0.; %typically make my penalty 30 when it's activated
 iterationsPerCyc = 1000000;
-numCycles = 2000; %formerly 250
+numCycles = 4000; %formerly 250
 toleranceCycles = 400; %formerly 10
 
 %% Config for cluster
