@@ -8,7 +8,7 @@ CostFunc = @(x) LETFixedBetaCostFunction(x, experimentalData, cudaKernel, GPUBuf
 
 %Set up the fitting options for gradient descent
 optionsGradientDescent = optimoptions('fmincon','MaxFunctionEvaluations',1e6);
-lowerBounds = zeros(size(initialGuess,1),1);
+lowerBounds = zeros(1,size(initialGuess,2));
 lowerBounds(1:end-1) = -inf;
 
 %Set up options for simulated annealing

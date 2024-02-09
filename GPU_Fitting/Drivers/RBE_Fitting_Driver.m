@@ -9,7 +9,7 @@ CostFunc = @(x) GPUCostFunction(x, experimentalData, penaltyWeight, cudaKernel, 
 
 %Set up the fitting options for annealing
 optionsGradientDescent = optimoptions('fmincon','MaxFunctionEvaluations',1e6);
-lowerBounds = zeros(size(initialGuess,1),1);
+lowerBounds = zeros(1,size(initialGuess,2));
 lowerBounds(1:end-1) = -inf;
 
 %Set up options for simulated annealing

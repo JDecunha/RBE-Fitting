@@ -137,4 +137,4 @@ AGO_Pristine_LETd_output{15,3} = job_output{1,1}{1,1}{1};
 fprintf("Name: %s \n", job_output{1, 1}{1,2}{1});
 fprintf("Number of iterations: %d \n\n", job_output{1, 1}{1,1}{3});
 
-writecell(AGO_Pristine_LETd_output,"AGO_Pristine_LETd.csv")
+writecell(AGO_Pristine_LETd_output,"AGO_Combined_LETd.csv")
