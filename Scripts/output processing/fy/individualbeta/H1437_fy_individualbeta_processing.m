@@ -137,4 +137,4 @@ H1437_fy_predeterminedbeta_output{15,3} = job_output{1,1}{1,1}{1};
 fprintf("Name: %s \n", job_output{1, 1}{1,2}{1});
 fprintf("Number of iterations: %d \n\n", job_output{1, 1}{1,1}{4});
 
-writecell(H1437_fy_predeterminedbeta_output,"H1437_fy_individualbeta_cluster2.csv")
+writecell(H1437_fy_predeterminedbeta_output,"H1437_fy_individualbeta_cluster.csv")

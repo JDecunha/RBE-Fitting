@@ -1,6 +1,6 @@
 %% Create the empty array
 H460_fy_output = cell(15,3);
-startingJobNum = 203;
+startingJobNum = 233;
 
 %% Pull the data
 job = findJob(myCluster, 'ID', startingJobNum);
@@ -30,7 +30,7 @@ fprintf("Name: %s \n", job_output{1, 1}{1,2}{1});
 fprintf("Number of iterations: %d \n\n", job_output{1, 1}{1,1}{3});
 
 startingJobNum = startingJobNum + 1;
-job = findJob(myCluster, 'ID', 272);
+job = findJob(myCluster, 'ID', startingJobNum);
 job_output = fetchOutputs(job);
 H460_fy_output{4,1} = job_output{1,1}{1,2}{1};
 H460_fy_output{4,2} = job_output{1,1}{1,1}{2};
@@ -137,4 +137,4 @@ H460_fy_output{15,3} = job_output{1,1}{1,1}{1};
 fprintf("Name: %s \n", job_output{1, 1}{1,2}{1});
 fprintf("Number of iterations: %d \n\n", job_output{1, 1}{1,1}{3});
 
-writecell(H460_fy_output,"AGO_LETd_cluster.csv")
+writecell(H460_fy_output,"H460_LETd_cluster.csv")

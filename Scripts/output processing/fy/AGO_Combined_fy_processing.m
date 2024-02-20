@@ -1,9 +1,9 @@
 %% Create the empty array
 H460_fy_output = cell(15,3);
-startingJobNum = 339;
+startingJobNum = 354;
 
 %% Pull the data
-job = findJob(myCluster, 'ID', startingJobNum);
+job = findJob(myCluster, 'ID', 387);
 job_output = fetchOutputs(job);
 H460_fy_output{1,1} = job_output{1,1}{1,2}{1};
 H460_fy_output{1,2} = job_output{1,1}{1,1}{2};
@@ -75,7 +75,7 @@ fprintf("Name: %s \n", job_output{1, 1}{1,2}{1});
 fprintf("Number of iterations: %d \n\n", job_output{1, 1}{1,1}{4});
 
 startingJobNum = startingJobNum + 1;
-job = findJob(myCluster, 'ID', startingJobNum);
+job = findJob(myCluster, 'ID', 388);
 job_output = fetchOutputs(job);
 H460_fy_output{9,1} = job_output{1,1}{1,2}{1};
 H460_fy_output{9,2} = job_output{1,1}{1,1}{2};
@@ -137,4 +137,4 @@ H460_fy_output{15,3} = job_output{1,1}{1,1}{1};
 fprintf("Name: %s \n", job_output{1, 1}{1,2}{1});
 fprintf("Number of iterations: %d \n\n", job_output{1, 1}{1,1}{4});
 
-writecell(H460_fy_output,"AGO_combined_fy_singlebeta_cluster.csv")
+writecell(H460_fy_output,"AGO_combined_fy_singlebeta_cluster_Feb14_2024.csv")

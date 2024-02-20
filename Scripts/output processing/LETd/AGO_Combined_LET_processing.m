@@ -1,9 +1,9 @@
 %% Create the empty array
 AGO_Pristine_LETd_output = cell(15,3);
-startingJobNum = 294;
+startingJobNum = 369;
 
 %% AGO Pristine
-job = findJob(myCluster, 'ID', startingJobNum);
+job = findJob(myCluster, 'ID', 389);
 job_output = fetchOutputs(job);
 AGO_Pristine_LETd_output{1,1} = job_output{1,1}{1,2}{1};
 AGO_Pristine_LETd_output{1,2} = job_output{1,1}{1,1}{2};
@@ -75,7 +75,7 @@ fprintf("Name: %s \n", job_output{1, 1}{1,2}{1});
 fprintf("Number of iterations: %d \n\n", job_output{1, 1}{1,1}{3});
 
 startingJobNum = startingJobNum + 1;
-job = findJob(myCluster, 'ID', startingJobNum);
+job = findJob(myCluster, 'ID', 390);
 job_output = fetchOutputs(job);
 AGO_Pristine_LETd_output{9,1} = job_output{1,1}{1,2}{1};
 AGO_Pristine_LETd_output{9,2} = job_output{1,1}{1,1}{2};
@@ -84,7 +84,7 @@ fprintf("Name: %s \n", job_output{1, 1}{1,2}{1});
 fprintf("Number of iterations: %d \n\n", job_output{1, 1}{1,1}{3});
 
 startingJobNum = startingJobNum + 1;
-job = findJob(myCluster, 'ID', startingJobNum);
+job = findJob(myCluster, 'ID', 391);
 job_output = fetchOutputs(job);
 AGO_Pristine_LETd_output{10,1} = job_output{1,1}{1,2}{1};
 AGO_Pristine_LETd_output{10,2} = job_output{1,1}{1,1}{2};
