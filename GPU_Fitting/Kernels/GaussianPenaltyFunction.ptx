@@ -6,7 +6,7 @@
 // Based on NVVM 7.0.1
 //
 
-.version 7.7
+.version 7.8
 .target sm_35
 .address_size 64
 
@@ -24,43 +24,43 @@
 	.reg .pred 	%p<7>;
 	.reg .f32 	%f<3>;
 	.reg .b32 	%r<29>;
-	.reg .f64 	%fd<59>;
-	.reg .b64 	%rd<21>;
+	.reg .f64 	%fd<58>;
+	.reg .b64 	%rd<20>;
 
 
-	ld.param.u64 	%rd9, [_Z23GaussianPenaltyFunctionPKdS0_PKiS0_PdS3__param_0];
-	ld.param.u64 	%rd10, [_Z23GaussianPenaltyFunctionPKdS0_PKiS0_PdS3__param_1];
-	ld.param.u64 	%rd14, [_Z23GaussianPenaltyFunctionPKdS0_PKiS0_PdS3__param_2];
-	ld.param.u64 	%rd11, [_Z23GaussianPenaltyFunctionPKdS0_PKiS0_PdS3__param_3];
-	ld.param.u64 	%rd12, [_Z23GaussianPenaltyFunctionPKdS0_PKiS0_PdS3__param_4];
-	ld.param.u64 	%rd13, [_Z23GaussianPenaltyFunctionPKdS0_PKiS0_PdS3__param_5];
+	ld.param.u64 	%rd8, [_Z23GaussianPenaltyFunctionPKdS0_PKiS0_PdS3__param_0];
+	ld.param.u64 	%rd9, [_Z23GaussianPenaltyFunctionPKdS0_PKiS0_PdS3__param_1];
+	ld.param.u64 	%rd13, [_Z23GaussianPenaltyFunctionPKdS0_PKiS0_PdS3__param_2];
+	ld.param.u64 	%rd10, [_Z23GaussianPenaltyFunctionPKdS0_PKiS0_PdS3__param_3];
+	ld.param.u64 	%rd11, [_Z23GaussianPenaltyFunctionPKdS0_PKiS0_PdS3__param_4];
+	ld.param.u64 	%rd12, [_Z23GaussianPenaltyFunctionPKdS0_PKiS0_PdS3__param_5];
 	mov.u32 	%r1, %ntid.x;
 	mov.u32 	%r9, %ctaid.x;
 	mov.u32 	%r10, %tid.x;
 	mad.lo.s32 	%r28, %r9, %r1, %r10;
-	cvta.to.global.u64 	%rd1, %rd14;
+	cvta.to.global.u64 	%rd1, %rd13;
 	ld.global.u32 	%r11, [%rd1];
 	setp.ge.s32 	%p1, %r28, %r11;
 	@%p1 bra 	$L__BB0_6;
 
+	cvta.to.global.u64 	%rd2, %rd10;
 	mov.u32 	%r12, %nctaid.x;
 	mul.lo.s32 	%r3, %r1, %r12;
-	cvta.to.global.u64 	%rd2, %rd11;
-	cvta.to.global.u64 	%rd3, %rd10;
-	cvta.to.global.u64 	%rd4, %rd9;
-	cvta.to.global.u64 	%rd5, %rd12;
-	cvta.to.global.u64 	%rd6, %rd13;
+	cvta.to.global.u64 	%rd3, %rd9;
+	cvta.to.global.u64 	%rd4, %rd8;
+	cvta.to.global.u64 	%rd5, %rd11;
+	cvta.to.global.u64 	%rd6, %rd12;
 
 $L__BB0_2:
-	ld.global.f64 	%fd1, [%rd2+8];
-	cvt.s64.s32 	%rd8, %r28;
-	mul.wide.s32 	%rd15, %r28, 8;
-	add.s64 	%rd16, %rd3, %rd15;
-	ld.global.f64 	%fd7, [%rd2+16];
-	ld.global.f64 	%fd8, [%rd16];
+	ld.global.f64 	%fd1, [%rd2];
+	cvt.s64.s32 	%rd7, %r28;
+	mul.wide.s32 	%rd14, %r28, 8;
+	add.s64 	%rd15, %rd3, %rd14;
+	ld.global.f64 	%fd7, [%rd2+8];
+	ld.global.f64 	%fd8, [%rd15];
 	sub.f64 	%fd9, %fd8, %fd7;
 	mul.f64 	%fd10, %fd9, %fd9;
-	ld.global.f64 	%fd11, [%rd2+24];
+	ld.global.f64 	%fd11, [%rd2+16];
 	mul.f64 	%fd12, %fd11, %fd11;
 	mul.f64 	%fd13, %fd12, 0dC000000000000000;
 	div.rn.f64 	%fd2, %fd10, %fd13;
@@ -109,7 +109,7 @@ $L__BB0_2:
 	}
 	shl.b32 	%r13, %r5, 20;
 	add.s32 	%r14, %r7, %r13;
-	mov.b64 	%fd58, {%r6, %r14};
+	mov.b64 	%fd57, {%r6, %r14};
 	{
 	.reg .b32 %temp; 
 	mov.b64 	{%temp, %r15}, %fd2;
@@ -121,16 +121,16 @@ $L__BB0_2:
 
 	setp.lt.f64 	%p3, %fd2, 0d0000000000000000;
 	add.f64 	%fd45, %fd2, 0d7FF0000000000000;
-	selp.f64 	%fd58, 0d0000000000000000, %fd45, %p3;
+	selp.f64 	%fd57, 0d0000000000000000, %fd45, %p3;
 	setp.geu.f32 	%p4, %f1, 0f40874800;
 	@%p4 bra 	$L__BB0_5;
 
-	mov.f64 	%fd57, 0d4338000000000000;
-	mov.f64 	%fd56, 0d3FF71547652B82FE;
-	fma.rn.f64 	%fd55, %fd2, %fd56, %fd57;
+	mov.f64 	%fd56, 0d4338000000000000;
+	mov.f64 	%fd55, 0d3FF71547652B82FE;
+	fma.rn.f64 	%fd54, %fd2, %fd55, %fd56;
 	{
 	.reg .b32 %temp; 
-	mov.b64 	{%r27, %temp}, %fd55;
+	mov.b64 	{%r27, %temp}, %fd54;
 	}
 	shr.u32 	%r16, %r27, 31;
 	add.s32 	%r17, %r27, %r16;
@@ -143,24 +143,23 @@ $L__BB0_2:
 	add.s32 	%r23, %r22, 1072693248;
 	mov.u32 	%r24, 0;
 	mov.b64 	%fd47, {%r24, %r23};
-	mul.f64 	%fd58, %fd46, %fd47;
+	mul.f64 	%fd57, %fd46, %fd47;
 
 $L__BB0_5:
-	ld.global.f64 	%fd48, [%rd2];
-	fma.rn.f64 	%fd49, %fd1, %fd58, %fd48;
-	shl.b64 	%rd17, %rd8, 3;
-	add.s64 	%rd18, %rd4, %rd17;
-	ld.global.f64 	%fd50, [%rd18];
-	mul.f64 	%fd51, %fd50, %fd49;
-	setp.lt.f64 	%p5, %fd51, 0d0000000000000000;
-	neg.f64 	%fd52, %fd51;
-	selp.f64 	%fd53, %fd52, 0d0000000000000000, %p5;
-	selp.f64 	%fd54, %fd52, %fd51, %p5;
-	add.s64 	%rd19, %rd5, %rd17;
+	shl.b64 	%rd16, %rd7, 3;
+	add.s64 	%rd17, %rd4, %rd16;
+	ld.global.f64 	%fd48, [%rd17];
+	mul.f64 	%fd49, %fd1, %fd57;
+	mul.f64 	%fd50, %fd48, %fd49;
+	setp.lt.f64 	%p5, %fd50, 0d0000000000000000;
+	neg.f64 	%fd51, %fd50;
+	selp.f64 	%fd52, %fd51, 0d0000000000000000, %p5;
+	selp.f64 	%fd53, %fd51, %fd50, %p5;
+	add.s64 	%rd18, %rd5, %rd16;
+	st.global.f64 	[%rd18], %fd52;
+	add.s64 	%rd19, %rd6, %rd16;
 	st.global.f64 	[%rd19], %fd53;
-	add.s64 	%rd20, %rd6, %rd17;
-	st.global.f64 	[%rd20], %fd54;
-	cvt.u32.u64 	%r25, %rd8;
+	cvt.u32.u64 	%r25, %rd7;
 	add.s32 	%r28, %r25, %r3;
 	ld.global.u32 	%r26, [%rd1];
 	setp.lt.s32 	%p6, %r28, %r26;
