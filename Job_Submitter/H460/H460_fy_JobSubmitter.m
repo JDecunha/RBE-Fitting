@@ -209,8 +209,8 @@ dynamicTemp = true;
 gradientAssist = false;
 
 %This guess is based on H460-LQE
-InitialGuess = [18000, 600*power(10,-6), -150*power(10,-7), 8.37*power(10,-7), -10, 0.1];
+InitialGuess = [18000, 300*power(10,-7), -41*power(10,-7), 3.18*power(10,-7), 0.1];
 temps = [];
 
-%batch(c, @Generic_BWF_RunScript, 1, {'morstin_H460_fy', "MorstinBWF", "MorstinPenaltyFunction", filePaths, InitialGuess, penaltyWeight, iterationsPerCyc, numCycles, toleranceCycles, dynamicTemp, gradientAssist, temps},'AutoAddClientPath',false,'CurrentFolder','/rsrch3/home/radphys_rsch/jdecunha/RBE-Fitting')
-Generic_BWF_RunScript('morstin_H460_fy', "MorstinBWF", "MorstinPenaltyFunction", filePaths, InitialGuess, penaltyWeight, iterationsPerCyc, numCycles, toleranceCycles, dynamicTemp, gradientAssist, temps)
+batch(c, @Generic_BWF_RunScript, 1, {'morstin_H460_fy', "MorstinBWF", "MorstinPenaltyFunction", filePaths, InitialGuess, penaltyWeight, iterationsPerCyc, numCycles, toleranceCycles, dynamicTemp, gradientAssist, temps},'AutoAddClientPath',false,'CurrentFolder','/rsrch3/home/radphys_rsch/jdecunha/RBE-Fitting')
+%Generic_BWF_RunScript('morstin_H460_fy', "MorstinBWF", "MorstinPenaltyFunction", filePaths, InitialGuess, penaltyWeight, iterationsPerCyc, numCycles, toleranceCycles, dynamicTemp, gradientAssist, temps)
