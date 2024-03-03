@@ -118,7 +118,7 @@ dynamicTemp = true;
 gradientAssist = true;
 temps = [];
 
-InitialGuess = [0.1,0.1,0.1,0.1,0.1,0.1,0.1];
+InitialGuess = [0.1,0.1,0.1,0.1];
 
 batch(c, @RunScript_LETFixedBeta, 1, {'LE2_H460_Combined_SingleBeta_LETAnnealing', "LE2BWF", filePaths, InitialGuess,  iterationsPerCyc, numCycles, toleranceCycles, dynamicTemp, gradientAssist, temps},'AutoAddClientPath',false,'CurrentFolder','/rsrch3/home/radphys_rsch/jdecunha/RBE-Fitting');
 
