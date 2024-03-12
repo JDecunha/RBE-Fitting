@@ -4,6 +4,7 @@ penaltyWeight = 0.; %typically make my penalty 30 when it's activated
 iterationsPerCyc = 1000000;
 numCycles = 4000; %formerly 250
 toleranceCycles = 400; %formerly 10
+CalculateNumberOfExperiments(filePaths);
 
 %% Config for cluster
 %c = parcluster('Desktop-10700k');
@@ -26,7 +27,7 @@ gradientAssist = true;
 temps = [];
 
 InitialGuess = [0.1,0.1,0.1,0.1];
-
+RunScript_LETFixedBeta('LE2_H460_Combined_SingleBeta_LETAnnealing', "LE2BWF", filePaths, InitialGuess,  iterationsPerCyc, numCycles, toleranceCycles, dynamicTemp, gradientAssist, temps);
 batch(c, @RunScript_LETFixedBeta, 1, {'LE2_H460_Combined_SingleBeta_LETAnnealing', "LE2BWF", filePaths, InitialGuess,  iterationsPerCyc, numCycles, toleranceCycles, dynamicTemp, gradientAssist, temps},'AutoAddClientPath',false,'CurrentFolder','/rsrch3/home/radphys_rsch/jdecunha/RBE-Fitting');
 
 %% Configure the script
@@ -35,6 +36,7 @@ penaltyWeight = 0.; %typically make my penalty 30 when it's activated
 iterationsPerCyc = 1000000;
 numCycles = 4000; %formerly 250
 toleranceCycles = 400; %formerly 10
+CalculateNumberOfExperiments(filePaths);
 
 %% LE
 dynamicTemp = true;
@@ -61,6 +63,7 @@ penaltyWeight = 0.; %typically make my penalty 30 when it's activated
 iterationsPerCyc = 1000000;
 numCycles = 4000; %formerly 250
 toleranceCycles = 400; %formerly 10
+CalculateNumberOfExperiments(filePaths);
 
 
 %% Configure the script
@@ -69,6 +72,7 @@ penaltyWeight = 0.; %typically make my penalty 30 when it's activated
 iterationsPerCyc = 1000000;
 numCycles = 4000; %formerly 250
 toleranceCycles = 400; %formerly 10
+CalculateNumberOfExperiments(filePaths);
 
 %% Linear Fitting
 dynamicTemp = true;

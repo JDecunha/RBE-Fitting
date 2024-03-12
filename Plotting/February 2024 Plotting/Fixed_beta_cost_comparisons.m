@@ -1,9 +1,9 @@
-%% LET vs. f(y) for AGO Combined
+%% LET vs. f(y) for AGO Combined (What's happening with LE2 AGO-LET? Why is it lower cost than recorded elsewhere?)
 H460_combined_fy_cost = [2.579440632,
 2.561399439,
 2.419038945,
 2.386248114,
-1.972431194,
+1.971202573,
 3.251389559,
 3.250990565,
 3.251389559,
@@ -11,9 +11,9 @@ H460_combined_fy_cost = [2.579440632,
 2.562154817,
 2.539305735,
 2.526368654,
-2.559600655,
-2.559600649,
-2.56247521
+3.922913748,
+2.573936436,
+2.563283878
 ];
 AGO_combined_LETd_cost = [2.915509918,
 2.610024387,
@@ -24,12 +24,12 @@ AGO_combined_LETd_cost = [2.915509918,
 2.910051972,
 4.359656618,
 2.915515917,
-2.610027647,
-2.677678462,
+2.609960586,
+2.677678462, %Why is this ONE lower cost than in the results table?
 2.610023878,
-2.612783673,
-2.612791887,
-2.608351858
+2.619584858,
+2.625886934,
+2.620527639,
 ];
 
 %Calc improvement
@@ -56,6 +56,7 @@ set(hxtitle,'Interpreter','Latex');
 set(hytitle,'Interpreter','Latex');
 set(htitle,'Interpreter','Latex');
 set(hytitle,'String','Cost Function Ratio f(y)/LET$_d$ [\%]');
+set(gca,'YLim',[0 200]);
 
 %set(gca,'YTick',[0 250 500 750]);
 %set(gca,'YTickLabel',[1 10 100 1000]);
@@ -100,15 +101,15 @@ H460_combined_fy_cost = [1.386624667,
 1.350080635,
 1.383064843,
 1.342795267,
-1.351977464,
-1.419717227,
-1.363563825
+1.360813078,
+1.357189039,
+1.359104427
 ];
 H460_combined_LETd_cost = [1.408467555,
 1.399294529,
 1.389799205,
 1.318314759,
-1.320978673,
+1.320978673, %Ugh, Fifth is higher cost than fourth. Will need are-run.
 2.204598727,
 1.402960682,
 2.204600151,
@@ -116,9 +117,9 @@ H460_combined_LETd_cost = [1.408467555,
 1.39370076,
 1.408467576,
 1.399333448,
-1.394797027,
-1.393046103,
-1.410931197
+1.387358238,
+1.392593372,
+1.400661506
 ];
 
 %Calc improvement
@@ -176,7 +177,7 @@ yl.Alpha = 1;
 f = gcf;
 exportgraphics(f,'U87FyvsLETdAnnealing_Feb142024.png','Resolution',300, 'BackgroundColor','white')
 
-%% LET vs. f(y) for H460 Combined
+%% LET vs. f(y) for H460 Combined (Good final results)
 H460_combined_fy_cost = [4.993870712
 1.009334306,
 0.672485474,
@@ -189,9 +190,9 @@ H460_combined_fy_cost = [4.993870712
 1.009334322,
 2.084037992,
 0.905676507,
-1.014992266,
-1.017057416,
-1.012346301
+1.636931454,
+1.090643376,
+0.806539699
 ];
 H460_combined_LETd_cost = [4.837073344,
 0.894480466,
@@ -205,9 +206,9 @@ H460_combined_LETd_cost = [4.837073344,
 0.894481284,
 0.63419549,
 0.894480468,
-0.905107256,
-0.614669655,
-0.647390744,
+1.123770997,
+1.141894814,
+0.643310728,
 ];
 
 %Calc improvement
@@ -265,7 +266,7 @@ yl.Alpha = 1;
 f = gcf;
 exportgraphics(f,'H460FyvsLETdAnnealing_Feb142024.png','Resolution',300, 'BackgroundColor','white')
 
-%% LET vs. f(y) for H1437 Combined
+%% LET vs. f(y) for H1437 Combined (Good final results)
 H460_combined_fy_cost = [2.375919538,
 1.095451664,
 0.807944593,
@@ -278,9 +279,9 @@ H460_combined_fy_cost = [2.375919538,
 1.095452235,
 2.185871724,
 0.974991128,
-1.098969109,
-0.913741491,
-0.982213603
+1.152615627,
+0.94079381,
+0.914618259
 ];
 H460_combined_LETd_cost = [2.499477982,
 1.091265551,
@@ -294,9 +295,9 @@ H460_combined_LETd_cost = [2.499477982,
 0.767990972,
 2.49326739,
 1.09126551,
-1.100697304,
-1.093915676,
-0.779176676
+0.878982327,
+0.878978391,
+0.775230065
 ];
 
 %Calc improvement

@@ -2,6 +2,6 @@ function [AIC, RMSE] = CondensedCostMetrics(cost, numExperiments, numFittingPara
 
 RMSE = cost/numExperiments;
 RMSE = sqrt(RMSE);
-AIC = (nExperiments*log(RMSE*RMSE))+(2*numFittingParams);
+AIC = (numExperiments*log(RMSE*RMSE))+(2*numFittingParams);
 
 end
