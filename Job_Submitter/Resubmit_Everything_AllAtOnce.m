@@ -65,6 +65,16 @@ numCycles = 4000; %formerly 250
 toleranceCycles = 400; %formerly 10
 CalculateNumberOfExperiments(filePaths);
 
+%% Fifth Fitting
+dynamicTemp = true;
+gradientAssist = true;
+temps = [];
+
+InitialGuess = [0.216594207	0.040728275	-0.003969721	0.000245032	-4.83E-06, 1e-8,	0.040229971];
+
+batch(c, @RunScript_LETFixedBeta, 1, {'fifth_U87_Combined_SingleBeta_LETAnnealing', "FifthBWF", filePaths, InitialGuess,  iterationsPerCyc, numCycles, toleranceCycles, dynamicTemp, gradientAssist, temps},'AutoAddClientPath',false,'CurrentFolder','/rsrch3/home/radphys_rsch/jdecunha/RBE-Fitting');
+
+
 
 %% Configure the script
 filePaths = ["AGO_pristine_fy/1.1.csv","AGO_pristine_fy/3.9.csv","AGO_pristine_fy/6.7.csv","AGO_pristine_fy/11.6.csv","AGO_pristine_fy/17.7.csv","AGO_pristine_fy/22.5.csv", "AGO_SOBP_fy/1.27.csv","AGO_SOBP_fy/3.csv","AGO_SOBP_fy/4.4.csv","AGO_SOBP_fy/13.7.csv","AGO_SOBP_fy/20.9.csv","AGO_SOBP_fy/25.4.csv"];

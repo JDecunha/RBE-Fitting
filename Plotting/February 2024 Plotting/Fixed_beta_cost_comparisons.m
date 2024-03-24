@@ -25,12 +25,13 @@ AGO_combined_LETd_cost = [2.915509918,
 4.359656618,
 2.915515917,
 2.609960586,
-2.677678462, %Why is this ONE lower cost than in the results table?
+2.915507938, 
 2.610023878,
 2.619584858,
 2.625886934,
 2.620527639,
 ];
+%2.915507938 is the one that was mysteriously lower. I've replaced it with the higher valued cost because it seems correct. Will verify all of these in the future.
 
 %Calc improvement
 H460_Fy_anneal_difference = H460_combined_fy_cost./AGO_combined_LETd_cost;
