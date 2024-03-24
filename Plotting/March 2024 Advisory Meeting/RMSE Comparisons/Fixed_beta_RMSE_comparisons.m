@@ -13,8 +13,8 @@ set(gca,'TickLabelInterpreter','Latex');
 set(hxtitle,'Interpreter','Latex');
 set(hytitle,'Interpreter','Latex');
 set(htitle,'Interpreter','Latex');
-set(hytitle,'String','Cost Function Ratio f(y)/LET$_d$ [\%]');
-set(gca,'YLim',[-125 125]);
+set(hytitle,'String','$\Delta$ RMSE [\%]');
+set(gca,'YLim',[-100 100]);
 
 set(gca,'XTickLabel', {'Linear'; 'Quadratic'; 'Cubic'; 'Fourth';'Fifth';'Q';'QE';'QE2';'LE';'LQE';'LE2';'LQE2';'Gaussian';'Skew Gaussian';'Morstin et al.'});
 
@@ -29,7 +29,7 @@ end
 set(hytitle,'Fontsize',14); 
 
 f = gcf;
-%exportgraphics(f,'AGOFyvsLETdAnnealing_Feb142024.png','Resolution',300, 'BackgroundColor','white')
+exportgraphics(f,'H460_RMSE_LetvsFy_comparison.png','Resolution',300, 'BackgroundColor','white')
 
 %% H1437 LET vs. f(y) RMSE Comparison
 
@@ -46,8 +46,8 @@ set(gca,'TickLabelInterpreter','Latex');
 set(hxtitle,'Interpreter','Latex');
 set(hytitle,'Interpreter','Latex');
 set(htitle,'Interpreter','Latex');
-set(hytitle,'String','Cost Function Ratio f(y)/LET$_d$ [\%]');
-set(gca,'YLim',[-125 125]);
+set(hytitle,'String','$\Delta$ RMSE [\%]');
+set(gca,'YLim',[-50 50]);
 
 set(gca,'XTickLabel', {'Linear'; 'Quadratic'; 'Cubic'; 'Fourth';'Fifth';'Q';'QE';'QE2';'LE';'LQE';'LE2';'LQE2';'Gaussian';'Skew Gaussian';'Morstin et al.'});
 
@@ -62,7 +62,7 @@ end
 set(hytitle,'Fontsize',14); 
 
 f = gcf;
-%exportgraphics(f,'AGOFyvsLETdAnnealing_Feb142024.png','Resolution',300, 'BackgroundColor','white')
+exportgraphics(f,'H1437_RMSE_LetvsFy_comparison.png','Resolution',300, 'BackgroundColor','white')
 
 %% AGO LET vs. f(y) RMSE Comparison
 
@@ -79,8 +79,8 @@ set(gca,'TickLabelInterpreter','Latex');
 set(hxtitle,'Interpreter','Latex');
 set(hytitle,'Interpreter','Latex');
 set(htitle,'Interpreter','Latex');
-set(hytitle,'String','Cost Function Ratio f(y)/LET$_d$ [\%]');
-set(gca,'YLim',[-125 125]);
+set(hytitle,'String','$\Delta$ RMSE [\%]');
+set(gca,'YLim',[-25 25]);
 
 set(gca,'XTickLabel', {'Linear'; 'Quadratic'; 'Cubic'; 'Fourth';'Fifth';'Q';'QE';'QE2';'LE';'LQE';'LE2';'LQE2';'Gaussian';'Skew Gaussian';'Morstin et al.'});
 
@@ -95,7 +95,7 @@ end
 set(hytitle,'Fontsize',14); 
 
 f = gcf;
-%exportgraphics(f,'AGOFyvsLETdAnnealing_Feb142024.png','Resolution',300, 'BackgroundColor','white')
+exportgraphics(f,'AGO_RMSE_LetvsFy_comparison.png','Resolution',300, 'BackgroundColor','white')
 
 %% U87 LET vs. f(y) RMSE Comparison
 
@@ -112,8 +112,8 @@ set(gca,'TickLabelInterpreter','Latex');
 set(hxtitle,'Interpreter','Latex');
 set(hytitle,'Interpreter','Latex');
 set(htitle,'Interpreter','Latex');
-set(hytitle,'String','Cost Function Ratio f(y)/LET$_d$ [\%]');
-set(gca,'YLim',[-125 125]);
+set(hytitle,'String','$\Delta$ RMSE [\%]');
+set(gca,'YLim',[-25 25]);
 
 set(gca,'XTickLabel', {'Linear'; 'Quadratic'; 'Cubic'; 'Fourth';'Fifth';'Q';'QE';'QE2';'LE';'LQE';'LE2';'LQE2';'Gaussian';'Skew Gaussian';'Morstin et al.'});
 
@@ -128,4 +128,4 @@ end
 set(hytitle,'Fontsize',14); 
 
 f = gcf;
-%exportgraphics(f,'AGOFyvsLETdAnnealing_Feb142024.png','Resolution',300, 'BackgroundColor','white')
+exportgraphics(f,'U87_RMSE_LetvsFy_comparison.png','Resolution',300, 'BackgroundColor','white')

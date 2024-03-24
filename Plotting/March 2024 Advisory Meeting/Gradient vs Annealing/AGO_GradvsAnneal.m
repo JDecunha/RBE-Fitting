@@ -1,5 +1,5 @@
 %% f(y), Grad Descent vs. Simul Anneal for AGO
-% 1.) Run AIC_Calculation before this script
+% 1.) Run RMSE_and_AIC_Calculation_from_Cost.m before this script
 % 2.) Run AGO_GradDescent_JobSubmitter
 
 AGO_fy_GradDescent_RMSE = zeros(size(AGORMSE));

@@ -1,5 +1,5 @@
 %% f(y), Grad Descent vs. Simul Anneal for U87
-% 1.) Run AIC_Calculation before this script
+% 1.) Run RMSE_and_AIC_Calculation_from_Cost.m before this script
 % 2.) Run U87_GradDescent_JobSubmitter
 
 U87_fy_GradDescent_RMSE = zeros(size(U87RMSE));
