@@ -91,7 +91,7 @@ U87_combined_LETd_cost = [1.408467555,
 1.399294529,
 1.389799205,
 1.318314759,
-1.320978673, %Ugh, Fifth is higher cost than fourth. Will need are-run.
+1.318318529,
 2.204598727,
 1.402960682,
 2.204600151,
@@ -142,6 +142,7 @@ AGO_combined_LETd_cost = [2.915509918,
 
 %% Calculate cost function metrics
 FittingParamNumbersOrdered = [2,3,4,5,6,3,4,4,4,5,4,5,4,5,5]; %I should verify these one more time because they're essential to the analysis
+FittingParamNumbersOrdered = FittingParamNumbersOrdered + 1; %I forgot about beta
 %How many experiments for each experiment?
 H460NumExperiments = 83;
 H1437NumExperiments = 105;
@@ -182,46 +183,89 @@ for i = 1:length(AGO_combined_fy_cost)
 end
 AGOAIC = max(AGOAIC)-AGOAIC;
 
+%% Calculate cost function metrics (for LET)
+FittingParamNumbersOrdered = [2,3,4,5,6,3,4,4,4,5,4,5,4,5,5]; %I should verify these one more time because they're essential to the analysis
+FittingParamNumbersOrdered = FittingParamNumbersOrdered + 1; %I forgot about beta
+%How many experiments for each experiment?
+H460NumExperiments = 83;
+H1437NumExperiments = 105;
+U87NumExperiments = 60;
+AGONumExperiments = 66;
+
+% Below is for f(y)
+
+% H460 Cost params
+H460AIC_LET = []; H460RMSE_LET = [];
+
+for i = 1:length(H460_combined_LETd_cost)
+    [H460AIC_LET(i), H460RMSE_LET(i)] = CondensedCostMetrics(H460_combined_LETd_cost(i),H460NumExperiments,FittingParamNumbersOrdered(i));
+end
+H460AIC_LET = max(H460AIC_LET)-H460AIC_LET;
+
+% H1437 Cost params
+H1437AIC_LET = []; H1437RMSE_LET = [];
+
+for i = 1:length(H1437_combined_LETd_cost)
+    [H1437AIC_LET(i), H1437RMSE_LET(i)] = CondensedCostMetrics(H1437_combined_LETd_cost(i),H1437NumExperiments,FittingParamNumbersOrdered(i));
+end
+H1437AIC_LET = max(H1437AIC_LET)-H1437AIC_LET;
+
+% U87 Cost params
+U87AIC_LET = []; U87RMSE_LET = [];
+
+for i = 1:length(U87_combined_LETd_cost)
+    [U87AIC_LET(i), U87RMSE_LET(i)] = CondensedCostMetrics(U87_combined_LETd_cost(i),U87NumExperiments,FittingParamNumbersOrdered(i));
+end
+U87AIC_LET = max(U87AIC_LET)-U87AIC_LET;
+
+% AGO Cost params
+AGOAIC_LET = []; AGORMSE_LET = [];
+
+for i = 1:length(AGO_combined_LETd_cost)
+    [AGOAIC_LET(i), AGORMSE_LET(i)] = CondensedCostMetrics(AGO_combined_LETd_cost(i),AGONumExperiments,FittingParamNumbersOrdered(i));
+end
+AGOAIC_LET = max(AGOAIC_LET)-AGOAIC_LET;
+
 %% LET vs. f(y) for AGO Combined (What's happening with LE2 AGO-LET? Why is it lower cost than recorded elsewhere?)
 
-figure('Renderer', 'painters', 'Position', [10 10 750 350])
-b = bar(H1437AIC);
-
-%set(gca, 'YScale', 'log');
-%set(gca,'YLim',[1e0 5e3]);
-
-hxtitle = get(gca,'XLabel');
-hytitle = get(gca,'YLabel');
-htitle = get(gca,'Title');
-set(gca,'TickLabelInterpreter','Latex');
-set(hxtitle,'Interpreter','Latex');
-set(hytitle,'Interpreter','Latex');
-set(htitle,'Interpreter','Latex');
-set(hytitle,'String','$\Delta$ AIC');
-lim = get(gca,'YLim')
-set(gca,'YLim',[lim(1) lim(2)*1.2]);
-
-%set(gca,'YTick',[0 250 500 750]);
-%set(gca,'YTickLabel',[1 10 100 1000]);
-set(gca,'XTickLabel', {'Linear'; 'Quadratic'; 'Cubic'; 'Fourth';'Fifth';'Q';'QE';'QE2';'LE';'LQE';'LE2';'LQE2';'Gaussian';'Skew Gaussian';'Morstin et al.'});
-
-b.FaceColor = 'flat';
-b.CData(1,:) = [.4627 0.7255 0];
-b.CData(2,:) = [.4627 0.7255 0];
-b.CData(3,:) = [.4627 0.7255 0];
-b.CData(4,:) = [.4627 0.7255 0];
-b.CData(5,:) = [.4627 0.7255 0];
-b.CData(6,:) = [.4627 0.7255 0];
-b.CData(7,:) = [.4627 0.7255 0];
-b.CData(8,:) = [.4627 0.7255 0];
-b.CData(9,:) = [.4627 0.7255 0];
-b.CData(10,:) = [.4627 0.7255 0];
-b.CData(11,:) = [.4627 0.7255 0];
-b.CData(12,:) = [.4627 0.7255 0];
-b.CData(13,:) = [.4627 0.7255 0];
-b.CData(14,:) = [.4627 0.7255 0];
-b.CData(15,:) = [.4627 0.7255 0];
-set(hytitle,'Fontsize',14); 
-
-f = gcf;
-exportgraphics(f,'H1437_fy_AIC.png','Resolution',300, 'BackgroundColor','white')
+% figure('Renderer', 'painters', 'Position', [10 10 750 350])
+% b = bar(H1437AIC);
+% 
+% %set(gca, 'YScale', 'log');
+% %set(gca,'YLim',[1e0 5e3]);
+% 
+% hxtitle = get(gca,'XLabel');
+% hytitle = get(gca,'YLabel');
+% htitle = get(gca,'Title');
+% set(gca,'TickLabelInterpreter','Latex');
+% set(hxtitle,'Interpreter','Latex');
+% set(hytitle,'Interpreter','Latex');
+% set(htitle,'Interpreter','Latex');
+% set(hytitle,'String','$\Delta$ AIC');
+% lim = get(gca,'YLim')
+% set(gca,'YLim',[lim(1) lim(2)*1.2]);
+% 
+% %set(gca,'YTick',[0 250 500 750]);
+% %set(gca,'YTickLabel',[1 10 100 1000]);
+% set(gca,'XTickLabel', {'Linear'; 'Quadratic'; 'Cubic'; 'Fourth';'Fifth';'Q';'QE';'QE2';'LE';'LQE';'LE2';'LQE2';'Gaussian';'Skew Gaussian';'Morstin et al.'});
+% 
+% b.FaceColor = 'flat';
+% b.CData(1,:) = [.4627 0.7255 0];
+% b.CData(2,:) = [.4627 0.7255 0];
+% b.CData(3,:) = [.4627 0.7255 0];
+% b.CData(4,:) = [.4627 0.7255 0];
+% b.CData(5,:) = [.4627 0.7255 0];
+% b.CData(6,:) = [.4627 0.7255 0];
+% b.CData(7,:) = [.4627 0.7255 0];
+% b.CData(8,:) = [.4627 0.7255 0];
+% b.CData(9,:) = [.4627 0.7255 0];
+% b.CData(10,:) = [.4627 0.7255 0];
+% b.CData(11,:) = [.4627 0.7255 0];
+% b.CData(12,:) = [.4627 0.7255 0];
+% b.CData(13,:) = [.4627 0.7255 0];
+% b.CData(14,:) = [.4627 0.7255 0];
+% b.CData(15,:) = [.4627 0.7255 0];
+% set(hytitle,'Fontsize',14); 
+% 
+% f = gcf;
+% exportgraphics(f,'H1437_fy_AIC.png','Resolution',300, 'BackgroundColor','white')

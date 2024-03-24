@@ -1,21 +1,43 @@
-function [output] = CostMetrics(x, experiments, negativePenaltyValue, cudaKernel, gpuBufferArray, cudaPenalty, gpuBufferArray2, nExperimentsOverride)
+function [output] = CostMetrics(x, filePaths, negativePenaltyValue, kernelName, penaltyKernelName, nExperimentsOverride)
+
+%% Setup environment
+addpath(genpath("."));
+
+cudaKernel = parallel.gpu.CUDAKernel(kernelName+".ptx", kernelName+".cu");
+cudaKernel.ThreadBlockSize = 1024;
+cudaPenalty = parallel.gpu.CUDAKernel(penaltyKernelName+".ptx", penaltyKernelName+".cu");
+cudaPenalty.ThreadBlockSize = 1024;
+
+%% Import the survival data
+%A 3d array to hold the experiments data
+experiments = [];
+
+%Loop through the files and concatenate
+for i = 1:size(filePaths,2)
+    experiments = cat(3,experiments, readmatrix(filePaths(i)));
+end
+
+GPUExperimentalData = ExperimentData(experiments);
+
+%Allocate the buffers on the GPU (the cost function needs these)
+gpuBufferArray = gpuArray(zeros(size(GPUExperimentalData.BinCenter,1)-1,1));
+gpuBufferArray2 = gpuArray(zeros(size(GPUExperimentalData.BinCenter,1)-1,1));
 
 Cost = 0;
 nExperiments = 0.;
-AIC = 0.;
 
 %Loop through each d(y) spectrum
-for i = 1:size(experiments.SF,3)
+for i = 1:size(GPUExperimentalData.SF,3)
 
-    gpuBufferArray = feval(cudaKernel,experiments.BinWidth(:,1,i),experiments.BinCenter(:,1,i),experiments.BinValue(:,1,i),size(experiments.BinValue(:,1,i),1), x(1:end-1), gpuBufferArray);
+    gpuBufferArray = feval(cudaKernel,GPUExperimentalData.BinWidth(:,1,i),GPUExperimentalData.BinCenter(:,1,i),GPUExperimentalData.BinValue(:,1,i),size(GPUExperimentalData.BinValue(:,1,i),1), x(1:end-1), gpuBufferArray);
     alphaPredicted = gather(sum(gpuBufferArray));
     betaPredicted = x(end); %last param of x is beta
 
     %Loop through each dose and surviving fraction
-    for j = 1:experiments.sizeDose(1,1,i)
+    for j = 1:GPUExperimentalData.sizeDose(1,1,i)
 
-        dose = experiments.Dose(j,1,i);
-        survivingFraction = experiments.SF(j,1,i);
+        dose = GPUExperimentalData.Dose(j,1,i);
+        survivingFraction = GPUExperimentalData.SF(j,1,i);
 
         %Calculate surviving fraction
         sfPredicted = (alphaPredicted*dose)+(betaPredicted*dose*dose);
@@ -36,9 +58,9 @@ RMSE = CostNoPenalty/nExperiments;
 RMSE = sqrt(RMSE);
 
 %Apply the negative function penalty
-[gpuBufferArray, gpuBufferArray2] = feval(cudaPenalty, experiments.BinWidth(:,1,1),experiments.BinCenter(:,1,1),experiments.maxRelevantBin, x(1:end-1), gpuBufferArray, gpuBufferArray2);
-negativeArea = gather(sum(gpuBufferArray(1:experiments.maxRelevantBin)));
-totalArea = gather(sum(gpuBufferArray2(1:experiments.maxRelevantBin)));
+[gpuBufferArray, gpuBufferArray2] = feval(cudaPenalty, GPUExperimentalData.BinWidth(:,1,1),GPUExperimentalData.BinCenter(:,1,1),GPUExperimentalData.maxRelevantBin, x(1:end-1), gpuBufferArray, gpuBufferArray2);
+negativeArea = gather(sum(gpuBufferArray(1:GPUExperimentalData.maxRelevantBin)));
+totalArea = gather(sum(gpuBufferArray2(1:GPUExperimentalData.maxRelevantBin)));
 NegativeFraction = negativeArea/totalArea;
 NegativeCost = negativePenaltyValue*NegativeFraction;
 Cost = Cost + NegativeCost;

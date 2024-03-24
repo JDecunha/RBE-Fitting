@@ -1,31 +1,31 @@
 %% Configure the script
-filePaths = ["H460_fy/a.csv", "H460_fy/b.csv" , "H460_fy/c.csv", "H460_fy/d.csv", "H460_fy/e.csv", "H460_fy/f.csv", "H460_fy/g.csv", "H460_fy/h.csv", "H460_fy/i.csv", "H460_fy/j.csv" , "H460_fy/k.csv" , "H460_fy/l.csv"];
+filePaths = ["H1437_fy/a.csv", "H1437_fy/b.csv" , "H1437_fy/c.csv", "H1437_fy/d.csv", "H1437_fy/e.csv", "H1437_fy/f.csv", "H1437_fy/g.csv", "H1437_fy/h.csv", "H1437_fy/i.csv", "H1437_fy/j.csv" , "H1437_fy/k.csv" , "H1437_fy/l.csv"];
 penaltyWeight = 0.; %typically make my penalty 30 when it's activated
 
 %% Linear Fitting
-InitialGuess = [0.1 0.1 0.1];
+InitialGuess = [0.1, 0.1, 0.1];
 
-linear = Generic_GradDescentBWF_RunScript('linear_H460_penalty', "LinearBWF", "LinearPenaltyFunction", filePaths, InitialGuess, penaltyWeight);
+linear = RunScript_LET_GradDescent('linear_H1437_penalty', "LinearBWF", filePaths, InitialGuess);
 
 %% Quadratic Fitting
-InitialGuess = [0.1 0.1 0.1 0.1];
+InitialGuess = [0.1, 0.1, 0.1, 0.1];
 
-quad = Generic_GradDescentBWF_RunScript('quadratic_H460_penalty', "QuadraticBWF", "QuadraticBWFPenaltyFunction", filePaths, InitialGuess, penaltyWeight)
+quad = RunScript_LET_GradDescent('quadratic_H1437_penalty', "QuadraticBWF", filePaths, InitialGuess)
 
 %% Cubic Fitting
-InitialGuess = [0.1 0.1 0.1 0.1 0.1];
+InitialGuess = [0.1, 0.1, 0.1, 0.1, 0.1];
 
-cubic = Generic_GradDescentBWF_RunScript('cubic_H460_nopenalty', "CubicBWF", "CubicBWFPenaltyFunction", filePaths, InitialGuess, penaltyWeight)
+cubic = RunScript_LET_GradDescent('cubic_H1437_nopenalty', "CubicBWF", filePaths, InitialGuess)
 
 %% Fourth Fitting
-InitialGuess = [0.1 0.1 0.1 0.1 0.1 0.1];
+InitialGuess = [0.1, 0.1, 0.1, 0.1, 0.1, 0.1];
 
-fourth = Generic_GradDescentBWF_RunScript('fourth_H460_nopenalty_nogradient', "FourthBWF", "FourthBWFPenaltyFunction", filePaths, InitialGuess, penaltyWeight)
+fourth = RunScript_LET_GradDescent('fourth_H1437_nopenalty_nogradient', "FourthBWF", filePaths, InitialGuess)
 
 %% Fifth Fitting
-InitialGuess = [0.1 0.1 0.1 0.1 0.1 0.1 0.1];
+InitialGuess = [0.1, 0.1, 0.1, 0.1, 0.1, 0.1, 0.1];
 
-fifth = Generic_GradDescentBWF_RunScript('fifth_H460_penalty_nogradient_dynamicttemp', "FifthBWF", "FifthBWFPenaltyFunction", filePaths, InitialGuess, penaltyWeight)
+fifth = RunScript_LET_GradDescent('fifth_H1437_penalty_nogradient_dynamicttemp', "FifthBWF", filePaths, InitialGuess)
 
 %% Q
 % 137.097703502422 [3.76636003724722,3.76636003724722,0.0406437239563288,-525.683200622959,0,0]
@@ -33,7 +33,7 @@ fifth = Generic_GradDescentBWF_RunScript('fifth_H460_penalty_nogradient_dynamict
 
 InitialGuess = [0.1,0.1,0.1]; %Q, 2 params + beta
 
-Q = Generic_GradDescentBWF_RunScript('Q_H460', "QBWF", "QPenaltyFunction", filePaths, InitialGuess, penaltyWeight)
+Q = RunScript_LET_GradDescent('Q_H1437', "QBWF", filePaths, InitialGuess)
 
 %% QE
 %90.5078244697954 [2.06479502385127,2.06479502385127,0.0300933855284903,-573.572680289143,0,0]
@@ -41,7 +41,7 @@ Q = Generic_GradDescentBWF_RunScript('Q_H460', "QBWF", "QPenaltyFunction", fileP
 
 InitialGuess = [0.1,0.1,0.1,0.1]; %QE, 3 params + beta
 
-QE = Generic_GradDescentBWF_RunScript('QE_H460', "QEBWF", "QEPenaltyFunction", filePaths, InitialGuess, penaltyWeight)
+QE = RunScript_LET_GradDescent('QE_H1437', "QEBWF", filePaths, InitialGuess)
 
 %% QE2
 %77.1844162037098 [1.76450196593815,1.76450196593815,0.0278191367771450,-586.617166223308,0.000538340499307528,0]
@@ -49,14 +49,14 @@ QE = Generic_GradDescentBWF_RunScript('QE_H460', "QEBWF", "QEPenaltyFunction", f
 
 InitialGuess = [0.1,0.1,0.1,0.1]; %QE2, 3 params + beta
 
-QE2 = Generic_GradDescentBWF_RunScript('QE2_H460', "QE2BWF", "QE2PenaltyFunction", filePaths, InitialGuess, penaltyWeight)
+QE2 = RunScript_LET_GradDescent('QE2_H1437', "QE2BWF", filePaths, InitialGuess)
 
 %% LE
 %139.457231257352 [3.40550109245931,3.40550109245931,0.0386476497348288,-532.042706244904,0,0]
 %[-0.445135122989522,0.0784993556966450,0.247531010142038,0.0642640158597833] Stopped 26
 InitialGuess = [0.1,0.1,0.1,0.1]; %LE, 3 params + beta
 
-LE = Generic_GradDescentBWF_RunScript('LE_H460', "LEBWF", "LEPenaltyFunction", filePaths, InitialGuess, penaltyWeight)
+LE = RunScript_LET_GradDescent('LE_H1437', "LEBWF", filePaths, InitialGuess)
 
 %% LQE
 %76.3044306795220, [2.09783632267802,2.09783632267802,0.0303332103526379,-570.255011164743,0.00124336075502775,0]
@@ -64,7 +64,7 @@ LE = Generic_GradDescentBWF_RunScript('LE_H460', "LEBWF", "LEPenaltyFunction", f
 
 InitialGuess = [0.1,0.1,0.1,0.1,0.1]; %LQE, 4 params + beta
 
-LQE = Generic_GradDescentBWF_RunScript('LQE_H460', "LQEBWF", "LQEPenaltyFunction", filePaths, InitialGuess, penaltyWeight)
+LQE = RunScript_LET_GradDescent('LQE_H1437', "LQEBWF", filePaths, InitialGuess)
 
 %% LE2
 %119.841972005339 [2.76035415604174,2.76035415604174,0.0347948508746154,-543.475453842733,0,0]
@@ -72,27 +72,27 @@ LQE = Generic_GradDescentBWF_RunScript('LQE_H460', "LQEBWF", "LQEPenaltyFunction
 
 InitialGuess = [0.1,0.1,0.1,0.1,0.1,0.1,0.1];
 
-LE2 = Generic_GradDescentBWF_RunScript('LE2_H460', "LE2BWF", "LE2PenaltyFunction", filePaths, InitialGuess, penaltyWeight)
+LE2 = RunScript_LET_GradDescent('LE2_H1437', "LE2BWF", filePaths, InitialGuess)
 
 %% LQE2
 %COST: 69.8060937313156, 1.88667896196775,1.88667896196775,0.0287661393445988,-579.060345922732,0.00234472187362035,0, 28
 %[-0.464480073662808,-0.0653195679968287,0.00358677767610294,0.00550875013320500,0.0930761477260959] Stopped 28
 InitialGuess = [0.1,0.1,0.1,0.1,0.1]; %LQE2, 4 params + beta
 
-LQE2 = Generic_GradDescentBWF_RunScript('LQE2_H460', "LQE2BWF", "LQE2PenaltyFunction", filePaths, InitialGuess, penaltyWeight)
+LQE2 = RunScript_LET_GradDescent('LQE2_H1437', "LQE2BWF", filePaths, InitialGuess)
 
 %% Gaussian Fitting
 
 InitialGuess = [0.1, 0.1, 0.1, 0.1, 0.1]; %Morstin inspired guess
 
-gaus = Generic_GradDescentBWF_RunScript('gaussian_H460_nopenalty_withgradient_customtempbigger', "GaussianBWF", "GaussianPenaltyFunction", filePaths, InitialGuess, penaltyWeight)
+gaus = RunScript_LET_GradDescent('gaussian_H1437_nopenalty_withgradient_customtempbigger', "GaussianBWF", filePaths, InitialGuess)
 
 
 %% Skew Gaussian Fitting
 
 InitialGuess = [0.1, 0.1, 0.1, 0.1, 0.1, 0.1];
 
-skewgaus = Generic_GradDescentBWF_RunScript('skewGaussian_H460_nopenalty_customtemp_gradassist', "SkewGaussianBWF", "SkewGaussianPenaltyFunction", filePaths, InitialGuess, penaltyWeight)
+skewgaus = RunScript_LET_GradDescent('skewGaussian_H1437_nopenalty_customtemp_gradassist', "SkewGaussianBWF", filePaths, InitialGuess)
 %% Morstin fitting
 %[11460.000000, 2.5*power(10,-6), 2.1*power(10,-5), 2.*power(10,-7), 0.1]; Default guess
 %[3297.97258707670,5.41801921828085e-05,-1.65304114028526e-05,9.31217143989086e-07,0.149589365656704] cost :2.4556
@@ -100,4 +100,4 @@ skewgaus = Generic_GradDescentBWF_RunScript('skewGaussian_H460_nopenalty_customt
 
 InitialGuess = [11460.000000, 2.5*power(10,-6), 2.1*power(10,-5), 2.*power(10,-7), 0.1];
 
-morstin = Generic_GradDescentBWF_RunScript('morstin_H460_nopenalty_customtemp_gradassist', "MorstinBWF", "MorstinPenaltyFunction", filePaths, InitialGuess, penaltyWeight)
+morstin = RunScript_LET_GradDescent('morstin_H1437_nopenalty_customtemp_gradassist', "MorstinBWF",  filePaths, InitialGuess)

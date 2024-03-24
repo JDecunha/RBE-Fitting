@@ -1,6 +1,9 @@
-function [Cost] = LETFixedBetaCostFunction(x, experiments, cudaKernel, gpuBufferArray)
+function [output] = LETCostMetricsFullKernel(x, experiments,  cudaKernel, nExperimentsOverride)
 
+gpuBufferArray = gpuArray(zeros(size(experiments.BinCenter,1)-1,1));
 Cost = 0;
+nExperiments = 0.;
+AIC = 0.;
 
 %Loop through each d(y) spectrum
 for i = 1:size(experiments.SF,3)
@@ -23,16 +26,29 @@ for i = 1:size(experiments.SF,3)
         sfDifference = sfPredicted - log(survivingFraction);
         sfSquared = sfDifference*sfDifference;
         Cost = Cost + sfSquared; %It's squared to match definition of least squares
+        nExperiments = nExperiments + 1;
 
     end
 
 end
 
-%There is no negative function penalty for the LETd models.
+CostNoPenalty = Cost;
+RMSE = CostNoPenalty/nExperiments;
+RMSE = sqrt(RMSE);
 
 %To fit the definition of least squares, the cost has an additional 1/2
 %term
 Cost = Cost/2;
+AIC = (nExperiments*log(RMSE*RMSE))+(2*size(x,2));
 
+%If overriding the number of experiments (for weighted fitting) recalculate
+%RMSE and AIC
+if isempty(nExperimentsOverride) == false
+    RMSE = CostNoPenalty/nExperimentsOverride;
+    RMSE = sqrt(RMSE);
+    AIC = (nExperiments*log(RMSE*RMSE))+(2*size(x,2));
 end
 
+output = [Cost, CostNoPenalty, RMSE, AIC];
+
+end
