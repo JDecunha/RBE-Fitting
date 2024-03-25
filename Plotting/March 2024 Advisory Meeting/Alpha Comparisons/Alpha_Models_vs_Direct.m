@@ -175,7 +175,7 @@ x1 = linspace(0,30,100);
 y1 = (0.0535*x)+0.9153;
 a = plot(x1,y1);
 a.LineStyle = '--';
-a.LineWidth = 0.5;
+a.LineWidth = 0.8;
 a.Marker = 'none';
 a.Color = [0 0 0];
 
@@ -183,7 +183,7 @@ x2 = linspace(0,30,100);
 y2 = (0.0289*x)+0.9970;
 a = plot(x2,y2);
 a.LineStyle = '--';
-a.LineWidth = 0.5;
+a.LineWidth = 0.8;
 a.Marker = 'none';
 a.Color = [0 0 0];
 
@@ -209,8 +209,8 @@ leg.Interpreter = 'Latex';
 leg.FontSize = 11;
 
 f = gcf;
-% exportgraphics(f,'AGO_withthinBestFit.png','Resolution',300, 'BackgroundColor','white')
-exportgraphics(f,'AGO_besaAlpha_withthinBestFit.png','Resolution',300, 'BackgroundColor','white')
+% exportgraphics(f,'AGO_withintermdiateBestFit.png','Resolution',300, 'BackgroundColor','white')
+% exportgraphics(f,'AGO_bestAlpha_withintermediateBestFit.png','Resolution',300, 'BackgroundColor','white')
 
 %% U87
 filePaths = ["U87_pristine_fy/1.1.csv","U87_pristine_fy/3.9.csv","U87_pristine_fy/6.7.csv","U87_pristine_fy/11.6.csv","U87_pristine_fy/17.7.csv","U87_pristine_fy/22.5.csv","U87_SOBP_fy/1.27.csv","U87_SOBP_fy/3.csv","U87_SOBP_fy/4.4.csv","U87_SOBP_fy/13.7.csv","U87_SOBP_fy/20.9.csv","U87_SOBP_fy/25.4.csv"];
@@ -267,7 +267,7 @@ x1 = linspace(0,30,100);
 y1 = (0.0162*x)+0.2479;
 a = plot(x1,y1);
 a.LineStyle = '--';
-a.LineWidth = 0.5;
+a.LineWidth = 0.8;
 a.Marker = 'none';
 a.Color = [0 0 0];
 
@@ -275,7 +275,7 @@ x2 = linspace(0,30,100);
 y2 = (0.0218*x)+0.2334;
 a = plot(x2,y2);
 a.LineStyle = '--';
-a.LineWidth = 0.5;
+a.LineWidth = 0.8;
 a.Marker = 'none';
 a.Color = [0 0 0];
 
@@ -301,6 +301,6 @@ leg.Interpreter = 'Latex';
 leg.FontSize = 11;
 
 f = gcf;
-exportgraphics(f,'U87_bestaAlpha_withthinBestFit.png','Resolution',300, 'BackgroundColor','white')
-% exportgraphics(f,'U87_withBestFit.png','Resolution',300, 'BackgroundColor','white')
+% exportgraphics(f,'U87_bestaAlpha_withintermediateBestFit.png','Resolution',300, 'BackgroundColor','white')
+% exportgraphics(f,'U87_withIntermediateBestFit.png','Resolution',300, 'BackgroundColor','white')
 
