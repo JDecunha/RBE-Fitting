@@ -14,7 +14,7 @@ end
 GPUExperimentalData = ExperimentData(experiments);
 
 %% Call the driver
-InitialGuess = zeros(size(GPUExperimentalData.SF,3)*2,1)+0.1;
+InitialGuess = zeros(size(GPUExperimentalData.SF,3)+1,1)+0.1;
 
 output = Direct_Alpha_SingleBeta_Fitting_Driver(GPUExperimentalData, InitialGuess);
 

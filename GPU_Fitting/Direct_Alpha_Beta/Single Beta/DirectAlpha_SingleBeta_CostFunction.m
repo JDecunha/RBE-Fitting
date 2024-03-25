@@ -6,7 +6,7 @@ Cost = 0;
 for i = 1:size(experiments.SF,3)
 
     alphaPredicted = x(i);
-    betaPredicted = x(-1);
+    betaPredicted = x(end);
 
     %Loop through each dose and surviving fraction
     for j = 1:experiments.sizeDose(1,1,i)
