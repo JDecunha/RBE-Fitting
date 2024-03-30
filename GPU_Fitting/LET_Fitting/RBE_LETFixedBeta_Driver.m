@@ -76,8 +76,10 @@ for i = 1:numCycles
 
 end
 
+additionalMetrics = LETCostMetricsFullKernel(GradientSoln, experimentalData, cudaKernel, []);
+
 %Smush into output
-output = {GradientSoln, GradientCost, i};
+output = {GradientSoln, GradientCost, additionalMetrics, i};
 
 end
 

@@ -1,29 +1,29 @@
 %% Configure the script
-filePaths = ["H460_dy/a.csv", "H460_dy/b.csv" , "H460_dy/c.csv", "H460_dy/d.csv", "H460_dy/e.csv", "H460_dy/f.csv", "H460_dy/g.csv", "H460_dy/h.csv", "H460_dy/i.csv", "H460_dy/j.csv" , "H460_dy/k.csv" , "H460_dy/l.csv"];
+filePaths = ["H460_fy/a.csv", "H460_fy/b.csv" , "H460_fy/c.csv", "H460_fy/d.csv", "H460_fy/e.csv", "H460_fy/f.csv", "H460_fy/g.csv", "H460_fy/h.csv", "H460_fy/i.csv", "H460_fy/j.csv" , "H460_fy/k.csv" , "H460_fy/l.csv"];
 penaltyWeight = 0.; %typically make my penalty 30 when it's activated
 
 %% Linear Fitting
-InitialGuess = [1, 1, 0.1];
+InitialGuess = [0.1, 0.1, 0.1];
 
 linear = RunScript_LET_GradDescent('linear_H460_penalty', "LinearBWF", filePaths, InitialGuess);
 
 %% Quadratic Fitting
-InitialGuess = [1, 1, 1, 0.1];
+InitialGuess = [0.1, 0.1, 0.1, 0.1];
 
 quad = RunScript_LET_GradDescent('quadratic_H460_penalty', "QuadraticBWF", filePaths, InitialGuess)
 
 %% Cubic Fitting
-InitialGuess = [1, 1, 1, 1, 0.1];
+InitialGuess = [0.1, 0.1, 0.1, 0.1, 0.1];
 
 cubic = RunScript_LET_GradDescent('cubic_H460_nopenalty', "CubicBWF", filePaths, InitialGuess)
 
 %% Fourth Fitting
-InitialGuess = [1, 1, 1, 1, 1, 0.1];
+InitialGuess = [0.1, 0.1, 0.1, 0.1, 0.1, 0.1];
 
 fourth = RunScript_LET_GradDescent('fourth_H460_nopenalty_nogradient', "FourthBWF", filePaths, InitialGuess)
 
 %% Fifth Fitting
-InitialGuess = [1, 1, 1, 1, 1, 1, 0.1];
+InitialGuess = [0.1, 0.1, 0.1, 0.1, 0.1, 0.1, 0.1];
 
 fifth = RunScript_LET_GradDescent('fifth_H460_penalty_nogradient_dynamicttemp', "FifthBWF", filePaths, InitialGuess)
 
@@ -38,8 +38,6 @@ Q = RunScript_LET_GradDescent('Q_H460', "QBWF", filePaths, InitialGuess)
 %% QE
 %90.5078244697954 [2.06479502385127,2.06479502385127,0.0300933855284903,-573.572680289143,0,0]
 %[-0.422927568525610,0.00196746955548890,0.122784500308671,0.0817768877500963] Stopped 33
-
-filePaths = ["a.csv", "b.csv" , "c.csv", "d.csv", "e.csv", "f.csv", "g.csv", "h.csv", "i.csv", "j.csv" , "k.csv" , "l.csv"];
 
 InitialGuess = [0.1,0.1,0.1,0.1]; %QE, 3 params + beta
 

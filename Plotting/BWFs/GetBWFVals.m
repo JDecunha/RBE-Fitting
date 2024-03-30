@@ -1,6 +1,4 @@
-function [x,y] = GetBWFVals(kernelName,fitParameters)
-
-x = linspace(1e-6,100,300);
+function [y] = GetBWFVals(x, kernelName,fitParameters)
 
 %I need to make a GPUBufferArray here to hold the values
 gpuBufferArray = gpuArray(zeros(size(x,2),1));
