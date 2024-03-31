@@ -8,7 +8,7 @@ GPUBuffer2 = gpuArray(zeros(size(experimentalData.BinCenter,1)-1,1));
 CostFunc = @(x) GPUCostFunction(x, experimentalData, penaltyWeight, cudaKernel, GPUBuffer, cudaPenaltyKernel, GPUBuffer2);
 
 %Set up the fitting options for annealing
-optionsGradientDescent = optimoptions('fmincon','MaxFunctionEvaluations',1e6);
+optionsGradientDescent = optimoptions('fmincon','MaxFunctionEvaluations', 1e6, 'MaxIterations', 1e6);
 lowerBounds = zeros(1,size(initialGuess,2));
 lowerBounds(1:end-1) = -inf;
 

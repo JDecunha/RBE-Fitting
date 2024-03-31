@@ -1,12 +1,12 @@
 %% Configure the script
 filePaths = ["H460_fy/a.csv", "H460_fy/b.csv" , "H460_fy/c.csv", "H460_fy/d.csv", "H460_fy/e.csv", "H460_fy/f.csv", "H460_fy/g.csv", "H460_fy/h.csv", "H460_fy/i.csv", "H460_fy/j.csv" , "H460_fy/k.csv" , "H460_fy/l.csv"];
 penaltyWeight = 0.; %typically make my penalty 30 when it's activated
-iterationsPerCyc = 1;
-numCycles = 1; %formerly 250
-toleranceCycles = 400; %formerly 10
+iterationsPerCyc = 1000000;
+numCycles = 4000; %formerly 250
+toleranceCycles = 100; %formerly 10
 
 %% Hardcode alpha-beta
-betas = [0.103759974936465	0.115325390701951	0.109776946319893	0.122902727249570	0.119652273535850	0.112061248723116	0.0877149675135953	0.150620431674224	0.113166228112791	0.296057617618820	0.567572327119187	0.609656027810132];
+%betas = [0.103759974936465	0.115325390701951	0.109776946319893	0.122902727249570	0.119652273535850	0.112061248723116	0.0877149675135953	0.150620431674224	0.113166228112791	0.296057617618820	0.567572327119187	0.609656027810132];
 
 %% Config for cluster
 %c = parcluster('Desktop-10700k');
@@ -137,7 +137,7 @@ batch(c, @Generic_BWF_RunScript, 1, {'LQE2_H460_fy', "LQE2BWF", "LQE2PenaltyFunc
 
 %% Gaussian Fitting
 dynamicTemp = true;
-gradientAssist = false;
+gradientAssist = true;
 
 InitialGuess = [0.1,276.6551216, -276.5770798, 4.934278094, -113.2343153, 0.110988911]; 
 temps = [];
@@ -146,7 +146,7 @@ batch(c, @Generic_BWF_RunScript, 1, {'gaussian_H460_fy', "GaussianBWF", "Gaussia
 
 %% Skew Gaussian Fitting
 dynamicTemp = true;
-gradientAssist = false;
+gradientAssist = true;
 
 InitialGuess = [0.1, 332.4695104	-332.0838262,	-0.413398951,	124.782668,	0.053844243,	0.11080438];
 temps = [];
@@ -156,61 +156,10 @@ batch(c, @Generic_BWF_RunScript, 1, {'skewGaussian_H460_fy', "SkewGaussianBWF", 
 %% Morstin fitting
 %[11460.000000, 2.5*power(10,-6), 2.1*power(10,-5), 2.*power(10,-7), 0.1]; Default guess
 dynamicTemp = true;
-gradientAssist = false;
+gradientAssist = true;
 
 %This guess is based on H460-LQE
 InitialGuess = [18000, 600*power(10,-6), -150*power(10,-7), 8.37*power(10,-7), -10, 0.1];
 temps = [];
 
 batch(c, @Generic_BWF_RunScript, 1, {'morstin_H460_fy', "MorstinBWF", "MorstinPenaltyFunction", filePaths, InitialGuess, penaltyWeight, iterationsPerCyc, numCycles, toleranceCycles, dynamicTemp, gradientAssist, temps},'AutoAddClientPath',false,'CurrentFolder','/rsrch3/home/radphys_rsch/jdecunha/RBE-Fitting')
-
-%% REruns
-% LE2
-dynamicTemp = true;
-gradientAssist = true;
-temps = [];
-
-InitialGuess = [0.1,0.1,0.1,0.1]; %LE2, 3 params + beta
-
-batch(c, @Generic_BWF_RunScript, 1, {'LE2_H460_fy', "LE2BWF", "LE2PenaltyFunction", filePaths, InitialGuess, penaltyWeight, iterationsPerCyc, numCycles, toleranceCycles, dynamicTemp, gradientAssist, temps},'AutoAddClientPath',false,'CurrentFolder','/rsrch3/home/radphys_rsch/jdecunha/RBE-Fitting');
-
-%% Fifth 
-dynamicTemp = true;
-gradientAssist = true;
-temps = [];
-
-InitialGuess = [0.206908469,	0.001208862,	0.001785867,	6.49E-05,	-4.09E-05,	5.50E-07,	0.114719344];
-
-batch(c, @Generic_BWF_RunScript, 1, {'fifth_H460_fy', "FifthBWF", "FifthBWFPenaltyFunction", filePaths, InitialGuess, penaltyWeight, iterationsPerCyc, numCycles, toleranceCycles, dynamicTemp, gradientAssist, temps},'AutoAddClientPath',false,'CurrentFolder','/rsrch3/home/radphys_rsch/jdecunha/RBE-Fitting');
-
-
-
-% Gaussian
-dynamicTemp = true;
-gradientAssist = false;
-
-InitialGuess = [276.6551216, -276.5770798, 4.934278094, -113.2343153, 0.110988911]; 
-temps = [];
-
-batch(c, @Generic_BWF_RunScript, 1, {'gaussian_H460_fy', "GaussianBWF", "GaussianPenaltyFunction", filePaths, InitialGuess, penaltyWeight, iterationsPerCyc, numCycles, toleranceCycles, dynamicTemp, gradientAssist, temps},'AutoAddClientPath',false,'CurrentFolder','/rsrch3/home/radphys_rsch/jdecunha/RBE-Fitting')
-
-% Skew Gaussian Fitting
-dynamicTemp = true;
-gradientAssist = false;
-
-InitialGuess = [332.4695104	-332.0838262,	-0.413398951,	124.782668,	0.053844243,	0.11080438];
-temps = [];
-
-batch(c, @Generic_BWF_RunScript, 1, {'skewGaussian_H460_fy', "SkewGaussianBWF", "SkewGaussianPenaltyFunction", filePaths, InitialGuess, penaltyWeight, iterationsPerCyc, numCycles, toleranceCycles, dynamicTemp, gradientAssist, temps},'AutoAddClientPath',false,'CurrentFolder','/rsrch3/home/radphys_rsch/jdecunha/RBE-Fitting')
-
-%% Morstin fitting
-%[11460.000000, 2.5*power(10,-6), 2.1*power(10,-5), 2.*power(10,-7), 0.1]; Default guess
-dynamicTemp = true;
-gradientAssist = false;
-
-%This guess is based on H460-LQE
-InitialGuess = [18000, 300*power(10,-7), -41*power(10,-7), 3.18*power(10,-7), 0.1];
-temps = [];
-
-batch(c, @Generic_BWF_RunScript, 1, {'morstin_H460_fy', "MorstinBWF", "MorstinPenaltyFunction", filePaths, InitialGuess, penaltyWeight, iterationsPerCyc, numCycles, toleranceCycles, dynamicTemp, gradientAssist, temps},'AutoAddClientPath',false,'CurrentFolder','/rsrch3/home/radphys_rsch/jdecunha/RBE-Fitting')
-%Generic_BWF_RunScript('morstin_H460_fy', "MorstinBWF", "MorstinPenaltyFunction", filePaths, InitialGuess, penaltyWeight, iterationsPerCyc, numCycles, toleranceCycles, dynamicTemp, gradientAssist, temps)
