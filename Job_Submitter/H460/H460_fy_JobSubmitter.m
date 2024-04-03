@@ -1,9 +1,9 @@
 %% Configure the script
 filePaths = ["H460_fy/a.csv", "H460_fy/b.csv" , "H460_fy/c.csv", "H460_fy/d.csv", "H460_fy/e.csv", "H460_fy/f.csv", "H460_fy/g.csv", "H460_fy/h.csv", "H460_fy/i.csv", "H460_fy/j.csv" , "H460_fy/k.csv" , "H460_fy/l.csv"];
 penaltyWeight = 0.; %typically make my penalty 30 when it's activated
-iterationsPerCyc = 100000;
+iterationsPerCyc = 50000;
 numCycles = 500; %formerly 250
-toleranceCycles = 50; %formerly 10
+toleranceCycles = 10; %formerly 10
 
 %% Hardcode alpha-beta
 %betas = [0.103759974936465	0.115325390701951	0.109776946319893	0.122902727249570	0.119652273535850	0.112061248723116	0.0877149675135953	0.150620431674224	0.113166228112791	0.296057617618820	0.567572327119187	0.609656027810132];
