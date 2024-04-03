@@ -1,7 +1,7 @@
 %% Configure the script
 filePaths = ["H460_fy/a.csv", "H460_fy/b.csv" , "H460_fy/c.csv", "H460_fy/d.csv", "H460_fy/e.csv", "H460_fy/f.csv", "H460_fy/g.csv", "H460_fy/h.csv", "H460_fy/i.csv", "H460_fy/j.csv" , "H460_fy/k.csv" , "H460_fy/l.csv"];
 penaltyWeight = 0.; %typically make my penalty 30 when it's activated
-iterationsPerCyc = 50000;
+iterationsPerCyc = 100000;
 numCycles = 500; %formerly 250
 toleranceCycles = 10; %formerly 10
 
@@ -30,7 +30,7 @@ temps = [];
 
 InitialGuess = [0.1,0.1,0.1];
 
-batch(c, @Generic_BWF_RunScript, 1, {'linear_H460_fy', "LinearBWF", "LinearPenaltyFunction", filePaths, InitialGuess, penaltyWeight, iterationsPerCyc, numCycles, toleranceCycles, dynamicTemp, gradientAssist, temps},'AutoAddClientPath',false,'CurrentFolder','/rsrch3/home/radphys_rsch/jdecunha/RBE-Fitting');
+%batch(c, @Generic_BWF_RunScript, 1, {'linear_H460_fy', "LinearBWF", "LinearPenaltyFunction", filePaths, InitialGuess, penaltyWeight, iterationsPerCyc, numCycles, toleranceCycles, dynamicTemp, gradientAssist, temps},'AutoAddClientPath',false,'CurrentFolder','/rsrch3/home/radphys_rsch/jdecunha/RBE-Fitting');
 
 
 %% Quadratic Fitting
