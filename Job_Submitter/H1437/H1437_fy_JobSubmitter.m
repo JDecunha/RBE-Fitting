@@ -2,8 +2,8 @@
 filePaths = ["H1437_fy/a.csv", "H1437_fy/b.csv" , "H1437_fy/c.csv", "H1437_fy/d.csv", "H1437_fy/e.csv", "H1437_fy/f.csv", "H1437_fy/g.csv", "H1437_fy/h.csv", "H1437_fy/i.csv", "H1437_fy/j.csv" , "H1437_fy/k.csv" , "H1437_fy/l.csv"];
 penaltyWeight = 0.; %typically make my penalty 30 when it's activated
 iterationsPerCyc = 1000000;
-numCycles = 2000; %formerly 250
-toleranceCycles = 400; %formerly 10
+numCycles = 4000; %formerly 250
+toleranceCycles = 100; %formerly 10
 
 %% Config for cluster
 %c = parcluster('Desktop-10700k');
@@ -140,7 +140,7 @@ gradientAssist = true;
 
 
 InitialGuess = [0.1, 0.1, 0.1, 0.1, 0.1]; %Morstin inspired guess
-temps = [1, 5, 10, 10, 0.05];
+temps = [];
 
 batch(c, @Generic_BWF_RunScript, 1, {'gaussian_H1437_fy_Pristine', "GaussianBWF", "GaussianPenaltyFunction", filePaths, InitialGuess, penaltyWeight, iterationsPerCyc, numCycles, toleranceCycles, dynamicTemp, gradientAssist, temps},'AutoAddClientPath',false,'CurrentFolder','/rsrch3/home/radphys_rsch/jdecunha/RBE-Fitting')
 

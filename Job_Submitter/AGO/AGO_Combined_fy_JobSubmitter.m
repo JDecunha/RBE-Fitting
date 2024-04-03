@@ -2,8 +2,8 @@
 filePaths = ["AGO_pristine_fy/1.1.csv","AGO_pristine_fy/3.9.csv","AGO_pristine_fy/6.7.csv","AGO_pristine_fy/11.6.csv","AGO_pristine_fy/17.7.csv","AGO_pristine_fy/22.5.csv", "AGO_SOBP_fy/1.27.csv","AGO_SOBP_fy/3.csv","AGO_SOBP_fy/4.4.csv","AGO_SOBP_fy/13.7.csv","AGO_SOBP_fy/20.9.csv","AGO_SOBP_fy/25.4.csv"];
 penaltyWeight = 0.; %typically make my penalty 30 when it's activated
 iterationsPerCyc = 1000000;
-numCycles = 4000; %formerly 250
-toleranceCycles = 400; %formerly 10
+numCycles = 1000; %formerly 250
+toleranceCycles = 100; %formerly 10
 
 %% Config for cluster
 %c = parcluster('Desktop-10700k');
@@ -12,7 +12,7 @@ toleranceCycles = 400; %formerly 10
 %configCluster
 c = parcluster;
 
-c.AdditionalProperties.WallTime = '72:00';
+c.AdditionalProperties.WallTime = '48:00';
 c.AdditionalProperties.MemUsage = 16.;
 c.AdditionalProperties.GpusPerNode = 1;
 c.AdditionalProperties.GpuMemUsage = 16.;
