@@ -16,7 +16,7 @@ lowerBounds(1:end-1) = -inf;
 options = optimoptions(@simulannealbnd);
 options.MaxIterations = inf;
 options.MaxStallIterations = 2147483647; %We are doing our own custom implementation of stalling below. So we make sure the fitting never stalls using the built in method.
-options.MaxFunctionIterations = iterationsPerCycle; %Correctly set max function iterations to the iteration number now
+options.MaxFunctionEvaluations  = iterationsPerCycle; %Correctly set max function iterations to the iteration number now
 
 % So simmulanealbnd has 5 stopping criteria
 % 1.) Max Iterations (default inf)
