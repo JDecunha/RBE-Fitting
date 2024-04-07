@@ -1,9 +1,9 @@
 %% Configure the script
 filePaths = ["AGO_pristine_fy/1.1.csv","AGO_pristine_fy/3.9.csv","AGO_pristine_fy/6.7.csv","AGO_pristine_fy/11.6.csv","AGO_pristine_fy/17.7.csv","AGO_pristine_fy/22.5.csv", "AGO_SOBP_fy/1.27.csv","AGO_SOBP_fy/3.csv","AGO_SOBP_fy/4.4.csv","AGO_SOBP_fy/13.7.csv","AGO_SOBP_fy/20.9.csv","AGO_SOBP_fy/25.4.csv"];
 penaltyWeight = 0.; %typically make my penalty 30 when it's activated
-iterationsPerCyc = 1000000;
-numCycles = 1000; %formerly 250
-toleranceCycles = 100; %formerly 10
+iterationsPerCyc = 100000;
+numCycles = 500; %formerly 250
+toleranceCycles = 50; %formerly 10
 
 %% Config for cluster
 %c = parcluster('Desktop-10700k');
@@ -17,7 +17,8 @@ c.AdditionalProperties.MemUsage = 16.;
 c.AdditionalProperties.GpusPerNode = 1;
 c.AdditionalProperties.GpuMemUsage = 16.;
 c.AdditionalProperties.QueueName = 'egpu-medium';
-c.AdditionalProperties
+c.AdditionalProperties.AdditionalSubmitArgs = "-n 10 -R 'hname!=edragon057' ";
+c.AdditionalProperties;
 
 %% Linear Fitting
 dynamicTemp = true;
@@ -136,7 +137,7 @@ dynamicTemp = true;
 gradientAssist = true;
 
 
-InitialGuess = [0.1, 0.1, 0.1, 0.1, 0.1]; %Morstin inspired guess
+InitialGuess = [0.1, 0.1, 0.1, 0.1]; 
 temps = [];
 
 batch(c, @Generic_BWF_RunScript, 1, {'gaussian_AGO_Combined_fy', "GaussianBWF", "GaussianPenaltyFunction", filePaths, InitialGuess, penaltyWeight, iterationsPerCyc, numCycles, toleranceCycles, dynamicTemp, gradientAssist, temps},'AutoAddClientPath',false,'CurrentFolder','/rsrch3/home/radphys_rsch/jdecunha/RBE-Fitting')

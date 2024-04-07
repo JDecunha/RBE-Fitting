@@ -1,6 +1,6 @@
 %% Create the empty array
 H460_fy_output = cell(15,3);
-startingJobNum = 170;
+startingJobNum = 112;
 
 %% Pull the data
 job = findJob(myCluster, 'ID', startingJobNum);
@@ -39,7 +39,7 @@ fprintf("Name: %s \n", job_output{1, 1}{1,2}{1});
 fprintf("Number of iterations: %d \n\n", job_output{1, 1}{1,1}{4});
 
 startingJobNum = startingJobNum + 1;
-job = findJob(myCluster, 'ID', 270);
+job = findJob(myCluster, 'ID', startingJobNum);
 job_output = fetchOutputs(job);
 H460_fy_output{5,1} = job_output{1,1}{1,2}{1};
 H460_fy_output{5,2} = job_output{1,1}{1,1}{2};
@@ -129,7 +129,7 @@ fprintf("Name: %s \n", job_output{1, 1}{1,2}{1});
 fprintf("Number of iterations: %d \n\n", job_output{1, 1}{1,1}{4});
 
 startingJobNum = startingJobNum + 1;
-job = findJob(myCluster, 'ID', 185);
+job = findJob(myCluster, 'ID', 150);
 job_output = fetchOutputs(job);
 H460_fy_output{15,1} = job_output{1,1}{1,2}{1};
 H460_fy_output{15,2} = job_output{1,1}{1,1}{2};
@@ -137,4 +137,4 @@ H460_fy_output{15,3} = job_output{1,1}{1,1}{1};
 fprintf("Name: %s \n", job_output{1, 1}{1,2}{1});
 fprintf("Number of iterations: %d \n\n", job_output{1, 1}{1,1}{4});
 
-writecell(H460_fy_output,"U87_Combined_fy_singlebeta_cluster.csv")
+writecell(H460_fy_output,"U87_Combined_fy_singlebeta_April5th.csv")

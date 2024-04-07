@@ -12,13 +12,13 @@ toleranceCycles = 50; %formerly 10
 %configCluster
 c = parcluster;
 
-c.AdditionalProperties.WallTime = '70:00';
+c.AdditionalProperties.WallTime = '30:00';
 c.AdditionalProperties.MemUsage = 16.;
 c.AdditionalProperties.GpusPerNode = 1;
 c.AdditionalProperties.GpuMemUsage = 16.;
 c.AdditionalProperties.QueueName = 'egpu-medium';
-c.AdditionalProperties.AdditionalSubmitArgs = '-n 10' % -q egpu-medium -gpu num=1:gmem=16'; 
-c.saveProfile
+c.AdditionalProperties.AdditionalSubmitArgs = "-n 10 -R 'hname!=edragon057' " % -q egpu-medium -gpu num=1:gmem=16'; 
+c.saveProfile;
 
 
 %% Linear Fitting
@@ -67,7 +67,7 @@ gradientAssist = true;
 temps = [];
 
 %InitialGuess = [0.1,0.1,0.1,0.1,0.1,0.1,0.1];
-InitialGuess = [-0.016041969, 0.089544155, -0.012722677, 0.000299291, -3.27E-09, 1e-6, 0.034169353];
+InitialGuess = [0.072414286,	-0.0512998,	0.025114619,	-0.002109749,	2.68E-05, 1e-8,	0.03576156];
 
 batch(c, @Generic_BWF_RunScript, 1, {'fifth_H1437_fy_Pristine', "FifthBWF", "FifthBWFPenaltyFunction", filePaths, InitialGuess, penaltyWeight, iterationsPerCyc, numCycles, toleranceCycles, dynamicTemp, gradientAssist, temps},'AutoAddClientPath',false,'CurrentFolder','/rsrch3/home/radphys_rsch/jdecunha/RBE-Fitting');
 
@@ -149,7 +149,7 @@ dynamicTemp = true;
 gradientAssist = true;
 
 InitialGuess = [0.1, 0.1, 0.1, 0.1, 0.1, 0.1];
-temps = [1, 1, 5, 5, 1, 0.05];
+temps = [];
 
 batch(c, @Generic_BWF_RunScript, 1, {'skewGaussian_H1437_fy_Pristine', "SkewGaussianBWF", "SkewGaussianPenaltyFunction", filePaths, InitialGuess, penaltyWeight, iterationsPerCyc, numCycles, toleranceCycles, dynamicTemp, gradientAssist, temps},'AutoAddClientPath',false,'CurrentFolder','/rsrch3/home/radphys_rsch/jdecunha/RBE-Fitting')
 
@@ -159,6 +159,6 @@ dynamicTemp = true;
 gradientAssist = true;
 
 InitialGuess = [18000, 600*power(10,-6), -150*power(10,-7), 8.37*power(10,-7), -10, 0.1];
-%temps = [1000, 1e-3, 1e-3, 1e-5, 0.1];
+temps = [];
 
 batch(c, @Generic_BWF_RunScript, 1, {'morstin_H1437_fy_Pristine', "MorstinBWF", "MorstinPenaltyFunction", filePaths, InitialGuess, penaltyWeight, iterationsPerCyc, numCycles, toleranceCycles, dynamicTemp, gradientAssist, temps},'AutoAddClientPath',false,'CurrentFolder','/rsrch3/home/radphys_rsch/jdecunha/RBE-Fitting')

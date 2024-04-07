@@ -1,9 +1,9 @@
 %% Configure the script
 filePaths = ["U87_pristine_fy/1.1.csv","U87_pristine_fy/3.9.csv","U87_pristine_fy/6.7.csv","U87_pristine_fy/11.6.csv","U87_pristine_fy/17.7.csv","U87_pristine_fy/22.5.csv","U87_SOBP_fy/1.27.csv","U87_SOBP_fy/3.csv","U87_SOBP_fy/4.4.csv","U87_SOBP_fy/13.7.csv","U87_SOBP_fy/20.9.csv","U87_SOBP_fy/25.4.csv"];
 penaltyWeight = 0.; %typically make my penalty 30 when it's activated
-iterationsPerCyc = 1000000;
-numCycles = 1000; %formerly 250
-toleranceCycles = 100; %formerly 10
+iterationsPerCyc = 100000;
+numCycles = 500; %formerly 250
+toleranceCycles = 50; %formerly 10
 
 %% Config for cluster
 %c = parcluster('Desktop-10700k');
@@ -17,7 +17,7 @@ c.AdditionalProperties.MemUsage = 16.;
 c.AdditionalProperties.GpusPerNode = 1;
 c.AdditionalProperties.GpuMemUsage = 16.;
 c.AdditionalProperties.QueueName = 'egpu-medium';
-c.AdditionalProperties
+c.AdditionalProperties;
 
 %% Linear Fitting
 dynamicTemp = true;
@@ -26,7 +26,7 @@ temps = [];
 
 InitialGuess = [0.1,0.1,0.1];
 
-batch(c, @Generic_BWF_RunScript, 1, {'linear_U87_Combined_fy', "LinearBWF", "LinearPenaltyFunction", filePaths, InitialGuess, penaltyWeight, iterationsPerCyc, numCycles, toleranceCycles, dynamicTemp, gradientAssist, temps},'AutoAddClientPath',false,'CurrentFolder','/rsrch3/home/radphys_rsch/jdecunha/RBE-Fitting');
+%batch(c, @Generic_BWF_RunScript, 1, {'linear_U87_Combined_fy', "LinearBWF", "LinearPenaltyFunction", filePaths, InitialGuess, penaltyWeight, iterationsPerCyc, numCycles, toleranceCycles, dynamicTemp, gradientAssist, temps},'AutoAddClientPath',false,'CurrentFolder','/rsrch3/home/radphys_rsch/jdecunha/RBE-Fitting');
 
 
 %% Quadratic Fitting
