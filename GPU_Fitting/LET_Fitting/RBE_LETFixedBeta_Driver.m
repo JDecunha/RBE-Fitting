@@ -6,15 +6,25 @@ GPUBuffer = gpuArray(zeros(1,1));
 %Construct the cost function
 CostFunc = @(x) LETFixedBetaCostFunction(x, experimentalData, cudaKernel, GPUBuffer);
 
-%Set up the fitting options for gradient descent
+%Set up the fitting options for annealing
 optionsGradientDescent = optimoptions('fmincon','MaxFunctionEvaluations', 1e6, 'MaxIterations', 1e6);
 lowerBounds = zeros(1,size(initialGuess,2));
 lowerBounds(1:end-1) = -inf;
 
 %Set up options for simulated annealing
 options = optimoptions(@simulannealbnd);
-options.MaxIterations = iterationsPerCycle;
-options.MaxStallIterations = iterationsPerCycle*2; %We are doing our own custom implementation of stalling below. So we make sure the fitting never stalls using the built in method.
+options.MaxIterations = inf;
+options.MaxStallIterations = 2147483647; %We are doing our own custom implementation of stalling below. So we make sure the fitting never stalls using the built in method.
+options.MaxFunctionEvaluations  = iterationsPerCycle; %Correctly set max function iterations to the iteration number now
+
+% So simmulanealbnd has 5 stopping criteria
+% 1.) Max Iterations (default inf)
+% 2.) MaxFunction Iterations (we set to our number of iterations requested
+% by user).
+% 3.) MaxStallIterations (number of iterations without improvement above
+% some tolerance)
+% 4.) Overall objective goal (default -inf)
+% 5.) Time out (default inf)
 
 costLastCycle = 1e9; numIterationsWithoutImprovement = 0.;
 

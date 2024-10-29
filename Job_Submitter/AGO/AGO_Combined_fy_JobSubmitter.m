@@ -137,7 +137,7 @@ dynamicTemp = true;
 gradientAssist = true;
 
 
-InitialGuess = [0.1, 0.1, 0.1, 0.1]; 
+InitialGuess = [1.868758872,	27.20247303,	-24.68314764,	4.42E-08]; 
 temps = [];
 
 batch(c, @Generic_BWF_RunScript, 1, {'gaussian_AGO_Combined_fy', "GaussianBWF", "GaussianPenaltyFunction", filePaths, InitialGuess, penaltyWeight, iterationsPerCyc, numCycles, toleranceCycles, dynamicTemp, gradientAssist, temps},'AutoAddClientPath',false,'CurrentFolder','/rsrch3/home/radphys_rsch/jdecunha/RBE-Fitting')
@@ -146,7 +146,7 @@ batch(c, @Generic_BWF_RunScript, 1, {'gaussian_AGO_Combined_fy', "GaussianBWF", 
 dynamicTemp = true;
 gradientAssist = true;
 
-InitialGuess = [0.1, 0.1, 0.1, 0.1, 0.1, 0.1];
+InitialGuess = [0.1, 0.1, 0.1, 0.1, 0.1];
 temps = [];
 
 batch(c, @Generic_BWF_RunScript, 1, {'skewGaussian_AGO_Combined_fy', "SkewGaussianBWF", "SkewGaussianPenaltyFunction", filePaths, InitialGuess, penaltyWeight, iterationsPerCyc, numCycles, toleranceCycles, dynamicTemp, gradientAssist, temps},'AutoAddClientPath',false,'CurrentFolder','/rsrch3/home/radphys_rsch/jdecunha/RBE-Fitting')

@@ -1,23 +1,21 @@
 %% Configure the script
 filePaths = ["H1437_fy/a.csv", "H1437_fy/b.csv" , "H1437_fy/c.csv", "H1437_fy/d.csv", "H1437_fy/e.csv", "H1437_fy/f.csv", "H1437_fy/g.csv", "H1437_fy/h.csv", "H1437_fy/i.csv", "H1437_fy/j.csv" , "H1437_fy/k.csv" , "H1437_fy/l.csv"];
 penaltyWeight = 0.; %typically make my penalty 30 when it's activated
-iterationsPerCyc = 1000000;
-numCycles = 2000; %formerly 250
-toleranceCycles = 400; %formerly 10
+iterationsPerCyc = 100000;
+numCycles = 500; %formerly 250
+toleranceCycles = 50; %formerly 10
 
 %% Config for cluster
-%c = parcluster('Desktop-10700k');
-%c = parcluster('GA401');
-
 %configCluster
 c = parcluster;
 
-c.AdditionalProperties.WallTime = '72:00';
+c.AdditionalProperties.WallTime = '58:00';
 c.AdditionalProperties.MemUsage = 16.;
 c.AdditionalProperties.GpusPerNode = 1;
 c.AdditionalProperties.GpuMemUsage = 16.;
 c.AdditionalProperties.QueueName = 'egpu-medium';
-c.AdditionalProperties
+c.AdditionalProperties.AdditionalSubmitArgs = "-n 10 -R 'hname!=edragon057' "; % -q egpu-medium -gpu num=1:gmem=16'; 
+c.saveProfile;
 
 %% Linear Fitting
 dynamicTemp = true;
@@ -118,7 +116,7 @@ dynamicTemp = true;
 gradientAssist = true;
 temps = [];
 
-InitialGuess = [0.1,0.1,0.1,0.1,0.1,0.1,0.1];
+InitialGuess = [0.1,0.1,0.1,0.1];
 
 batch(c, @RunScript_LETFixedBeta, 1, {'LE2_H1437_SingleBeta_LETAnnealing', "LE2BWF", filePaths, InitialGuess,  iterationsPerCyc, numCycles, toleranceCycles, dynamicTemp, gradientAssist, temps},'AutoAddClientPath',false,'CurrentFolder','/rsrch3/home/radphys_rsch/jdecunha/RBE-Fitting');
 
@@ -135,7 +133,7 @@ batch(c, @RunScript_LETFixedBeta, 1, {'LQE2_H1437_SingleBeta_LETAnnealing', "LQE
 dynamicTemp = true;
 gradientAssist = true;
 
-InitialGuess = [0.1, 0.1, 0.1, 0.1, 0.1]; %Morstin inspired guess
+InitialGuess = [0.1, 0.1, 0.1, 0.1]; %Morstin inspired guess
 temps = [];
 
 batch(c, @RunScript_LETFixedBeta, 1, {'gaussian_H1437_SingleBeta_LETAnnealing', "GaussianBWF", filePaths, InitialGuess,  iterationsPerCyc, numCycles, toleranceCycles, dynamicTemp, gradientAssist, temps},'AutoAddClientPath',false,'CurrentFolder','/rsrch3/home/radphys_rsch/jdecunha/RBE-Fitting')
@@ -144,7 +142,7 @@ batch(c, @RunScript_LETFixedBeta, 1, {'gaussian_H1437_SingleBeta_LETAnnealing', 
 dynamicTemp = true;
 gradientAssist = true;
 
-InitialGuess = [0.1, 0.1, 0.1, 0.1, 0.1, 0.1];
+InitialGuess = [0.1, 0.1, 0.1, 0.1, 0.1];
 temps = [];
 
 batch(c, @RunScript_LETFixedBeta, 1, {'skewGaussian_H1437_SingleBeta_LETAnnealing', "SkewGaussianBWF",  filePaths, InitialGuess,  iterationsPerCyc, numCycles, toleranceCycles, dynamicTemp, gradientAssist, temps},'AutoAddClientPath',false,'CurrentFolder','/rsrch3/home/radphys_rsch/jdecunha/RBE-Fitting')
