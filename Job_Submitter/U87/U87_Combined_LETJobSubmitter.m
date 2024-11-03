@@ -13,8 +13,8 @@ c.AdditionalProperties.WallTime = '58:00';
 c.AdditionalProperties.MemUsage = 16.;
 c.AdditionalProperties.GpusPerNode = 1;
 c.AdditionalProperties.GpuMemUsage = 16.;
-c.AdditionalProperties.QueueName = 'egpu-medium';
-c.AdditionalProperties.AdditionalSubmitArgs = "-n 10 -R 'hname!=edragon057' "; % -q egpu-medium -gpu num=1:gmem=16'; 
+c.AdditionalProperties.QueueName = 'egpu';
+c.AdditionalProperties.AdditionalSubmitArgs = "-n 10"; % -R 'hname!=edragon057' "; % -q egpu-medium -gpu num=1:gmem=16'; 
 c.saveProfile;
 
 %% Linear Fitting
