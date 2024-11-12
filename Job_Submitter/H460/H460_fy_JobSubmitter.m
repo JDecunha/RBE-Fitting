@@ -9,18 +9,15 @@ toleranceCycles = 10; %formerly 10
 %betas = [0.103759974936465	0.115325390701951	0.109776946319893	0.122902727249570	0.119652273535850	0.112061248723116	0.0877149675135953	0.150620431674224	0.113166228112791	0.296057617618820	0.567572327119187	0.609656027810132];
 
 %% Config for cluster
-%c = parcluster('Desktop-10700k');
-%c = parcluster('GA401');
-
 %configCluster
 c = parcluster;
 
-c.AdditionalProperties.WallTime = '48:00';
+c.AdditionalProperties.WallTime = '58:00';
 c.AdditionalProperties.MemUsage = 16.;
 c.AdditionalProperties.GpusPerNode = 1;
 c.AdditionalProperties.GpuMemUsage = 16.;
 c.AdditionalProperties.QueueName = 'egpu';
-c.AdditionalProperties.AdditionalSubmitArgs = '-n 10' % -q egpu-medium -gpu num=1:gmem=16'; 
+c.AdditionalProperties.AdditionalSubmitArgs = "-n 10"; % -R 'hname!=edragon057' "; % -q egpu-medium -gpu num=1:gmem=16'; 
 c.saveProfile;
 
 %% Linear Fitting
