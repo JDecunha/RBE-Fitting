@@ -451,17 +451,16 @@ a.LineWidth = 1.3;
 
 
 %Best fit lines I created with CFTool
-x1 = linspace(0,30,100);
+x = linspace(0,30,100);
 y1 = (0.0384*x)+0.9441;
-a = plot(x1,y1);
+a = plot(x,y1);
 a.LineStyle = '--';
 a.LineWidth = 0.8;
 a.Marker = 'none';
 a.Color = [0 0 0];
 
-x2 = linspace(0,30,100);
 y2 = (0.0283*x)+0.9739;
-a = plot(x2,y2);
+a = plot(x,y2);
 a.LineStyle = '--';
 a.LineWidth = 0.8;
 a.Marker = 'none';
@@ -491,8 +490,8 @@ set(hytitle,'Fontsize',18);
 set(gca,'YLim',[0.9 2]);
 
 f = gcf;
-exportgraphics(f,'U87_RBE01SF.png','Resolution',300, 'BackgroundColor','white')
-% exportgraphics(f,'U87_withIntermediateBestFit.png','Resolution',300, 'BackgroundColor','white')
+% exportgraphics(f,'U87_RBE01SF.png','Resolution',300, 'BackgroundColor','white')
+
 
 % 
 % 

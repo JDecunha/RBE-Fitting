@@ -97,17 +97,17 @@ U87_LET_GradDescent_Cost(14) = skewgaus{1,1}{1,2};
 U87_LET_GradDescent_Cost(15) = morstin{1,1}{1,2};
 
 %Calc improvement
-U87_LET_anneal__RMSE_difference = U87RMSE-U87_LET_GradDescent_RMSE;
-U87_LET_anneal__RMSE_difference = U87_LET_anneal__RMSE_difference./U87RMSE;
+U87_LET_anneal__RMSE_difference = U87RMSE_LET-U87_LET_GradDescent_RMSE;
+U87_LET_anneal__RMSE_difference = U87_LET_anneal__RMSE_difference./U87RMSE_LET;
 U87_LET_anneal__RMSE_difference = U87_LET_anneal__RMSE_difference*-100;
 
-U87_LET_anneal__cost_difference = transpose(U87_combined_fy_cost)-U87_LET_GradDescent_Cost;
-U87_LET_anneal__cost_difference = U87_LET_anneal__cost_difference./U87RMSE;
+U87_LET_anneal__cost_difference = transpose(U87_combined_LETd_cost)-U87_LET_GradDescent_Cost;
+U87_LET_anneal__cost_difference = U87_LET_anneal__cost_difference./transpose(U87_combined_LETd_cost);
 U87_LET_anneal__cost_difference = U87_LET_anneal__cost_difference*-100;
 
 %f = gcf;
 %exportgraphics(f,'U87DyAnnealingVsDescent.png','Resolution',300, 'BackgroundColor','white')
-outputMatrix = [transpose(U87_combined_fy_cost);  U87_LET_GradDescent_Cost; U87RMSE; U87_LET_GradDescent_RMSE; U87_LET_anneal__cost_difference; U87_LET_anneal__RMSE_difference];
+outputMatrix = [transpose(U87_combined_LETd_cost);  U87_LET_GradDescent_Cost; U87RMSE_LET; U87_LET_GradDescent_RMSE; U87_LET_anneal__cost_difference; U87_LET_anneal__RMSE_difference];
 outputMatrix = transpose(outputMatrix);
 outputMatrix = [{'Annealing Cost' 'Grad Descent Cost' 'Annealing RMSE' 'Grad Descent RMSE' 'Cost Percent Diff' 'RMSE Percent Diff'}; num2cell(outputMatrix)];
 writecell(outputMatrix ,"U87_LET_GradvsAnneal_PercentDiff.csv")
