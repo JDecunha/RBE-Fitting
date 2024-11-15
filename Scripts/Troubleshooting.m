@@ -22,6 +22,7 @@ fourth = Generic_GradDescentBWF_RunScript('fourth_H460_nopenalty_nogradient', "F
  
 %% 
 
+laptopGradientOutput = [0.252846201694721,-0.0937705607071925,0.0334828619634669,-0.00286314217570576,3.80867327316737e-05,0.117095371174697];
 clusterGradientOutput = [0.0967 0.0264 0.0085 -0.0016 2.4980e-05 0.1357];
 FourthCost = CostMetrics(clusterGradientOutput, filePaths, penaltyWeight, "FourthBWF", "FourthBWFPenaltyFunction", []);
 
