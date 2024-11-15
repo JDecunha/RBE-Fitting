@@ -17,7 +17,6 @@ fourth_annealing = Generic_BWF_RunScript('fourth_H460_fy', "FourthBWF", "FourthB
 
 %% Fourth Fitting (Gradient descent only)
 InitialGuess = [0.1 0.1 0.1 0.1 0.1 0.1];
-
 fourth = Generic_GradDescentBWF_RunScript('fourth_H460_nopenalty_nogradient', "FourthBWF", "FourthBWFPenaltyFunction", filePaths, InitialGuess, penaltyWeight);
  
 %% 
