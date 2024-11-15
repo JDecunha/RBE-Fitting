@@ -42,7 +42,7 @@ H460_fy_anneal__RMSE_difference = H460_fy_anneal__RMSE_difference./H460RMSE;
 H460_fy_anneal__RMSE_difference = H460_fy_anneal__RMSE_difference*-100;
 
 H460_fy_anneal__cost_difference = transpose(H460_combined_fy_cost)-H460_fy_GradDescent_Cost;
-H460_fy_anneal__cost_difference = H460_fy_anneal__cost_difference./H460RMSE;
+H460_fy_anneal__cost_difference = H460_fy_anneal__cost_difference./transpose(H460_combined_fy_cost);
 H460_fy_anneal__cost_difference = H460_fy_anneal__cost_difference*-100;
 
 %Filter for ones larger than 1000% and for which have no improvement
@@ -142,17 +142,17 @@ H460_LET_GradDescent_Cost(14) = skewgaus{1,1}{1,2};
 H460_LET_GradDescent_Cost(15) = morstin{1,1}{1,2};
 
 %Calc improvement
-H460_LET_anneal__RMSE_difference = H460RMSE-H460_LET_GradDescent_RMSE;
-H460_LET_anneal__RMSE_difference = H460_LET_anneal__RMSE_difference./H460RMSE;
+H460_LET_anneal__RMSE_difference = H460RMSE_LET-H460_LET_GradDescent_RMSE;
+H460_LET_anneal__RMSE_difference = H460_LET_anneal__RMSE_difference./H460RMSE_LET;
 H460_LET_anneal__RMSE_difference = H460_LET_anneal__RMSE_difference*-100;
 
-H460_LET_anneal__cost_difference = transpose(H460_combined_fy_cost)-H460_LET_GradDescent_Cost;
-H460_LET_anneal__cost_difference = H460_LET_anneal__cost_difference./H460RMSE;
+H460_LET_anneal__cost_difference = transpose(H460_combined_LETd_cost)-H460_LET_GradDescent_Cost;
+H460_LET_anneal__cost_difference = H460_LET_anneal__cost_difference./transpose(H460_combined_LETd_cost);
 H460_LET_anneal__cost_difference = H460_LET_anneal__cost_difference*-100;
 
 %f = gcf;
 %exportgraphics(f,'H460DyAnnealingVsDescent.png','Resolution',300, 'BackgroundColor','white')
-outputMatrix = [transpose(H460_combined_fy_cost);  H460_LET_GradDescent_Cost; H460RMSE; H460_LET_GradDescent_RMSE; H460_LET_anneal__cost_difference; H460_LET_anneal__RMSE_difference];
+outputMatrix = [transpose(H460_combined_LETd_cost);  H460_LET_GradDescent_Cost; H460RMSE_LET; H460_LET_GradDescent_RMSE; H460_LET_anneal__cost_difference; H460_LET_anneal__RMSE_difference];
 outputMatrix = transpose(outputMatrix);
 outputMatrix = [{'Annealing Cost' 'Grad Descent Cost' 'Annealing RMSE' 'Grad Descent RMSE' 'Cost Percent Diff' 'RMSE Percent Diff'}; num2cell(outputMatrix)];
 writecell(outputMatrix ,"H460_LET_GradvsAnneal_PercentDiff.csv")

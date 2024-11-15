@@ -7,7 +7,7 @@ GPUBuffer = gpuArray(zeros(1,1));
 CostFunc = @(x) LETFixedBetaCostFunction(x, experimentalData, cudaKernel, GPUBuffer);
 
 %Set up the fitting options for annealing
-optionsGradientDescent = optimoptions('fmincon','MaxFunctionEvaluations', 1e6, 'MaxIterations', 1e6);
+optionsGradientDescent = optimoptions('fmincon','MaxFunctionEvaluations', 1e6, 'MaxIterations', 1e6, 'Algorithm', 'sqp-legacy');
 lowerBounds = zeros(1,size(initialGuess,2));
 lowerBounds(1:end-1) = -inf;
 

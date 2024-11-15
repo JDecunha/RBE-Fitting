@@ -97,17 +97,17 @@ AGO_LET_GradDescent_Cost(14) = skewgaus{1,1}{1,2};
 AGO_LET_GradDescent_Cost(15) = morstin{1,1}{1,2};
 
 %Calc improvement
-AGO_LET_anneal__RMSE_difference = AGORMSE-AGO_LET_GradDescent_RMSE;
-AGO_LET_anneal__RMSE_difference = AGO_LET_anneal__RMSE_difference./AGORMSE;
+AGO_LET_anneal__RMSE_difference = AGORMSE_LET-AGO_LET_GradDescent_RMSE;
+AGO_LET_anneal__RMSE_difference = AGO_LET_anneal__RMSE_difference./AGORMSE_LET;
 AGO_LET_anneal__RMSE_difference = AGO_LET_anneal__RMSE_difference*-100;
 
-AGO_LET_anneal__cost_difference = transpose(AGO_combined_fy_cost)-AGO_LET_GradDescent_Cost;
-AGO_LET_anneal__cost_difference = AGO_LET_anneal__cost_difference./AGORMSE;
+AGO_LET_anneal__cost_difference = transpose(AGO_combined_LETd_cost)-AGO_LET_GradDescent_Cost;
+AGO_LET_anneal__cost_difference = AGO_LET_anneal__cost_difference./transpose(AGO_combined_LETd_cost);
 AGO_LET_anneal__cost_difference = AGO_LET_anneal__cost_difference*-100;
 
 %f = gcf;
 %exportgraphics(f,'AGODyAnnealingVsDescent.png','Resolution',300, 'BackgroundColor','white')
-outputMatrix = [transpose(AGO_combined_fy_cost);  AGO_LET_GradDescent_Cost; AGORMSE; AGO_LET_GradDescent_RMSE; AGO_LET_anneal__cost_difference; AGO_LET_anneal__RMSE_difference];
+outputMatrix = [transpose(AGO_combined_LETd_cost);  AGO_LET_GradDescent_Cost; AGORMSE_LET; AGO_LET_GradDescent_RMSE; AGO_LET_anneal__cost_difference; AGO_LET_anneal__RMSE_difference];
 outputMatrix = transpose(outputMatrix);
 outputMatrix = [{'Annealing Cost' 'Grad Descent Cost' 'Annealing RMSE' 'Grad Descent RMSE' 'Cost Percent Diff' 'RMSE Percent Diff'}; num2cell(outputMatrix)];
 writecell(outputMatrix ,"AGO_LET_GradvsAnneal_PercentDiff.csv")

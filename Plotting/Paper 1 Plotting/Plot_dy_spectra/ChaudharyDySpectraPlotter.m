@@ -129,7 +129,6 @@ for i = 1:6
     sobp_dy.LineWidth = 1.5;
 
     set(gca, 'XScale', 'log');
-    set(gca, 'XLim', [1e-2 300]);
     xlabel("y $$ [\frac{keV}{\mu m}] $$",'Interpreter','latex','FontSize',15);
     ylabel("$$ y \cdot d(y) $$",'Interpreter','latex','FontSize',15);
 

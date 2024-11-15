@@ -97,17 +97,17 @@ H1437_LET_GradDescent_Cost(14) = skewgaus{1,1}{1,2};
 H1437_LET_GradDescent_Cost(15) = morstin{1,1}{1,2};
 
 %Calc improvement
-H1437_LET_anneal__RMSE_difference = H1437RMSE-H1437_LET_GradDescent_RMSE;
-H1437_LET_anneal__RMSE_difference = H1437_LET_anneal__RMSE_difference./H1437RMSE;
+H1437_LET_anneal__RMSE_difference = H1437RMSE_LET-H1437_LET_GradDescent_RMSE;
+H1437_LET_anneal__RMSE_difference = H1437_LET_anneal__RMSE_difference./H1437RMSE_LET;
 H1437_LET_anneal__RMSE_difference = H1437_LET_anneal__RMSE_difference*-100;
 
-H1437_LET_anneal__cost_difference = transpose(H1437_combined_fy_cost)-H1437_LET_GradDescent_Cost;
-H1437_LET_anneal__cost_difference = H1437_LET_anneal__cost_difference./H1437RMSE;
+H1437_LET_anneal__cost_difference = transpose(H1437_combined_LETd_cost)-H1437_LET_GradDescent_Cost;
+H1437_LET_anneal__cost_difference = H1437_LET_anneal__cost_difference./transpose(H1437_combined_LETd_cost);
 H1437_LET_anneal__cost_difference = H1437_LET_anneal__cost_difference*-100;
 
 %f = gcf;
 %exportgraphics(f,'H1437DyAnnealingVsDescent.png','Resolution',300, 'BackgroundColor','white')
-outputMatrix = [transpose(H1437_combined_fy_cost);  H1437_LET_GradDescent_Cost; H1437RMSE; H1437_LET_GradDescent_RMSE; H1437_LET_anneal__cost_difference; H1437_LET_anneal__RMSE_difference];
+outputMatrix = [transpose(H1437_combined_LETd_cost);  H1437_LET_GradDescent_Cost; H1437RMSE_LET; H1437_LET_GradDescent_RMSE; H1437_LET_anneal__cost_difference; H1437_LET_anneal__RMSE_difference];
 outputMatrix = transpose(outputMatrix);
 outputMatrix = [{'Annealing Cost' 'Grad Descent Cost' 'Annealing RMSE' 'Grad Descent RMSE' 'Cost Percent Diff' 'RMSE Percent Diff'}; num2cell(outputMatrix)];
 writecell(outputMatrix ,"H1437_LET_GradvsAnneal_PercentDiff.csv")
