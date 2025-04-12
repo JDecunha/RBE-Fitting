@@ -66,7 +66,9 @@ gradientAssist = true;
 temps = [];
 
 %InitialGuess = [0.1,0.1,0.1,0.1,0.1,0.1,0.1];
-InitialGuess = [0.072414286,	-0.0512998,	0.025114619,	-0.002109749,	2.68E-05, 1e-8,	0.03576156];
+% InitialGuess = [0.072414286,	-0.0512998,	0.025114619,	-0.002109749,	2.68E-05, 1e-8,	0.03576156];
+% Using the Fifth AGO as an initial starting point out of sheer curiosity
+InitialGuess = [0.926872372218688,	0.00259880386492804,	0.0504506877539202,	-0.00497447298069604,	0.000109975955466316,	-6.03827300468201e-07,	0.00991889824162116];
 
 batch(c, @Generic_BWF_RunScript, 1, {'fifth_H1437_fy_Pristine', "FifthBWF", "FifthBWFPenaltyFunction", filePaths, InitialGuess, penaltyWeight, iterationsPerCyc, numCycles, toleranceCycles, dynamicTemp, gradientAssist, temps},'AutoAddClientPath',false,'CurrentFolder','/rsrch3/home/radphys_rsch/jdecunha/RBE-Fitting');
 

@@ -63,6 +63,7 @@ gradientAssist = true;
 temps = [];
 
 InitialGuess = [0.1,0.1,0.1,0.1,0.1,0.1,0.1];
+InitialGuess = [0.926872372218688,	0.00259880386492804,	0.0504506877539202,	-0.00497447298069604,	0.000109975955466316,	-6.03827300468201e-07,	0.00991889824162116];
 
 batch(c, @Generic_BWF_RunScript, 1, {'fifth_AGO_Combined_fy', "FifthBWF", "FifthBWFPenaltyFunction", filePaths, InitialGuess, penaltyWeight, iterationsPerCyc, numCycles, toleranceCycles, dynamicTemp, gradientAssist, temps},'AutoAddClientPath',false,'CurrentFolder','/rsrch3/home/radphys_rsch/jdecunha/RBE-Fitting');
 

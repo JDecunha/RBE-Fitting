@@ -66,6 +66,10 @@ gradientAssist = true;
 temps = [];
 
 InitialGuess = [0.1,0.1,0.1,0.1,0.1,0.1,0.1];
+% Using the Fifth AGO as an initial starting point out of sheer curiosity
+InitialGuess = [0.926872372218688,	0.00259880386492804,	0.0504506877539202,	-0.00497447298069604,	0.000109975955466316,	-6.03827300468201e-07,	0.00991889824162116];
+% Using Fourth H460 as starting point
+InitialGuess = [0.251043364561873,-0.0818621443714070,0.0299693740854882,-0.00262494270813428,3.53724406269803e-05, 1e-12, 0.115626938881422];
 
 batch(c, @Generic_BWF_RunScript, 1, {'fifth_H460_fy', "FifthBWF", "FifthBWFPenaltyFunction", filePaths, InitialGuess, penaltyWeight, iterationsPerCyc, numCycles, toleranceCycles, dynamicTemp, gradientAssist, temps},'AutoAddClientPath',false,'CurrentFolder','/rsrch3/home/radphys_rsch/jdecunha/RBE-Fitting');
 
