@@ -48,6 +48,8 @@ diffBetweenLET = abs(LETsforMcnamara - LET_at_Min_RBE);
 [~, McNamaraNormIndex] = min(diffBetweenLET);
 McNamaraRBE = McNamaraRBE./McNamaraRBE(McNamaraNormIndex);
 
+%% plot
+
 %Plotfigure()
 % tiledlayout(2,2);
 % nexttile
@@ -55,32 +57,6 @@ f = figure();
 f.Position = [1440 809 403 429];
 
 hold on
-
-
-a = plot(LET, RBEH460Fifth);
-a.LineStyle = 'none';
-a.Marker = 'diamond';
-a.LineWidth = 1;
-blue1 = [0.122 0.475 0.82];
-blue2 = [0.333 0.631 0.922];
-a.MarkerEdgeColor = blue1;
-a.MarkerSize = 6;
-
-a = plot(LET, RBEH460CubicLET);
-a.LineStyle = 'none';
-a.Marker = 'pentagram';
-red1 = [0.89 0.227 0.071];
-red2 = [0.89 0.094 0.071];
-a.MarkerEdgeColor = red2;
-a.MarkerSize = 9;
-
-a = plot(LETsforMcnamara,McNamaraRBE);
-a.LineStyle = '-';
-a.Marker = 'none';
-% a.Color = [0.063, 0.38, 0.11];
-a.Color = [0.09, 0.459, 0.051];
-%a.MarkerSize = 12;
-a.LineWidth = 1.3;
 
 a = plot(LET, H460RBESF_Direct);
 a.LineStyle = 'none';
@@ -99,6 +75,32 @@ a.MarkerFaceColor = [0 0 0];
 a.MarkerSize = 4;
 a.LineWidth = 1;
 
+
+a = plot(LET, RBEH460Fifth);
+a.LineStyle = 'none';
+a.Marker = 'diamond';
+a.LineWidth = 1;
+blue1 = [0.122 0.475 0.82];
+blue2 = [0.333 0.631 0.922];
+a.MarkerEdgeColor = blue1;
+a.MarkerSize = 6;
+
+a = plot(LET, RBEH460CubicLET);
+a.LineStyle = 'none';
+a.Marker = 'o';
+red1 = [0.89 0.227 0.071];
+red2 = [0.89 0.094 0.071];
+a.MarkerEdgeColor = red2;
+a.MarkerSize = 6;
+
+a = plot(LETsforMcnamara,McNamaraRBE);
+a.LineStyle = '-';
+a.Marker = 'none';
+% a.Color = [0.063, 0.38, 0.11];
+a.Color = [0.09, 0.459, 0.051];
+%a.MarkerSize = 12;
+a.LineWidth = 1.3;
+
 hxtitle = get(gca,'XLabel');
 hytitle = get(gca,'YLabel');
 htitle = get(gca,'Title');
@@ -113,14 +115,144 @@ set(hytitle,'String','RBE (SF = 0.1)');
 set(hxtitle,'Fontsize',18); 
 set(hytitle,'Fontsize',18); 
 
-leg = legend(["f(y)" "LET" "McNamara" "Measurement (Pristine)" "Measurement (SOBP)"]);
+leg = legend(["Measurement (Pristine)" "Measurement (SOBP)" "f(y)" "LET" "McNamara"]);
 leg.Position = [0.1626 0.6721 0.5380 0.2378];
 leg.Interpreter = 'Latex';
 leg.FontSize = 12;
 set(gca,'YLim',[0.9 3.5]);
 
 % f = gcf;
-exportgraphics(f,'H460_RBESF01.png','Resolution',300, 'BackgroundColor','white')
+% exportgraphics(f,'H460_RBESF01.png','Resolution',300, 'BackgroundColor','white')
+
+%% inline attempt
+
+%Plotfigure()
+% tiledlayout(2,2);
+% nexttile
+f = figure();
+f.Position = [1440 809 403 429];
+
+hold on
+
+a = plot(LET, H460RBESF_Direct);
+a.LineStyle = 'none';
+a.Marker = '^';
+a.Color = [0 0 0];
+a.MarkerSize = 4;
+a.MarkerEdgeColor = [0 0 0];
+a.LineWidth = 1;
+
+a = plot(0,0);
+a.LineStyle = 'none';
+a.LineStyle = 'none';
+a.Marker = 'v';
+a.Color = [0 0 0];
+a.MarkerEdgeColor = [0 0 0];
+a.MarkerSize = 4;
+a.LineWidth = 1;
+
+
+a = plot(LET, RBEH460Fifth);
+a.LineStyle = 'none';
+a.Marker = 'diamond';
+a.LineWidth = 1;
+blue1 = [0.122 0.475 0.82];
+blue2 = [0.333 0.631 0.922];
+a.MarkerEdgeColor = blue1;
+a.MarkerSize = 6;
+
+a = plot(LET, RBEH460CubicLET);
+a.LineStyle = 'none';
+a.Marker = 'o';
+red1 = [0.89 0.227 0.071];
+red2 = [0.89 0.094 0.071];
+a.MarkerEdgeColor = red2;
+a.MarkerSize = 6;
+
+a = plot(LETsforMcnamara,McNamaraRBE);
+a.LineStyle = '-';
+a.Marker = 'none';
+% a.Color = [0.063, 0.38, 0.11];
+a.Color = [0.09, 0.459, 0.051];
+%a.MarkerSize = 12;
+a.LineWidth = 1.3;
+
+hxtitle = get(gca,'XLabel');
+hytitle = get(gca,'YLabel');
+htitle = get(gca,'Title');
+
+set(gca,'TickLabelInterpreter','Latex');
+set(hxtitle,'Interpreter','Latex');
+set(hytitle,'Interpreter','Latex');
+set(htitle,'Interpreter','Latex');
+
+set(hxtitle,'String','LET$_d$ $[\frac{keV}{\mu m}]$');
+set(hytitle,'String','RBE (SF = 0.1)');
+set(hxtitle,'Fontsize',18); 
+set(hytitle,'Fontsize',18); 
+
+leg = legend(["Measurement (Pristine)" "Measurement (SOBP)" "f(y)" "LET" "McNamara"]);
+leg.Position = [0.1626 0.6721 0.5380 0.2378];
+leg.Interpreter = 'Latex';
+leg.FontSize = 12;
+set(gca,'YLim',[0.9 3.5]);
+
+% create a new pair of axes inside current figure
+axes('position',[.22 .35 .25 .25])
+box on % put box around new pair of axes
+hold on
+indexOfInterest = (LET < 6) & (LET > 0); % range of t near perturbation
+mcNamaraIndexOfInterest = (LETsforMcnamara < 5.5) & (LETsforMcnamara > 0);
+
+a = plot(LET(indexOfInterest), H460RBESF_Direct(indexOfInterest));
+a.LineStyle = 'none';
+a.Marker = '^';
+a.Color = [0 0 0];
+a.MarkerSize = 4;
+a.MarkerEdgeColor = [0 0 0];
+a.LineWidth = 1;
+
+% a = plot(0,0);
+% a.LineStyle = 'none';
+% a.LineStyle = 'none';
+% a.Marker = 'v';
+% a.Color = [0 0 0];
+% a.MarkerFaceColor = [0 0 0];
+% a.MarkerSize = 4;
+% a.LineWidth = 1;
+
+
+a = plot(LET(indexOfInterest), RBEH460Fifth(indexOfInterest));
+a.LineStyle = 'none';
+a.Marker = 'diamond';
+a.LineWidth = 1;
+blue1 = [0.122 0.475 0.82];
+blue2 = [0.333 0.631 0.922];
+a.MarkerEdgeColor = blue1;
+a.MarkerSize = 5;
+
+a = plot(LET(indexOfInterest), RBEH460CubicLET(indexOfInterest));
+a.LineStyle = 'none';
+a.Marker = 'o';
+red1 = [0.89 0.227 0.071];
+red2 = [0.89 0.094 0.071];
+a.MarkerEdgeColor = red2;
+a.MarkerSize = 5;
+
+set(gca,'XLim',[0 5.5]);
+set(gca,'YLim',[0.99 1.05]);
+
+a = plot(LETsforMcnamara(mcNamaraIndexOfInterest),McNamaraRBE(mcNamaraIndexOfInterest));
+a.LineStyle = '-';
+a.Marker = 'none';
+% a.Color = [0.063, 0.38, 0.11];
+a.Color = [0.09, 0.459, 0.051];
+%a.MarkerSize = 12;
+a.LineWidth = 1.3;
+% axis tight
+
+f = gcf;
+exportgraphics(f,'H460_RBESF01_inline.png','Resolution',600, 'BackgroundColor','white')
 
 %% H1437
 filePaths = ["H1437_fy/a.csv", "H1437_fy/b.csv" , "H1437_fy/c.csv", "H1437_fy/d.csv", "H1437_fy/e.csv", "H1437_fy/f.csv", "H1437_fy/g.csv", "H1437_fy/h.csv", "H1437_fy/i.csv", "H1437_fy/j.csv" , "H1437_fy/k.csv" , "H1437_fy/l.csv"];
@@ -168,27 +300,27 @@ hold on
 
 a = plot(LET, RBEH1437Fifth);
 a.LineStyle = 'none';
-a.Marker = '^';
+a.Marker = 'diamond';
 a.LineWidth = 1;
 blue1 = [0.122 0.475 0.82];
 blue2 = [0.333 0.631 0.922];
-%a.MarkerFaceColor = [0.122 0.475 0.82];
 a.MarkerEdgeColor = blue1;
 a.MarkerSize = 6;
 
 a = plot(LET, RBEH1437CubicLET);
 a.LineStyle = 'none';
-a.Marker = 'pentagram';
+a.Marker = 'o';
 red1 = [0.89 0.227 0.071];
 red2 = [0.89 0.094 0.071];
 a.MarkerEdgeColor = red2;
-a.MarkerSize = 8;
+a.MarkerSize = 6;
 
 a = plot(LET, H1437RBESF_Direct);
 a.LineStyle = 'none';
-a.Marker = '.';
+a.Marker = '^';
 a.Color = [0 0 0];
-a.MarkerSize = 12;
+a.MarkerSize = 4;
+a.MarkerFaceColor = [0 0 0];
 a.LineWidth = 1;
 
 hxtitle = get(gca,'XLabel');
@@ -220,7 +352,124 @@ a.LineWidth = 1.3;
 set(gca,'YLim',[0.9 3.5]);
 
 % f = gcf;
-exportgraphics(f,'H1437_RBESF01.png','Resolution',300, 'BackgroundColor','white')
+% exportgraphics(f,'H1437_RBESF01.png','Resolution',300, 'BackgroundColor','white')
+
+%% inline attempt
+
+%Plotfigure()
+% tiledlayout(2,2);
+% nexttile
+f = figure();
+f.Position = [1440 809 403 429];
+
+hold on
+
+a = plot(LET, H1437RBESF_Direct);
+a.LineStyle = 'none';
+a.Marker = '^';
+a.Color = [0 0 0];
+a.MarkerSize = 4;
+a.MarkerEdgeColor = [0 0 0];
+a.LineWidth = 1;
+
+
+a = plot(LET, RBEH1437Fifth);
+a.LineStyle = 'none';
+a.Marker = 'diamond';
+a.LineWidth = 1;
+blue1 = [0.122 0.475 0.82];
+blue2 = [0.333 0.631 0.922];
+a.MarkerEdgeColor = blue1;
+a.MarkerSize = 6;
+
+a = plot(LET, RBEH1437CubicLET);
+a.LineStyle = 'none';
+a.Marker = 'o';
+red1 = [0.89 0.227 0.071];
+red2 = [0.89 0.094 0.071];
+a.MarkerEdgeColor = red2;
+a.MarkerSize = 6;
+
+a = plot(LETsforMcnamara,McNamaraRBE);
+a.LineStyle = '-';
+a.Marker = 'none';
+% a.Color = [0.063, 0.38, 0.11];
+a.Color = [0.09, 0.459, 0.051];
+%a.MarkerSize = 12;
+a.LineWidth = 1.3;
+
+hxtitle = get(gca,'XLabel');
+hytitle = get(gca,'YLabel');
+htitle = get(gca,'Title');
+
+set(gca,'TickLabelInterpreter','Latex');
+set(hxtitle,'Interpreter','Latex');
+set(hytitle,'Interpreter','Latex');
+set(htitle,'Interpreter','Latex');
+
+set(hxtitle,'String','LET$_d$ $[\frac{keV}{\mu m}]$');
+set(hytitle,'String','RBE (SF = 0.1)');
+set(hxtitle,'Fontsize',18); 
+set(hytitle,'Fontsize',18); 
+
+set(gca,'YLim',[0.9 3.2]);
+
+% create a new pair of axes inside current figure
+axes('position',[.22 .40 .25 .25])
+box on % put box around new pair of axes
+hold on
+indexOfInterest = (LET < 5.5) & (LET > 0); % range of t near perturbation
+mcNamaraIndexOfInterest = (LETsforMcnamara < 6) & (LETsforMcnamara > 0);
+
+a = plot(LET(indexOfInterest), H1437RBESF_Direct(indexOfInterest));
+a.LineStyle = 'none';
+a.Marker = '^';
+a.Color = [0 0 0];
+a.MarkerSize = 4;
+a.MarkerEdgeColor = [0 0 0];
+a.LineWidth = 1;
+
+% a = plot(0,0);
+% a.LineStyle = 'none';
+% a.LineStyle = 'none';
+% a.Marker = 'v';
+% a.Color = [0 0 0];
+% a.MarkerFaceColor = [0 0 0];
+% a.MarkerSize = 4;
+% a.LineWidth = 1;
+
+
+a = plot(LET(indexOfInterest), RBEH1437Fifth(indexOfInterest));
+a.LineStyle = 'none';
+a.Marker = 'diamond';
+a.LineWidth = 1;
+blue1 = [0.122 0.475 0.82];
+blue2 = [0.333 0.631 0.922];
+a.MarkerEdgeColor = blue1;
+a.MarkerSize = 5;
+
+a = plot(LET(indexOfInterest), RBEH1437CubicLET(indexOfInterest));
+a.LineStyle = 'none';
+a.Marker = 'o';
+red1 = [0.89 0.227 0.071];
+red2 = [0.89 0.094 0.071];
+a.MarkerEdgeColor = red2;
+a.MarkerSize = 5;
+
+set(gca,'XLim',[0 5.5]);
+set(gca,'YLim',[0.985 1.17]);
+
+a = plot(LETsforMcnamara(mcNamaraIndexOfInterest),McNamaraRBE(mcNamaraIndexOfInterest));
+a.LineStyle = '-';
+a.Marker = 'none';
+% a.Color = [0.063, 0.38, 0.11];
+a.Color = [0.09, 0.459, 0.051];
+%a.MarkerSize = 12;
+a.LineWidth = 1.3;
+% axis tight
+
+f = gcf;
+exportgraphics(f,'H1437_RBESF01_inline.png','Resolution',600, 'BackgroundColor','white')
 
 %% AGO
 filePaths = ["AGO_pristine_fy/1.1.csv","AGO_pristine_fy/3.9.csv","AGO_pristine_fy/6.7.csv","AGO_pristine_fy/11.6.csv","AGO_pristine_fy/17.7.csv","AGO_pristine_fy/22.5.csv", "AGO_SOBP_fy/1.27.csv","AGO_SOBP_fy/3.csv","AGO_SOBP_fy/4.4.csv","AGO_SOBP_fy/13.7.csv","AGO_SOBP_fy/20.9.csv","AGO_SOBP_fy/25.4.csv"];
@@ -274,7 +523,7 @@ a.LineStyle = 'none';
 a.Marker = '^';
 a.Color = [0 0 0];
 a.MarkerSize = 4;
-a.MarkerFaceColor = [0 0 0];
+a.MarkerEdgeColor = [0 0 0];
 a.LineWidth = 1;
 
 AGODirectSOBP = AGORBESF_Direct(7:end);
@@ -283,7 +532,7 @@ a = plot(LETSOBP, AGODirectSOBP);
 a.LineStyle = 'none';
 a.Marker = 'v';
 a.Color = [0 0 0];
-a.MarkerFaceColor = [0 0 0];
+a.MarkerEdgeColor = [0 0 0];
 a.MarkerSize = 4;
 a.LineWidth = 1;
 
@@ -299,11 +548,11 @@ a.MarkerSize = 6;
 
 a = plot(LET, RBEAGOFourthLET);
 a.LineStyle = 'none';
-a.Marker = 'pentagram';
+a.Marker = 'o';
 red1 = [0.89 0.227 0.071];
 red2 = [0.89 0.094 0.071];
 a.MarkerEdgeColor = red2;
-a.MarkerSize = 9;
+a.MarkerSize = 6;
 
 a = plot(LETsforMcnamara,McNamaraRBE);
 a.LineStyle = '-';
@@ -325,7 +574,7 @@ a.Color = [0 0 0];
 y2 = (0.0277*x)+1.0357;
 a = plot(x,y2);
 a.LineStyle = '--';
-a.LineWidth = 1.2;
+a.LineWidth = 1;
 a.Marker = 'none';
 a.Color = [0 0 0];
 
@@ -355,7 +604,7 @@ set(gca,'YLim',[0.9 2.3]);
 % leg.FontSize = 12;
 
 % f = gcf;
-exportgraphics(f,'AGO_RBE01SF_newaxis.png','Resolution',300, 'BackgroundColor','white')
+exportgraphics(f,'AGO_RBE01SF_newaxis.png','Resolution',600, 'BackgroundColor','white')
 % exportgraphics(f,'AGO_bestRBE_withintermediateBestFit.png','Resolution',300, 'BackgroundColor','white')
 
 %% U87
@@ -410,7 +659,7 @@ a.LineStyle = 'none';
 a.Marker = '^';
 a.Color = [0 0 0];
 a.MarkerSize = 4;
-a.MarkerFaceColor = [0 0 0];
+a.MarkerEdgeColor = [0 0 0];
 a.LineWidth = 1;
 
 U87DirectSOBP = U87RBESF_Direct(7:end);
@@ -419,7 +668,7 @@ a = plot(LETSOBP, U87DirectSOBP);
 a.LineStyle = 'none';
 a.Marker = 'v';
 a.Color = [0 0 0];
-a.MarkerFaceColor = [0 0 0];
+a.MarkerEdgeColor = [0 0 0];
 a.MarkerSize = 4;
 a.LineWidth = 1;
 
@@ -434,11 +683,11 @@ a.MarkerSize = 6;
 
 a = plot(LET, RBEU87LinearLET);
 a.LineStyle = 'none';
-a.Marker = 'pentagram';
+a.Marker = 'o';
 red1 = [0.89 0.227 0.071];
 red2 = [0.89 0.094 0.071];
 a.MarkerEdgeColor = red2;
-a.MarkerSize = 9;
+a.MarkerSize = 6;
 
 a = plot(LETsforMcnamara,McNamaraRBE);
 a.LineStyle = '-';
@@ -455,14 +704,14 @@ x = linspace(0,30,100);
 y1 = (0.0384*x)+0.9441;
 a = plot(x,y1);
 a.LineStyle = '--';
-a.LineWidth = 0.8;
+a.LineWidth = 1;
 a.Marker = 'none';
 a.Color = [0 0 0];
 
 y2 = (0.0283*x)+0.9739;
 a = plot(x,y2);
 a.LineStyle = '--';
-a.LineWidth = 0.8;
+a.LineWidth = 1;
 a.Marker = 'none';
 a.Color = [0 0 0];
 
@@ -490,7 +739,7 @@ set(hytitle,'Fontsize',18);
 set(gca,'YLim',[0.9 2]);
 
 f = gcf;
-% exportgraphics(f,'U87_RBE01SF.png','Resolution',300, 'BackgroundColor','white')
+exportgraphics(f,'U87_RBE01SF.png','Resolution',600, 'BackgroundColor','white')
 
 
 % 

@@ -76,7 +76,7 @@ set(hytitle,'Fontsize',18);
 leg = legend(["H460 (Fourth)" "H1437 (Fourth)" "AGO (Fifth)" "U87 (Linear)"]);
 leg.Position = [0.1596    0.6682    0.3185    0.2264];
 leg.Interpreter = 'Latex';
-leg.FontSize = 14;
+leg.FontSize = 12;
 
-% f = gcf;
-% exportgraphics(f,'Best_BWFs.png','Resolution',600, 'BackgroundColor','white')
+f = gcf;
+exportgraphics(f,'Best_BWFs.png','Resolution',600, 'BackgroundColor','white')
